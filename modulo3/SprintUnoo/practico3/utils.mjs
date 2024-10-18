@@ -4,7 +4,7 @@ import fs from "fs";
 class Superheroe {
   constructor(
     id,
-    nombreSuperheroe,
+    nombreSuperHeroe,
     nombreReal,
     nombreSociedad,
     edad,
@@ -16,7 +16,7 @@ class Superheroe {
     enemigo
   ) {
     this.id = id;
-    this.nombreSuperheroe = nombreSuperheroe;
+    this.nombreSuperHeroe = nombreSuperHeroe;
     this.nombreReal = nombreReal;
     this.nombreSociedad = nombreSociedad;
     this.edad = edad;
@@ -32,15 +32,16 @@ class Superheroe {
 // Función para leer y ordenar los superhéroes
 export function leerSuperheroes(ruta) {
   try {
+    
     const datos = fs.readFileSync(ruta, "utf8");
     const superheroesArray = JSON.parse(datos);
 
     // Convertir a instancias de Superheroe
     const superheroes = superheroesArray.map(
-      (hero) =>
+      hero =>
         new Superheroe(
           hero.id,
-          hero.nombreSuperheroe,
+          hero.nombreSuperHeroe,
           hero.nombreReal,
           hero.nombreSociedad,
           hero.edad,
@@ -53,15 +54,17 @@ export function leerSuperheroes(ruta) {
         )
     );
 
-    // Ordenar por nombre de superhéroe // no se ejecuta correctamente, añadi una verificacion
-    superheroes.sort((a, b) => (a.nombreSuperheroe||"").localeCompare(b.nombreSuperheroe));
+    // Ordenar por nombre de superhéroe
+    superheroes.sort((a, b) => a.nombreSuperHeroe.localeCompare(b.nombreSuperHeroe));
 
     return superheroes;
   } catch (error) {
+    
     console.error("Error leyendo o procesando el archivo:", error);
     return [];
   }
 }
+
 // Nueva función para agregar superhéroes
 export function agregarSuperheroes(rutaOriginal, rutaNuevos) {
     const datosOriginales = fs.readFileSync(rutaOriginal, 'utf8');
@@ -74,7 +77,7 @@ export function agregarSuperheroes(rutaOriginal, rutaNuevos) {
     const instanciasNuevos = nuevosSuperheroes.map(
     hero => new Superheroe(
       hero.id,
-      hero.nombreSuperheroe,
+      hero.nombreSuperHeroe,
       hero.nombreReal,
       hero.nombreSociedad,
       hero.edad,
