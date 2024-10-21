@@ -1,6 +1,6 @@
 // controllers/tareaController.mjs
 import { obtenerTareas, obtenerTareaPorId, agregarTarea, actualizarTarea, eliminarTarea } from '../services/tareaService.mjs';
-import { renderizarListaTareas, renderizarTarea } from '../views/tareaView.mjs';
+import { renderizarListaTareas, renderizarTarea } from '../views/responseView.mjs';
 
 export function obtenerTodasLasTareas(req, res) {
   const tareas = obtenerTareas();
