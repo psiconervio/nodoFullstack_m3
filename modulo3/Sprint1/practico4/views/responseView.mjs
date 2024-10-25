@@ -7,8 +7,3 @@ export function renderizarListaTareas(tareas) {
   export function renderizarTarea(tarea) {
     return JSON.stringify(tarea, null, 2);
   }
-// funcion para renderizar una tarea especifica
-export function renderizarTarea(tarea){
-  //formatea una tarea individual en formato JSON con indetacion
-  return JSON.stringify(tarea, null, 2)
-}
