@@ -14,9 +14,18 @@ app.use(express.json());
 // Conexión a MongoDB
 connectDB();
 
-// Configuración de rutas
+try {
+  // Configuración de rutas
 app.use('/api', superHeroRoutes);
+console.log('se ejecuto')
 
+} catch (error) {
+  // Manejo de errores para rutas no encontradas
+app.use((req, res) => {
+  res.status(404).send({ mensaje: "Ruta no encontrada" });
+});
+
+}
 // Manejo de errores para rutas no encontradas
 app.use((req, res) => {
   res.status(404).send({ mensaje: "Ruta no encontrada" });

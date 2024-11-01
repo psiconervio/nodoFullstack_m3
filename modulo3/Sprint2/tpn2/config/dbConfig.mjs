@@ -1,11 +1,12 @@
 import mongoose from 'mongoose';
 
+mongoose.set('strictQuery', true);
+
 export async function connectDB() {
   try {
     await mongoose.connect(
       'mongodb+srv://Grupo-18:grupo18@cursadanodejs.ls9ii.mongodb.net/', {
-        useNewUrlParser: true,
-        useUnifiedTopology: true
+
       });
     console.log('Conexión exitosa a MongoDB');
   } catch (error) {
