@@ -1,4 +1,4 @@
-import { obtenerSuperheroePorId, obtenerTodosLosSuperheroes, buscarSuperheroesPorAtributo, obtenerSuperheroesMayoresDe30 } from '../services/superheroesService.mjs';
+import { obtenerSuperheroePorId, obtenerTodosLosSuperheroes, buscarSuperheroesPorAtributo, obtenerSuperheroesMayoresDe30,obtenerSuperheroesMayoresDe30Nativo } from '../services/superheroesService.mjs';
 import { renderizarSuperheroe, renderizarListaSuperheroes } from '../views/responseView.mjs';
 
 export async function obtenerSuperheroePorIdController(req, res) {
@@ -30,5 +30,10 @@ export async function buscarSuperheroesPorAtributoController(req, res) {
 
 export async function obtenerSuperheroesMayoresDe30Controller(req, res) {
   const superheroes = await obtenerSuperheroesMayoresDe30();
+  res.send(renderizarListaSuperheroes(superheroes));
+}
+//NUEVO CONTROLADOR PARA TRAER MAYORES DE 30 NATIVO
+export async function obtenerSuperheroesMayoresDe30NativoController(req, res) {
+  const superheroes = await obtenerSuperheroesMayoresDe30Nativo();
   res.send(renderizarListaSuperheroes(superheroes));
 }

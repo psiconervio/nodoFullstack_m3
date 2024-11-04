@@ -24,7 +24,7 @@ class SuperHeroRepository extends IRepository {
   }
 
 
-  async obtenerTodosNuevo() {
+  async obtenerMayoresDe30Nativo() {
     return await SuperHero.find({});
   }
 }
