@@ -12,5 +12,7 @@ router.get('/heroes', obtenerTodosLosSuperheroesController);
 router.get('/heroes/:id', obtenerSuperheroePorIdController);
 router.get('/heroes/buscar/:atributo/:valor', buscarSuperheroesPorAtributoController);
 router.get('/heroes/mayores-30', obtenerSuperheroesMayoresDe30Controller);
+// ruta para el nuevo endpoint
+router.get('/heroes/mayores-30Nuevo', obtenerSuperheroesMayoresDe30Controller);
 
 export default router;
