@@ -1,7 +1,5 @@
 const mongoose = require('mongoose');
-
 mongoose.connect('mongodb+srv://Grupo-18:grupo18@cursadanodejs.ls9ii.mongodb.net/Node-js', {
-
 
 })
 .then(() => console.log('Conexión exitosa a MongoDB'))
@@ -24,28 +22,7 @@ const superheroSchema = new mongoose.Schema({
 
 
 
-  //funciones 
-async function insertSuperHero() {
-    const hero = new SuperHero({
-      nombreSuperHeroe: 'Spiderman',
-      nombreReal: 'Peter Parker',
-      edad: 25,
-      planetaOrigen: 'Tierra',
-      debilidad: 'Radioactiva',
-      poderes: ['Trepar paredes', 'Sentido arácnido', 'Super fuerza', 'Agilidad'],
-      aliados: ['Ironman'],
-      enemigos: ['Duende Verde']
-    });
-  
-    await hero.save();
-    console.log('Superhéroe insertado:', hero);
-  }
-  
-  insertSuperHero();
-
-
-
-
+  //funciones
   async function insertSuperHero() {
     const hero = new SuperHero({
       nombreSuperHeroe: 'Spiderman',
@@ -57,11 +34,10 @@ async function insertSuperHero() {
       aliados: ['Ironman'],
       enemigos: ['Duende Verde']
     });
-  
+
     await hero.save();
     console.log('Superhéroe insertado:', hero);
   }
-  
   insertSuperHero();
 
 

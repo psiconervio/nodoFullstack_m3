@@ -37,3 +37,4 @@ export async function obtenerSuperheroesMayoresDe30NativoController(req, res) {
   const superheroes = await obtenerSuperheroesMayoresDe30Nativo();
   res.send(renderizarListaSuperheroes(superheroes));
 }
+

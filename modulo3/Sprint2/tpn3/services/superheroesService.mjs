@@ -17,5 +17,5 @@ export async function obtenerSuperheroesMayoresDe30() {
 }
 
 export async function obtenerSuperheroesMayoresDe30Nativo() {
-  return await superHeroRepository.obtenerTodos();
+  return await superHeroRepository.obtenerMayoresDe30Nativo();
 }

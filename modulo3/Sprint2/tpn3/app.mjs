@@ -1,6 +1,3 @@
-
-
-
 import express from 'express';
 import { connectDB } from './config/dbConfig.mjs';
 import superHeroRoutes from './routes/superHeroRoutes.mjs';
@@ -26,10 +23,6 @@ app.use((req, res) => {
 });
 
 }
-// Manejo de errores para rutas no encontradas
-app.use((req, res) => {
-  res.status(404).send({ mensaje: "Ruta no encontrada" });
-});
 
 // Iniciar el servidor
 app.listen(PORT, () => {
