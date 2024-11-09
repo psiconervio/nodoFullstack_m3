@@ -12,7 +12,8 @@ app.use(express.json());
 connectDB();
 
 try {
-  // Configuración de rutas
+//configuración de rutas atraves de la subruta /api 
+//configuracion de capa de rutas de apis, le pasamos rutas definidas
 app.use('/api', superHeroRoutes);
 console.log('se ejecuto')
 

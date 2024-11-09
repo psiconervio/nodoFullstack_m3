@@ -1,5 +1,8 @@
 import mongoose from 'mongoose';
 
+//MODELO DE DATOS PARA LA COLLECION sUPERHEROES, DANDOLE LA ESTRUCTURA
+// Y LAS REGLAS DE VALIDACION PARA LOS DATOS ALMACENADOS EN MONGODB
+
 const superheroSchema = new mongoose.Schema({
   nombreSuperHeroe: { type: String, required: true },
   nombreReal: { type: String, required: true },

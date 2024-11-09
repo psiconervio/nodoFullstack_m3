@@ -32,9 +32,19 @@ export async function obtenerSuperheroesMayoresDe30Controller(req, res) {
   const superheroes = await obtenerSuperheroesMayoresDe30();
   res.send(renderizarListaSuperheroes(superheroes));
 }
-//NUEVO CONTROLADOR PARA TRAER MAYORES DE 30 NATIVO
+//NUEVO CONTROLADOR PARA UN ENDPOINT PARA TRAER MAYORES DE 30 NATIVO
+
+//obtenerSuperheroesMayoresDe30NativoController()
+// es una funcion asincrona que ejecuta obtenerSuperheroesMayoresDe30Nativo()
 export async function obtenerSuperheroesMayoresDe30NativoController(req, res) {
+//La solicitud HTTP entrante, //res: La respuesta HTTP que se enviara al cliente
+
+//obtenerSuperheroesMayoresDe30Nativo() servicio
   const superheroes = await obtenerSuperheroesMayoresDe30Nativo();
+//guarda el resultado en una constante, la pasa a una funcion que renderiza
+// una lista de los superheroes y la devuelve
+
   res.send(renderizarListaSuperheroes(superheroes));
+
 }
 
