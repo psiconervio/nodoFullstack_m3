@@ -31,6 +31,12 @@ class SuperHeroRepository extends IRepository {
 
     });
   }
+
+//Crear nuevo superheroe interactuando con la db
+  async crear(superheroe) {
+    const nuevoSuperheroe = new SuperHero(superheroe);
+    return await nuevoSuperheroe.save();
+  }
 }
 /*implementa los metodos definidos en la interfaz
  interactuando directamente con mongodb  para realizar operaciones

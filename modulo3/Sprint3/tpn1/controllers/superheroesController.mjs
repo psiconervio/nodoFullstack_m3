@@ -48,3 +48,25 @@ export async function obtenerSuperheroesMayoresDe30NativoController(req, res) {
 
 }
 
+//Crear un nuevo superheroe/agregar
+
+export const crearSuperheroeController = async (req, res) => {
+  try {
+    const { nombreSuperHeroe, nombreReal, edad, planetaOrigen, debilidad, poderes, aliados, enemigos } = req.body;
+
+    const nuevoSuperheroe = await crearSuperheroe({
+      nombreSuperHeroe,
+      nombreReal,
+      edad,
+      planetaOrigen,
+      debilidad,
+      poderes,
+      aliados,
+      enemigos,
+    });
+
+    res.status(201).json(nuevoSuperheroe);
+  } catch (error) {
+    res.status(500).json({ error: 'Error al crear el superhéroe' });
+  }
+};
