@@ -12,7 +12,7 @@ class SuperHeroRepository extends IRepository {
   async obtenerTodos() {
     const heroes = await SuperHero.find({});
     return heroes.map(hero => ({
-      id: hero._id, // Incluye el ID del héroe
+      id: hero._id.toString(), // Incluye el ID del héroe como una propiedad `id`
       nombreSuperHeroe: hero.nombreSuperHeroe,
       nombreReal: hero.nombreReal,
       edad: hero.edad,

@@ -12,7 +12,6 @@ import {
   borrarHeroePorId,
   borrarHeroePorNombre
 } from '../controllers/superheroesController.mjs';
-
 const router = express.Router();
 //configuracion de subrutas, pasandole controladores que ejecutan funciones envian y reciben datos
 router.get('/heroes', obtenerTodosLosSuperheroesController);
@@ -27,8 +26,7 @@ router.post('/heroes', crearHeroeController );
 router.put('/heroes/nombre/:nombreSuperHeroe', actualizarHeroePorNombre);
 // ejercicio 4
 router.delete('/heroes/:id', borrarHeroePorId);
-// Ejercicio 5
-// Endpoint DELETE para eliminar un superhéroe por nombre
+// Ejercicio 5 Endpoint DELETE para eliminar un superhéroe por nombre
 router.delete('/heroes/nombre/:nombre', borrarHeroePorNombre);
 
 router.get('/superheroes/nombre/:nombre', async (req, res) => {
