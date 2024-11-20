@@ -1,1 +1,17 @@
+SPRINT3
+TPN1
+
 Explicar la ruta de el post
+-se le pasa el controlador a la ruta post para que trate los datos
+
+-el controlador createSuperHeroController recibe la req.body
+ y la almacena en superHeroData
+
+-llama al metodo *crear* del SuperHeroRepository,
+ le pasa los datos recuperados en superHeroData y 
+ los guarda en newSuperHero
+
+-por ultimo llama al modelo de datos *renderizarSuperheroe*
+le pasa newsuperhero, lo almacena en response y devuelve
+el modelo renderizado
+

@@ -53,7 +53,7 @@ export async function obtenerSuperheroesMayoresDe30NativoController(req, res) {
 //Crear un nuevo superheroe/agregar
 
 // Controlador para crear un nuevo superhéroe
-export const createSuperHero = async (req, res) => {
+export const createSuperHeroController = async (req, res) => {
   try {
     const superHeroData = req.body; // Captura los datos enviados
     const newSuperHero = await superHeroRepository.crear(superHeroData); // Llama al método del repositorio para crear

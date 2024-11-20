@@ -5,7 +5,7 @@ import {
   buscarSuperheroesPorAtributoController,
   obtenerSuperheroesMayoresDe30Controller,
   obtenerSuperheroesMayoresDe30NativoController,
-  createSuperHero,
+  createSuperHeroController,
 } from '../controllers/superheroesController.mjs';
 
 const router = express.Router();
@@ -17,8 +17,9 @@ router.get('/heroes/buscar/:atributo/:valor', buscarSuperheroesPorAtributoContro
 router.get('/heroes/mayores-30', obtenerSuperheroesMayoresDe30Controller);
 // ruta para el nuevo endpoint
 router.get('/heroes/buscar/mayores', obtenerSuperheroesMayoresDe30NativoController);
-//rutas post
-router.post('/heroes', createSuperHero );
+//rutas NUEVAS SPRINT3
+router.post('/heroes', createSuperHeroController );
+router.put('/heroes', createSuperHeroController );
 
 
 export default router;
