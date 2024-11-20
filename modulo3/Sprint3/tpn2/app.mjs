@@ -1,6 +1,7 @@
 import express from 'express';
 import { connectDB } from './config/dbConfig.mjs';
 import superHeroRoutes from './routes/superheroRoutes.mjs';
+import { validarNombreSuperHeroe } from "./middleware/validarNombreSuperHeroe.mjs";
 
 const app = express();
 const PORT = process.env.PORT || 3000;

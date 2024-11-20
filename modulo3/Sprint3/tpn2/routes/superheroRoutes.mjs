@@ -1,7 +1,7 @@
 import express from 'express';
 import SuperHeroRepository from '../repositories/SuperHeroRepository.mjs';
 import { renderizarSuperheroe } from '../views/responseView.mjs';
-import { validarNombreSuperHeroe } from '../middleware/validarNombreSuperHeroe.mjs';
+import { validarCamposSuperHeroe } from '../middleware/validarNombreSuperHeroe.mjs';
 import {
   obtenerSuperheroePorIdController,
   obtenerTodosLosSuperheroesController,
@@ -21,8 +21,8 @@ router.get('/heroes/buscar/:atributo/:valor', buscarSuperheroesPorAtributoContro
 router.get('/heroes/mayores-30', obtenerSuperheroesMayoresDe30Controller);
 // ruta para el nuevo endpoint
 router.get('/heroes/buscar/mayores', obtenerSuperheroesMayoresDe30NativoController);
-//rutas NUEVAS SPRINT3 ejercicio 2
-router.post('/heroes',validarNombreSuperHeroe, crearHeroeController );
+//rutas NUEVAS ruta post con middleware
+router.post('/heroes',validarCamposSuperHeroe, crearHeroeController );
 // ejercicio 3
 router.put('/heroes/nombre/:nombreSuperHeroe', actualizarHeroePorNombre);
 // ejercicio 4
