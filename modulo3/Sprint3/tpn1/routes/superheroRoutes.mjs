@@ -1,3 +1,5 @@
+import SuperHeroRepository from '../repositories/SuperHeroRepository.mjs';
+import { renderizarSuperheroe } from '../views/responseView.mjs';
 import express from 'express';
 import {
   obtenerSuperheroePorIdController,
@@ -21,8 +23,28 @@ router.get('/heroes/mayores-30', obtenerSuperheroesMayoresDe30Controller);
 router.get('/heroes/buscar/mayores', obtenerSuperheroesMayoresDe30NativoController);
 //rutas NUEVAS SPRINT3
 router.post('/heroes', createSuperHeroController );
-router.put('/superheroes/name/:nombreSuperHeroe', updateSuperHeroByName);
+// router.put('/superheroes/name/:nombreSuperHeroe', updateSuperHeroByName);
 router.delete('/superheroes/:id', deleteSuperHeroById);
+router.get('/superheroes/nombre/:nombre', async (req, res) => {
+  try {
+    const { nombre } = req.params; // Obtiene el nombre de los parámetros de la URL
+    const superheroe = await SuperHeroRepository.buscarPorNombre(nombre); // Busca por nombre
+
+    if (!superheroe) {
+      return res.status(404).json({ error: `No se encontró un superhéroe con el nombre "${nombre}".` });
+    }
+
+    // Renderiza el superhéroe y añade el ID
+    res.status(200).json({
+      id: superheroe._id, // Incluye el ID del superhéroe
+      ...renderizarSuperheroe(superheroe)
+    });
+  } catch (error) {
+    console.error('Error al buscar el superhéroe por nombre:', error);
+    res.status(500).json({ error: 'Error al buscar el superhéroe.' });
+  }
+});
+
 
 
 

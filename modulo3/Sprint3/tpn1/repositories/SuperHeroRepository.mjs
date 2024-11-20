@@ -31,6 +31,10 @@ class SuperHeroRepository extends IRepository {
 
     });
   }
+  async buscarPorNombre(nombreSuperHeroe) {
+    const query = { nombreSuperHeroe: new RegExp(nombreSuperHeroe, 'i') }; // Búsqueda insensible a mayúsculas/minúsculas
+    return await SuperHero.findOne(query); // Encuentra el primer superhéroe que coincida
+  }
 //Crear nuevo superheroe interactuando con la db
 async crear(superheroe) {
   const nuevoSuperheroe = new SuperHero(superheroe); // Crea una instancia del modelo
