@@ -27,7 +27,7 @@ router.post('/heroes',validarCamposSuperHeroe, crearHeroeController );
 router.put('/heroes/nombre/:nombreSuperHeroe', actualizarHeroePorNombre);
 // ejercicio 4
 router.delete('/heroes/:id', borrarHeroePorId);
-// Ejercicio 5 Endpoint DELETE para eliminar un superhéroe por nombre
+// ejercicio 5 Endpoint DELETE para eliminar un superhéroe por nombre
 router.delete('/heroes/nombre/:nombre', borrarHeroePorNombre);
 
 router.get('/superheroes/nombre/:nombre', async (req, res) => {
