@@ -6,7 +6,8 @@ import {
   obtenerSuperheroesMayoresDe30Controller,
   obtenerSuperheroesMayoresDe30NativoController,
   createSuperHeroController,
-  updateSuperHeroByName
+  updateSuperHeroByName,
+  deleteSuperHeroById
 } from '../controllers/superheroesController.mjs';
 
 const router = express.Router();
@@ -21,6 +22,8 @@ router.get('/heroes/buscar/mayores', obtenerSuperheroesMayoresDe30NativoControll
 //rutas NUEVAS SPRINT3
 router.post('/heroes', createSuperHeroController );
 router.put('/superheroes/name/:nombreSuperHeroe', updateSuperHeroByName);
+router.delete('/superheroes/:id', deleteSuperHeroById);
+
 
 
 

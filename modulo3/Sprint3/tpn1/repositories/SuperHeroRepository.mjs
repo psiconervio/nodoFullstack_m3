@@ -36,7 +36,7 @@ async crear(superheroe) {
   const nuevoSuperheroe = new SuperHero(superheroe); // Crea una instancia del modelo
   return await nuevoSuperheroe.save(); // Guarda el superhéroe en la base de datos
 }
-
+  // Actualizar un superhéroe por su nombre
 async actualizarPorNombre(nombreSuperHeroe, datosActualizados) {
   return await SuperHero.findOneAndUpdate(
     { nombreSuperHeroe: new RegExp(`^${nombreSuperHeroe}$`, 'i') }, // Busca por nombre (case-insensitive)
@@ -44,6 +44,10 @@ async actualizarPorNombre(nombreSuperHeroe, datosActualizados) {
     { new: true, runValidators: true } // Opciones: devuelve el documento actualizado y aplica validaciones
   );
 }
+  // Método para eliminar un superhéroe por ID
+  async eliminarPorId(id) {
+    return await SuperHero.findByIdAndDelete(id); // Busca por ID y elimina
+  }
 }
 /*implementa los metodos definidos en la interfaz
  interactuando directamente con mongodb  para realizar operaciones

@@ -51,7 +51,6 @@ export async function obtenerSuperheroesMayoresDe30NativoController(req, res) {
 }
 
 //Crear un nuevo superheroe/agregar
-
 // Controlador para crear un nuevo superhéroe
 export const createSuperHeroController = async (req, res) => {
   try {
@@ -77,6 +76,23 @@ export const updateSuperHeroByName = async (req, res) => {
 
     const response = renderizarSuperheroe(updatedSuperHero); // Renderiza el superhéroe actualizado
     res.status(200).json(response); // Devuelve el superhéroe actualizado
+  } catch (error) {
+    res.status(500).json({ message: error.message }); // Manejo de errores
+  }
+};
+
+// Controlador para eliminar un superhéroe por ID
+export const deleteSuperHeroById = async (req, res) => {
+  try {
+    const { id } = req.params; // Obtiene el ID del superhéroe desde los parámetros de la URL
+    const deletedSuperHero = await superHeroRepository.eliminarPorId(id); // Llama al repositorio para eliminar
+
+    if (!deletedSuperHero) {
+      return res.status(404).json({ message: 'Superhéroe no encontrado' });
+    }
+
+    const response = renderizarSuperheroe(deletedSuperHero); // Renderiza el superhéroe eliminado
+    res.status(200).json(response); // Devuelve el superhéroe eliminado
   } catch (error) {
     res.status(500).json({ message: error.message }); // Manejo de errores
   }
