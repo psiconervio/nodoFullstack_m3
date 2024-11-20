@@ -63,3 +63,21 @@ export const createSuperHeroController = async (req, res) => {
     res.status(500).json({ message: error.message }); // Maneja errores
   }
 };
+
+export const updateSuperHeroByName = async (req, res) => {
+  try {
+    const { nombreSuperHeroe } = req.params; // Obtiene el nombre del superhéroe desde los parámetros de la URL
+    const updateData = req.body; // Datos nuevos enviados en el cuerpo de la solicitud
+
+    const updatedSuperHero = await superHeroRepository.actualizarPorNombre(nombreSuperHeroe, updateData); // Llama al repositorio
+
+    if (!updatedSuperHero) {
+      return res.status(404).json({ message: 'Superhéroe no encontrado' });
+    }
+
+    const response = renderizarSuperheroe(updatedSuperHero); // Renderiza el superhéroe actualizado
+    res.status(200).json(response); // Devuelve el superhéroe actualizado
+  } catch (error) {
+    res.status(500).json({ message: error.message }); // Manejo de errores
+  }
+};

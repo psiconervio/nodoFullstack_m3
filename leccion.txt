@@ -15,3 +15,4 @@ Explicar la ruta de el post
 le pasa newsuperhero, lo almacena en response y devuelve
 el modelo renderizado
 
+Explicar put
