@@ -5,7 +5,7 @@ import {
   buscarSuperheroesPorAtributoController,
   obtenerSuperheroesMayoresDe30Controller,
   obtenerSuperheroesMayoresDe30NativoController,
-  crearSuperheroeController,
+  createSuperHero,
 } from '../controllers/superheroesController.mjs';
 
 const router = express.Router();
@@ -18,7 +18,7 @@ router.get('/heroes/mayores-30', obtenerSuperheroesMayoresDe30Controller);
 // ruta para el nuevo endpoint
 router.get('/heroes/buscar/mayores', obtenerSuperheroesMayoresDe30NativoController);
 //rutas post
-router.post('/heroes', crearSuperheroeController );
+router.post('/heroes', createSuperHero );
 
 
 export default router;

@@ -1,4 +1,6 @@
-import { obtenerSuperheroePorId, obtenerTodosLosSuperheroes, buscarSuperheroesPorAtributo, obtenerSuperheroesMayoresDe30,obtenerSuperheroesMayoresDe30Nativo } from '../services/superheroesService.mjs';
+import superHeroRepository from '../repositories/SuperHeroRepository.mjs';
+
+import { obtenerSuperheroePorId, obtenerTodosLosSuperheroes, buscarSuperheroesPorAtributo, obtenerSuperheroesMayoresDe30,obtenerSuperheroesMayoresDe30Nativo, } from '../services/superheroesService.mjs';
 import { renderizarSuperheroe, renderizarListaSuperheroes } from '../views/responseView.mjs';
 
 export async function obtenerSuperheroePorIdController(req, res) {
@@ -50,23 +52,14 @@ export async function obtenerSuperheroesMayoresDe30NativoController(req, res) {
 
 //Crear un nuevo superheroe/agregar
 
-export const crearSuperheroeController = async (req, res) => {
+// Controlador para crear un nuevo superhéroe
+export const createSuperHero = async (req, res) => {
   try {
-    const { nombreSuperHeroe, nombreReal, edad, planetaOrigen, debilidad, poderes, aliados, enemigos } = req.body;
-
-    const nuevoSuperheroe = await crearSuperheroe({
-      nombreSuperHeroe,
-      nombreReal,
-      edad,
-      planetaOrigen,
-      debilidad,
-      poderes,
-      aliados,
-      enemigos,
-    });
-
-    res.status(201).json(nuevoSuperheroe);
+    const superHeroData = req.body; // Captura los datos enviados
+    const newSuperHero = await superHeroRepository.crear(superHeroData); // Llama al método del repositorio para crear
+    const response = renderizarSuperheroe(newSuperHero); // Renderiza el superhéroe
+    res.status(201).json(response); // Devuelve el superhéroe creado
   } catch (error) {
-    res.status(500).json({ error: 'Error al crear el superhéroe' });
+    res.status(500).json({ message: error.message }); // Maneja errores
   }
 };

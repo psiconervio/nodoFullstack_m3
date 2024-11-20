@@ -23,6 +23,8 @@ export async function obtenerSuperheroesMayoresDe30Nativo() {
   return await superHeroRepository.obtenerMayoresDe30Nativo();
 }
 //Crear nuevo superheroes
-export const crearSuperheroe = async (superheroeData) => {
-  return await superHeroRepository.crear(superheroeData);
+// Servicio para crear un nuevo superhéroe
+export const createSuperHeroService = async (superHeroData) => {
+  // Validaciones adicionales si es necesario
+  return await superHeroRepository.create(superHeroData);
 };
