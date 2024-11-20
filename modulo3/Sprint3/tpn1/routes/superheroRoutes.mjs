@@ -7,24 +7,30 @@ import {
   buscarSuperheroesPorAtributoController,
   obtenerSuperheroesMayoresDe30Controller,
   obtenerSuperheroesMayoresDe30NativoController,
-  createSuperHeroController,
-  updateSuperHeroByName,
-  deleteSuperHeroById
+  crearHeroeController,
+  actualizarHeroePorNombre,
+  borrarHeroePorId,
+  borrarHeroePorNombre
 } from '../controllers/superheroesController.mjs';
 
 const router = express.Router();
 //configuracion de subrutas, pasandole controladores que ejecutan funciones envian y reciben datos
-//atraves de metodos de el protocolo http
 router.get('/heroes', obtenerTodosLosSuperheroesController);
 router.get('/heroes/:id', obtenerSuperheroePorIdController);
 router.get('/heroes/buscar/:atributo/:valor', buscarSuperheroesPorAtributoController);
 router.get('/heroes/mayores-30', obtenerSuperheroesMayoresDe30Controller);
 // ruta para el nuevo endpoint
 router.get('/heroes/buscar/mayores', obtenerSuperheroesMayoresDe30NativoController);
-//rutas NUEVAS SPRINT3
-router.post('/heroes', createSuperHeroController );
-// router.put('/superheroes/name/:nombreSuperHeroe', updateSuperHeroByName);
-router.delete('/superheroes/:id', deleteSuperHeroById);
+//rutas NUEVAS SPRINT3 ejercicio 2
+router.post('/heroes', crearHeroeController );
+// ejercicio 3
+router.put('/heroes/nombre/:nombreSuperHeroe', actualizarHeroePorNombre);
+// ejercicio 4
+router.delete('/heroes/:id', borrarHeroePorId);
+// Ejercicio 5
+// Endpoint DELETE para eliminar un superhéroe por nombre
+router.delete('/heroes/nombre/:nombre', borrarHeroePorNombre);
+
 router.get('/superheroes/nombre/:nombre', async (req, res) => {
   try {
     const { nombre } = req.params; // Obtiene el nombre de los parámetros de la URL
@@ -44,9 +50,4 @@ router.get('/superheroes/nombre/:nombre', async (req, res) => {
     res.status(500).json({ error: 'Error al buscar el superhéroe.' });
   }
 });
-
-
-
-
-
 export default router;

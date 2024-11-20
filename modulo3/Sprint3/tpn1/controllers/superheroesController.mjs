@@ -45,25 +45,25 @@ export async function obtenerSuperheroesMayoresDe30NativoController(req, res) {
   const superheroes = await obtenerSuperheroesMayoresDe30Nativo();
 //guarda el resultado en una constante, la pasa a una funcion que renderiza
 // una lista de los superheroes y la devuelve
-
   res.send(renderizarListaSuperheroes(superheroes));
-
 }
 
-//Crear un nuevo superheroe/agregar
 // Controlador para crear un nuevo superhéroe
-export const createSuperHeroController = async (req, res) => {
-  try {
-    const superHeroData = req.body; // Captura los datos enviados
-    const newSuperHero = await superHeroRepository.crear(superHeroData); // Llama al método del repositorio para crear
-    const response = renderizarSuperheroe(newSuperHero); // Renderiza el superhéroe
-    res.status(201).json(response); // Devuelve el superhéroe creado
+export const crearHeroeController = async (req, res) => {
+  try { // Captura los datos enviados
+    const superHeroData = req.body; 
+     //Llama al método del repositorio para crear
+    const newSuperHero = await superHeroRepository.crear(superHeroData);
+    // Renderiza el superhéroe
+    const response = renderizarSuperheroe(newSuperHero);
+    // Devuelve el superhéroe creado
+    res.status(201).json(response); 
   } catch (error) {
     res.status(500).json({ message: error.message }); // Maneja errores
   }
 };
 
-export const updateSuperHeroByName = async (req, res) => {
+export const actualizarHeroePorNombre = async (req, res) => {
   try {
     const { nombreSuperHeroe } = req.params; // Obtiene el nombre del superhéroe desde los parámetros de la URL
     const updateData = req.body; // Datos nuevos enviados en el cuerpo de la solicitud
@@ -82,10 +82,25 @@ export const updateSuperHeroByName = async (req, res) => {
 };
 
 // Controlador para eliminar un superhéroe por ID
-export const deleteSuperHeroById = async (req, res) => {
+export const borrarHeroePorId = async (req, res) => {
   try {
     const { id } = req.params; // Obtiene el ID del superhéroe desde los parámetros de la URL
     const deletedSuperHero = await superHeroRepository.eliminarPorId(id); // Llama al repositorio para eliminar
+
+    if (!deletedSuperHero) {
+      return res.status(404).json({ message: 'Superhéroe no encontrado' });
+    }
+
+    const response = renderizarSuperheroe(deletedSuperHero); // Renderiza el superhéroe eliminado
+    res.status(200).json(response); // Devuelve el superhéroe eliminado
+  } catch (error) {
+    res.status(500).json({ message: error.message }); // Manejo de errores
+  }
+};
+export const borrarHeroePorNombre = async (req, res) => {
+  try {
+    const { nombre } = req.params; // Obtiene el nombre del superhéroe desde los parámetros de la URL
+    const deletedSuperHero = await superHeroRepository.eliminarPorNombre(nombre); // Llama al repositorio para eliminar
 
     if (!deletedSuperHero) {
       return res.status(404).json({ message: 'Superhéroe no encontrado' });
