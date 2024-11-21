@@ -21,6 +21,8 @@ try {
 //configuración de rutas atraves de la subruta /api 
 //configuracion de capa de rutas de apis, le pasamos rutas definidas
 app.use('/api', superHeroRoutes);
+//RUTA GLOBAL CON MIDDLEWARE
+// app.use('/api',validarCamposSuperHeroe, superHeroRoutes);
 console.log('se ejecuto')
 
 } catch (error) {
