@@ -1,14 +1,19 @@
 import express from 'express';
 import { connectDB } from './config/dbConfig.mjs';
 import superHeroRoutes from './routes/superheroRoutes.mjs';
-import { validarNombreSuperHeroe } from "./middleware/validarNombreSuperHeroe.mjs";
+import { validarCamposSuperHeroe } from "./middleware/validarNombreSuperHeroe.mjs";
+import ejs from 'ejs';
 
 const app = express();
 const PORT = process.env.PORT || 3000;
-
 // Middleware para parsear JSON
 app.use(express.json());
+//ejs
+app.set('view engine','ejs');
 
+app.get('/', function(req, res){
+  res.render("index");
+})
 // Conexión a MongoDB
 connectDB();
 
