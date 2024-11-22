@@ -7,28 +7,28 @@ import ejs from 'ejs';
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-// Middleware para parsear JSON
+//middleware para parsear JSON
 app.use(express.json());
 
-// Configuración de EJS
+// configuración de EJS
 app.set('view engine', 'ejs');
 app.set('views', './views');
 
 app.get('/addSuperhero', (req, res) => {
   res.render('addSuperhero', { title: 'Página Principal' }); // Renderiza la vista home.ejs
 });
-// router.post('/superheroes', crearSuperHeroeController);
+// router.post('/api/heroes', crearSuperHeroeController);
 // Ruta para el dashboard
 app.get('/', async (req, res) => {
   try {
-    // Fetch para obtener los heroes desde la API
+    // fetch para obtener los heroes desde la API
     const response = await fetch('http://localhost:3000/api/heroes');
     if (!response.ok) {
       throw new Error('Error al obtener superhéroes');
     }
-
-    const superheroes = await response.json(); // datos recibidos de la API
-    // console.log('Datos enviados a la vista:', superheroes); //verifica los datos
+    // datos recibidos de la api
+    const superheroes = await response.json(); 
+    console.log('datos enviados a la vista:', superheroes); 
 
     // renderiza la vista  dashboard y envia los datos
     res.render('dashboard', { superheroes });
@@ -38,19 +38,18 @@ app.get('/', async (req, res) => {
   }
 });
 
-
-// conexion a MongoDB
+// conexion a mongodb
 connectDB();
 
-// configuración de rutas a través de la subruta /api
+// configuración de rutas a traves de la subruta /api
 app.use('/api', superHeroRoutes);
 
-// Manejo de errores para rutas no encontradas
+// manejo de errores para rutas no encontradas
 app.use((req, res) => {
   res.status(404).send({ mensaje: "Ruta no encontrada" });
 });
 
-// Iniciar el servidor
+// inicializacion de el servidor
 app.listen(PORT, () => {
   console.log(`Servidor corriendo en http://localhost:${PORT}`);
 });
