@@ -1,7 +1,7 @@
+// import SuperHeroRepository from '../repositories/SuperHeroRepository.mjs';
+// import { renderizarSuperheroe } from '../views/responseView.mjs';
 import express from 'express';
 import { validarCamposSuperHeroe  } from "../middleware/validarMidle.mjs";
-import SuperHeroRepository from '../repositories/SuperHeroRepository.mjs';
-import { renderizarSuperheroe } from '../views/responseView.mjs';
 import {
   obtenerSuperheroePorIdController,
   obtenerTodosLosSuperheroesController,
@@ -13,6 +13,7 @@ import {
   borrarHeroePorId,
   borrarHeroePorNombre
 } from '../controllers/superheroesController.mjs';
+
 const router = express.Router();
 //configuracion de subrutas, pasandole controladores que ejecutan funciones envian y reciben datos
 router.get('/heroes', obtenerTodosLosSuperheroesController);
@@ -31,6 +32,9 @@ router.delete('/heroes/:id', borrarHeroePorId);
 // ejercicio 5 Endpoint DELETE para eliminar un superhéroe por nombre
 router.delete('/heroes/nombre/:nombre', borrarHeroePorNombre);
 
+
+export default router;
+//obtener id
 // router.get('/superheroes/nombre/:nombre', async (req, res) => {
 //   try {
 //     const { nombre } = req.params; // Obtiene el nombre de los parámetros de la URL
@@ -50,4 +54,3 @@ router.delete('/heroes/nombre/:nombre', borrarHeroePorNombre);
 //     res.status(500).json({ error: 'Error al buscar el superhéroe.' });
 //   }
 // });
-export default router;
