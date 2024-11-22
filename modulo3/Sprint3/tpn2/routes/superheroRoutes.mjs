@@ -2,6 +2,7 @@ import express from 'express';
 import SuperHeroRepository from '../repositories/SuperHeroRepository.mjs';
 import { renderizarSuperheroe } from '../views/responseView.mjs';
 import { validarCamposSuperHeroe } from '../middleware/validarNombreSuperHeroe.mjs';
+import { validarHeroeEvalidator } from '../middleware/validarMidle.mjs';
 import {
   obtenerSuperheroePorIdController,
   obtenerTodosLosSuperheroesController,
@@ -22,9 +23,9 @@ router.get('/heroes/mayores-30', obtenerSuperheroesMayoresDe30Controller);
 // ruta para el nuevo endpoint
 router.get('/heroes/buscar/mayores', obtenerSuperheroesMayoresDe30NativoController);
 //rutas NUEVAS ruta post con middleware
-router.post('/heroes',validarCamposSuperHeroe, crearHeroeController );
+router.post('/heroes',validarHeroeEvalidator, crearHeroeController );
 // ejercicio 3
-router.put('/heroes/nombre/:nombreSuperHeroe', actualizarHeroePorNombre);
+router.put('/heroes/nombre/:nombreSuperHeroe',validarHeroeEvalidator, actualizarHeroePorNombre);
 // ejercicio 4
 router.delete('/heroes/:id', borrarHeroePorId);
 // ejercicio 5 Endpoint DELETE para eliminar un superhéroe por nombre
