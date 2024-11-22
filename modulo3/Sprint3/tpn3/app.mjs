@@ -30,7 +30,7 @@ app.get('/', async (req, res) => {
     const superheroes = await response.json(); // datos recibidos de la API
     // console.log('Datos enviados a la vista:', superheroes); //verifica los datos
 
-    // Renderiza la vista "dashboard" y envía los datos
+    // renderiza la vista  dashboard y envia los datos
     res.render('dashboard', { superheroes });
   } catch (error) {
     console.error('Error al cargar el dashboard:', error.message);

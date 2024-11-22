@@ -2,7 +2,9 @@ import { body, validationResult } from "express-validator";
 
 export const validarHeroeEvalidator = [
   body("nombreSuperHeroe")
+    // elimina los espacios en blanco al inicio y al final del texto
     .trim()
+    // verifica que el campo no este vacio
     .notEmpty()
     .withMessage("el nombre del heroe es obligatorio")
     .isLength({ min: 3, max: 60 })
@@ -17,38 +19,35 @@ export const validarHeroeEvalidator = [
     .isInt({ min: 0 })
     .withMessage("la edad debe ser un numero mayor o igual a 0"),
   body("poderes")
-  // validar que el campo poderes sea un array con al menos un elemento
+    // validar que el campo poderes sea un array con al menos un elemento
     .isArray({ min: 1 })
     .withMessage("los poderes deben ser un array con al menos un elemento")
-  //validacion personalizada para cada elemento del array poderes
+    //validacion personalizada para cada elemento del array poderes
     .custom((poderes) => {
-  // verifica si todos los elementos del array cumplen con las reglas
+      // verifica si todos los elementos del array cumplen con las reglas
       const valid = poderes.every(
         (poder) =>
-  // cada elemento debe ser un string
+          // cada elemento debe ser un string
           typeof poder === "string" &&
-  // cada string debe tener al menos 3 caracteres
+          // cada string debe tener al menos 3 caracteres
           poder.trim().length >= 3 &&
-  // cada string no debe superar los 60 caracteres
+          // cada string no debe superar los 60 caracteres
           poder.trim().length <= 60
       );
-  //si alguno de los elementos no cumple, lanza un error
+      //si alguno de los elementos no cumple, lanza un error
       if (!valid)
         throw new Error("Cada poder debe tener entre 3 y 60 caracteres");
-   //retorna true para pasar la validacion
+      //retorna true para pasar la validacion
       return true;
     }),
   (req, res, next) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
-
       return res.status(400).json({ errors: errors.array() });
     }
     next();
   },
 ];
-
-
 
 //trata estos datos
 // {
