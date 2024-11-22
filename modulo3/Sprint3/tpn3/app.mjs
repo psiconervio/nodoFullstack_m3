@@ -17,20 +17,20 @@ app.set('views', './views');
 // Ruta para el dashboard
 app.get('/dashboard', async (req, res) => {
   try {
-    // Usar fetch para obtener los datos del endpoint
-    const response = await fetch('http://localhost:3000/api/heroes'); // Ajusta la URL según tu configuración
+    const response = await fetch('http://localhost:3000/api/heroes');
     if (!response.ok) {
-      throw new Error('Error al obtener los superhéroes');
+      throw new Error('Error al obtener superhéroes');
     }
-    const superheroes = await response.json(); // Parsear el JSON
 
-    // Renderizar la vista con los datos obtenidos
+    const superheroes = await response.json();
+    console.log('Datos enviados a la vista:', superheroes); // Verifica aquí los datos
     res.render('dashboard', { superheroes });
   } catch (error) {
     console.error('Error al cargar el dashboard:', error);
     res.status(500).send('Error al cargar el dashboard');
   }
 });
+
 
 // Conexión a MongoDB
 connectDB();
