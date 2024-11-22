@@ -16,7 +16,7 @@ import {
 } from '../controllers/superheroesController.mjs';
 
 const router = express.Router();
-//configuracion de subrutas, pasandole controladores que ejecutan funciones envian y reciben datos
+//configuracion de subrutas pasandole controladores que ejecutan funciones envian y reciben datos
 router.get('/heroes', obtenerTodosLosSuperheroesController);
 router.get('/heroes/:id', obtenerSuperheroePorIdController);
 router.get('/heroes/buscar/:atributo/:valor', buscarSuperheroesPorAtributoController);
