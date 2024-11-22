@@ -31,7 +31,7 @@ router.delete('/heroes/:id', borrarHeroePorId);
 // ejercicio 5 Endpoint DELETE para eliminar un superhéroe por nombre
 router.delete('/heroes/nombre/:nombre', borrarHeroePorNombre);
 
-router.get('/superheroes/nombre/:nombre', async (req, res) => {
+router.get('/heroes/nombre/:nombre', async (req, res) => {
   try {
     const { nombre } = req.params; // Obtiene el nombre de los parámetros de la URL
     const superheroe = await SuperHeroRepository.buscarPorNombre(nombre); // Busca por nombre
