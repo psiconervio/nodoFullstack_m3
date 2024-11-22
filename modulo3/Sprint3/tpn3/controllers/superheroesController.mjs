@@ -48,67 +48,76 @@ export async function obtenerSuperheroesMayoresDe30NativoController(req, res) {
   res.send(renderizarListaSuperheroes(superheroes));
 }
 
-// Controlador para crear un nuevo superhéroe
+// controlador para crear un nuevo heroe
 export const crearHeroeController = async (req, res) => {
-  try { // Captura los datos enviados
+  try { // captura los datos enviados
     const superHeroData = req.body; 
-     //Llama al método del repositorio para crear
+     //llama al metodo del repositorio para crear
     const newSuperHero = await superHeroRepository.crear(superHeroData);
-    // Renderiza el superhéroe
+    // renderiza el heroe
     const response = renderizarSuperheroe(newSuperHero);
-    // Devuelve el superhéroe creado
+    // devuelve el heroe creado
     res.status(201).json(response); 
   } catch (error) {
-    res.status(500).json({ message: error.message }); // Maneja errores
+    res.status(500).json({ message: error.message }); // manejo de errores
   }
 };
 
 export const actualizarHeroePorNombre = async (req, res) => {
   try {
-    const { nombreSuperHeroe } = req.params; // Obtiene el nombre del superhéroe desde los parámetros de la URL
-    const updateData = req.body; // Datos nuevos enviados en el cuerpo de la solicitud
-
-    const updatedSuperHero = await superHeroRepository.actualizarPorNombre(nombreSuperHeroe, updateData); // Llama al repositorio
+     // obtiene el nombre del heroe desde los parametros de la url
+    const { nombreSuperHeroe } = req.params;
+    // datos nuevos enviados en el cuerpo de la solicitud
+    const updateData = req.body; 
+    // llama al repositorio y le pasa los parametros
+    const updatedSuperHero = await superHeroRepository.actualizarPorNombre(nombreSuperHeroe, updateData);
 
     if (!updatedSuperHero) {
-      return res.status(404).json({ message: 'Superhéroe no encontrado' });
+      return res.status(404).json({ message: 'heroe no encontrado' });
     }
-
-    const response = renderizarSuperheroe(updatedSuperHero); // Renderiza el superhéroe actualizado
-    res.status(200).json(response); // Devuelve el superhéroe actualizado
+    // renderiza el heroe actualizado
+    const response = renderizarSuperheroe(updatedSuperHero); 
+    // devuelve el heroe actualizado
+    res.status(200).json(response); 
   } catch (error) {
-    res.status(500).json({ message: error.message }); // Manejo de errores
+    res.status(500).json({ message: error.message });
   }
 };
 
-// Controlador para eliminar un superhéroe por ID
+// controlador para eliminar un heroe por ID
 export const borrarHeroePorId = async (req, res) => {
   try {
-    const { id } = req.params; // Obtiene el ID del superhéroe desde los parámetros de la URL
-    const deletedSuperHero = await superHeroRepository.eliminarPorId(id); // Llama al repositorio para eliminar
+    //obtiene el ID del heroe desde los parámetros de la URL
+    const { id } = req.params; 
+    // Llama al repositorio para eliminar
+    const deletedSuperHero = await superHeroRepository.eliminarPorId(id); 
 
     if (!deletedSuperHero) {
-      return res.status(404).json({ message: 'Superhéroe no encontrado' });
+      return res.status(404).json({ message: 'heroe no encontrado' });
     }
-
-    const response = renderizarSuperheroe(deletedSuperHero); // Renderiza el superhéroe eliminado
-    res.status(200).json(response); // Devuelve el superhéroe eliminado
+ // renderiza el heroe eliminado
+    const response = renderizarSuperheroe(deletedSuperHero);
+    // devuelve el heroe eliminado
+    res.status(200).json(response); 
   } catch (error) {
-    res.status(500).json({ message: error.message }); // Manejo de errores
+    res.status(500).json({ message: error.message });
   }
 };
 export const borrarHeroePorNombre = async (req, res) => {
   try {
-    const { nombre } = req.params; // Obtiene el nombre del superhéroe desde los parámetros de la URL
-    const deletedSuperHero = await superHeroRepository.eliminarPorNombre(nombre); // Llama al repositorio para eliminar
+    // obtiene el nombre del heroe desde los parámetros de la URL
+    const { nombre } = req.params; 
+    // lama al repositorio para eliminar
+    const deletedSuperHero = await superHeroRepository.eliminarPorNombre(nombre); 
 
     if (!deletedSuperHero) {
-      return res.status(404).json({ message: 'Superhéroe no encontrado' });
+      return res.status(404).json({ message: 'heroe no encontrado' });
     }
-
-    const response = renderizarSuperheroe(deletedSuperHero); // Renderiza el superhéroe eliminado
-    res.status(200).json(response); // Devuelve el superhéroe eliminado
+    // renderiza el heroe eliminado
+    const response = renderizarSuperheroe(deletedSuperHero); 
+     // devuelve el heroe eliminado
+    res.status(200).json(response);
   } catch (error) {
-    res.status(500).json({ message: error.message }); // Manejo de errores
+    res.status(500).json({ message: error.message });
   }
 };

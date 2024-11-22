@@ -1,6 +1,52 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard</title>
+</head>
+<body>
+  <h1>Dashboard: Lista de Superhéroes</h1>
+  <a href="/addSuperhero">Agregar Nuevo Superhéroe</a>
+  <table>
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Nombre Superhéroe</th>
+        <th>Nombre Real</th>
+        <th>Edad</th>
+        <th>Planeta de Origen</th>
+        <th>Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% superheroes.forEach(hero => { %>
+        <tr>
+          <td><%= hero.id %></td>
+          <td><%= hero.nombreSuperHeroe %></td>
+          <td><%= hero.nombreReal %></td>
+          <td><%= hero.edad %></td>
+          <td><%= hero.planetaOrigen %></td>
+          <td>
+            <a href="/api/superheroes/<%= hero.id %>">Ver</a> |
+            <a href="/api/superheroes/<%= hero.id %>/edit">Editar</a> |
+            <form action="/api/superheroes/<%= hero.id %>" method="POST" style="display:inline;">
+              <input type="hidden" name="_method" value="DELETE" />
+              <button type="submit">Eliminar</button>
+            </form>
+          </td>
+        </tr>
+      <% }) %>
+    </tbody>
+  </table>
+</body>
+</html>
+
+
+
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
   <script>
     const API_URL = 'http://localhost:3000/api/heroes'; // Cambia según tu configuración
 
@@ -27,7 +73,7 @@ async function loadSuperheroes() {
         ${superheroes.map(hero => `
           <tr>
             <td>${hero._id}</td>
-            <td>${hero.NombreReal}</td>
+            <td>${hero.nombreSuperHeroe}</td>
             <td>${hero.Nombre}</td>
             <td>${hero.Edad}</td>
             <td>${hero.Poderes}</td>
@@ -165,4 +211,4 @@ loadSuperheroes();
   </div>
 
 </body>
-</html>
+</html> -->

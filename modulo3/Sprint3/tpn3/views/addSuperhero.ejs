@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Agregar Superhéroe</title>
+  <link rel="stylesheet" href="/styles.css"> <!-- Cambia según tu configuración -->
+</head>
+<body>
+  <header>
+    <h1>Agregar un Nuevo Superhéroe</h1>
+    <nav>
+      <a href="/">Inicio</a>
+      <a href="/api/heroes">Lista de Superhéroes</a>
+    </nav>
+  </header>
+
+  <main>
+    <form action="/api/heroes" method="POST">
+      <!-- Nombre del superhéroe -->
+      <div>
+        <label for="nombreSuperHeroe">Nombre del Superhéroe:</label>
+        <input type="text" id="nombreSuperHeroe" name="nombreSuperHeroe" required>
+      </div>
+
+      <!-- Nombre real -->
+      <div>
+        <label for="nombreReal">Nombre Real:</label>
+        <input type="text" id="nombreReal" name="nombreReal" required>
+      </div>
+
+      <!-- Edad -->
+      <div>
+        <label for="edad">Edad:</label>
+        <input type="number" id="edad" name="edad" min="1" required>
+      </div>
+
+      <!-- Planeta de origen -->
+      <div>
+        <label for="planetaOrigen">Planeta de Origen:</label>
+        <input type="text" id="planetaOrigen" name="planetaOrigen" required>
+      </div>
+
+      <!-- Debilidad -->
+      <div>
+        <label for="debilidad">Debilidad:</label>
+        <input type="text" id="debilidad" name="debilidad" required>
+      </div>
+
+      <!-- Poderes -->
+      <div>
+        <label for="poderes">Poderes:</label>
+        <textarea id="poderes" name="poderes" rows="3" placeholder="Separar poderes con comas (e.g., vuelo, superfuerza)" required></textarea>
+      </div>
+
+      <!-- Aliados -->
+      <div>
+        <label for="aliados">Aliados:</label>
+        <textarea id="aliados" name="aliados" rows="2" placeholder="Separar aliados con comas"></textarea>
+      </div>
+
+      <!-- Enemigos -->
+      <div>
+        <label for="enemigos">Enemigos:</label>
+        <textarea id="enemigos" name="enemigos" rows="2" placeholder="Separar enemigos con comas"></textarea>
+      </div>
+
+      <!-- Botones de acción -->
+      <div>
+        <button type="submit">Agregar Superhéroe</button>
+        <button type="reset">Limpiar</button>
+      </div>
+    </form>
+  </main>
+
+  <footer>
+    <p>&copy; 2024 - Superhéroes Inc.</p>
+  </footer>
+</body>
+</html>

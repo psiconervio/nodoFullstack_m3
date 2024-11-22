@@ -50,34 +50,37 @@ class SuperHeroRepository extends IRepository {
   }
 
   async buscarPorNombre(nombreSuperHeroe) {
-    const query = { nombreSuperHeroe: new RegExp(nombreSuperHeroe, "i") }; // Búsqueda insensible a mayúsculas/minúsculas
-    return await SuperHero.findOne(query); // Encuentra el primer superhéroe que coincida
+    const query = { nombreSuperHeroe: new RegExp(nombreSuperHeroe, "i") }; // busqueda insensible a mayúsculas/minúsculas
+    return await SuperHero.findOne(query); // encuentra el primer superhéroe que coincida
   }
 
-  //Crear nuevo superheroe interactuando con la db
+  // crear nuevo superheroe interactuando con la db
   async crear(superheroe) {
     const nuevoSuperheroe = new SuperHero(superheroe); // Crea una instancia del modelo
     return await nuevoSuperheroe.save(); // Guarda el superhéroe en la base de datos
   }
 
-  // Actualizar un superhéroe por su nombre
+  // actualizar un superhéroe por su nombre
   async actualizarPorNombre(nombreSuperHeroe, datosActualizados) {
     return await SuperHero.findOneAndUpdate(
-      { nombreSuperHeroe: new RegExp(`^${nombreSuperHeroe}$`, "i") }, // Busca por nombre (case-insensitive)
-      datosActualizados, // Nuevos datos
-      { new: true, runValidators: true } // Opciones: devuelve el documento actualizado y aplica validaciones
+      // busca por nombre (case-insensitive)
+      { nombreSuperHeroe: new RegExp(`^${nombreSuperHeroe}$`, "i") }, 
+      // nuevos datos
+      datosActualizados,
+      //opciones: devuelve el documento actualizado y aplica validaciones
+      { new: true, runValidators: true } 
     );
   }
 
-  // Método para eliminar un superhéroe por ID
+  // metodo para eliminar un superhéroe por ID
   async eliminarPorId(id) {
     return await SuperHero.findByIdAndDelete(id); // Busca por ID y elimina
   }
   
   async eliminarPorNombre(nombreSuperHeroe) {
-    // Búsqueda insensible a mayúsculas/minúsculas
+    // busqueda insensible a mayúsculas/minúsculas
     const query = { nombreSuperHeroe: new RegExp(nombreSuperHeroe, 'i') };
-    // Encuentra y elimina el superhéroe
+    // encuentra y elimina el superhéroe
     return await SuperHero.findOneAndDelete(query); 
   }
 }

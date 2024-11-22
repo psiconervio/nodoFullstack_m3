@@ -14,28 +14,35 @@ app.use(express.json());
 app.set('view engine', 'ejs');
 app.set('views', './views');
 
+app.get('/addSuperhero', (req, res) => {
+  res.render('addSuperhero', { title: 'Página Principal' }); // Renderiza la vista home.ejs
+});
+// router.post('/superheroes', crearSuperHeroeController);
 // Ruta para el dashboard
-app.get('/dashboard', async (req, res) => {
+app.get('/', async (req, res) => {
   try {
+    // Fetch para obtener los heroes desde la API
     const response = await fetch('http://localhost:3000/api/heroes');
     if (!response.ok) {
       throw new Error('Error al obtener superhéroes');
     }
 
-    const superheroes = await response.json();
-    console.log('Datos enviados a la vista:', superheroes); // Verifica aquí los datos
+    const superheroes = await response.json(); // datos recibidos de la API
+    // console.log('Datos enviados a la vista:', superheroes); //verifica los datos
+
+    // Renderiza la vista "dashboard" y envía los datos
     res.render('dashboard', { superheroes });
   } catch (error) {
-    console.error('Error al cargar el dashboard:', error);
+    console.error('Error al cargar el dashboard:', error.message);
     res.status(500).send('Error al cargar el dashboard');
   }
 });
 
 
-// Conexión a MongoDB
+// conexion a MongoDB
 connectDB();
 
-// Configuración de rutas a través de la subruta /api
+// configuración de rutas a través de la subruta /api
 app.use('/api', superHeroRoutes);
 
 // Manejo de errores para rutas no encontradas

@@ -1,24 +1,24 @@
 import { body, validationResult } from 'express-validator';
 
-export const validarCamposSuperHeroe = [
-  body('nombreSuperheroe')
+export const validarHeroeEvalidator = [
+  body('nombreSuperHeroe')
     .trim()
     .notEmpty()
-    .withMessage('El nombre del superhéroe es obligatorio')
+    .withMessage('el nombre del heroe es obligatorio')
     .isLength({ min: 3, max: 60 })
-    .withMessage('El nombre debe tener entre 3 y 60 caracteres'),
+    .withMessage('el nombre debe tener entre 3 y 60 caracteres'),
   body('nombreReal')
     .trim()
     .notEmpty()
-    .withMessage('El nombre real es obligatorio')
+    .withMessage('el nombre real es obligatorio')
     .isLength({ min: 3, max: 60 })
-    .withMessage('El nombre real debe tener entre 3 y 60 caracteres'),
+    .withMessage('el nombre real debe tener entre 3 y 60 caracteres'),
   body('edad')
     .isInt({ min: 0 })
-    .withMessage('La edad debe ser un número mayor o igual a 0'),
+    .withMessage('la edad debe ser un numero mayor o igual a 0'),
   body('poderes')
     .isArray({ min: 1 })
-    .withMessage('Los poderes deben ser un array con al menos un elemento')
+    .withMessage('los poderes deben ser un array con al menos un elemento')
     .custom((poderes) => {
       const valid = poderes.every(
         (poder) => typeof poder === 'string' && poder.trim().length >= 3 && poder.trim().length <= 60
@@ -34,3 +34,10 @@ export const validarCamposSuperHeroe = [
     next();
   }
 ];
+//trata estos datos
+// {
+//   "nombreSuperheroe": "Batman",
+//   "nombreReal": "Bruce Wayne",
+//   "edad": 35,
+//   "poderes": ["Inteligencia", "Artes marciales", "Tecnología avanzada"]
+// }
