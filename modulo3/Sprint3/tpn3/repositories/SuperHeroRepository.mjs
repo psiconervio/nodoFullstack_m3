@@ -9,24 +9,10 @@ class SuperHeroRepository extends IRepository {
   async obtenerPorId(id) {
     return await SuperHero.findById(id);
   }
+
   async obtenerTodos() {
-    const heroes = await SuperHero.find({});
-    return heroes.map(hero => ({
-      id: hero._id.toString(), // Incluye el ID del héroe como una propiedad `id`
-      nombreSuperHeroe: hero.nombreSuperHeroe,
-      nombreReal: hero.nombreReal,
-      edad: hero.edad,
-      planetaOrigen: hero.planetaOrigen,
-      debilidad: hero.debilidad,
-      poderes: hero.poderes,
-      aliados: hero.aliados,
-      enemigos: hero.enemigos,
-      createdAt: hero.createdAt
-    }));
+    return await SuperHero.find({});
   }
-  // async obtenerTodos() {
-  //   return await SuperHero.find({});
-  // }
 
   async buscarPorAtributo(atributo, valor) {
     const query = { [atributo]: new RegExp(valor, "i") };

@@ -1,36 +1,69 @@
 import express from 'express';
+import { convertirFormularioAJSON } from "./middleware/midlewareConvertiraJson.mjs"; 
 import { connectDB } from './config/dbConfig.mjs';
+import  methodOverride  from "method-override";
 import superHeroRoutes from './routes/superheroRoutes.mjs';
-import { validarCamposSuperHeroe } from "./middleware/validarNombreSuperHeroe.mjs";
 import ejs from 'ejs';
 
 const app = express();
 const PORT = process.env.PORT || 3000;
+app.use(methodOverride('_method'));
+app.use(express.urlencoded({ extended: true }));
 
-//middleware para parsear JSON
+// Middleware para parsear JSON
 app.use(express.json());
+// Usar method-override para soportar métodos PUT y DELETE
+// app.use(convertirFormularioAJSON);
 
-// configuración de EJS
+// Configuración de EJS
 app.set('view engine', 'ejs');
 app.set('views', './views');
 
-app.get('/addSuperhero', (req, res) => {
-  res.render('addSuperhero', { title: 'Página Principal' }); // Renderiza la vista home.ejs
+// Página para agregar superhéroes
+app.get('/addSuperhero', async(req, res) => {
+  // try {
+  //       // Obtener los superhéroes desde la API
+  //   const response = await fetch('http://127.0.0.1:3000/api/heroes');
+  //   if (!response.ok) {
+  //     throw new Error('Error al obtener superhéroes');
+  //   }
+  //   const superheroes = await response.json();
+  //   console.log('Superhéroes enviados a la vista:', superheroes);
+  // } catch (error) {
+  //   console.error(error)
+  // }
+  res.render('addSuperhero');
 });
-// router.post('/api/heroes', crearSuperHeroeController);
-// Ruta para el dashboard
-app.get('/', async (req, res) => {
-  try {
-    // fetch para obtener los heroes desde la API
-    const response = await fetch('http://localhost:3000/api/heroes');
+
+app.get('/editSuperHero', async (req, res) => {
+    try {
+        // Obtener los superhéroes desde la API
+    const response = await fetch('http://127.0.0.1:3000/api/heroes');
     if (!response.ok) {
       throw new Error('Error al obtener superhéroes');
     }
-    // datos recibidos de la api
-    const superheroes = await response.json(); 
-    console.log('datos enviados a la vista:', superheroes); 
+    const superheroes = await response.json();
+    
+    console.log('Superhéroes enviados a la vista:', superheroes);
+   res.render('editSuperHero',{superheroes});
 
-    // renderiza la vista  dashboard y envia los datos
+  } catch (error) {
+    console.error(error)
+  }
+});
+
+// Ruta para el dashboard
+app.get('/', async (req, res) => {
+  try {
+    // Obtener los superhéroes desde la API
+    const response = await fetch('http://127.0.0.1:3000/api/heroes');
+    if (!response.ok) {
+      throw new Error('Error al obtener superhéroes');
+    }
+    const superheroes = await response.json();
+    console.log('Superhéroes enviados a la vista:', superheroes);
+
+    // Renderizar la vista del dashboard
     res.render('dashboard', { superheroes });
   } catch (error) {
     console.error('Error al cargar el dashboard:', error.message);
@@ -38,21 +71,77 @@ app.get('/', async (req, res) => {
   }
 });
 
-// conexion a mongodb
+// Conexión a MongoDB
 connectDB();
 
-// configuración de rutas a traves de la subruta /api
+// Rutas para la API
 app.use('/api', superHeroRoutes);
 
-// manejo de errores para rutas no encontradas
+// Manejo de errores para rutas no encontradas
 app.use((req, res) => {
   res.status(404).send({ mensaje: "Ruta no encontrada" });
 });
 
-// inicializacion de el servidor
+// Inicialización del servidor
 app.listen(PORT, () => {
   console.log(`Servidor corriendo en http://localhost:${PORT}`);
 });
+
+// import express from 'express';
+// import { connectDB } from './config/dbConfig.mjs';
+// import superHeroRoutes from './routes/superheroRoutes.mjs';
+// import { validarCamposSuperHeroe } from "./middleware/validarNombreSuperHeroe.mjs";
+// import ejs from 'ejs';
+
+// const app = express();
+// const PORT = process.env.PORT || 3000;
+
+// //middleware para parsear JSON
+// app.use(express.json());
+
+// // configuración de EJS
+// app.set('view engine', 'ejs');
+// app.set('views', './views');
+
+// app.get('/addSuperhero', (req, res) => {
+//   res.render('addSuperhero', { title: 'Página Principal' }); // Renderiza la vista home.ejs
+// });
+// // router.post('/api/heroes', crearSuperHeroeController);
+// // Ruta para el dashboard
+// app.get('/', async (req, res) => {
+//   try {
+//     // fetch para obtener los heroes desde la API
+//     const response = await fetch('http://localhost:3000/api/heroes');
+//     if (!response.ok) {
+//       throw new Error('Error al obtener superhéroes');
+//     }
+//     // datos recibidos de la api
+//     const superheroes = await response.json(); 
+//     console.log('datos enviados a la vista:', superheroes); 
+
+//     // renderiza la vista  dashboard y envia los datos
+//     res.render('dashboard', { superheroes });
+//   } catch (error) {
+//     console.error('Error al cargar el dashboard:', error.message);
+//     res.status(500).send('Error al cargar el dashboard');
+//   }
+// });
+
+// // conexion a mongodb
+// connectDB();
+
+// // configuración de rutas a traves de la subruta /api
+// app.use('/api', superHeroRoutes);
+
+// // manejo de errores para rutas no encontradas
+// app.use((req, res) => {
+//   res.status(404).send({ mensaje: "Ruta no encontrada" });
+// });
+
+// // inicializacion de el servidor
+// app.listen(PORT, () => {
+//   console.log(`Servidor corriendo en http://localhost:${PORT}`);
+// });
 
 // import express from 'express';
 // import { connectDB } from './config/dbConfig.mjs';
