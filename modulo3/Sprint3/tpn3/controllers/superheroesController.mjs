@@ -103,6 +103,7 @@ export const borrarHeroePorId = async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 };
+
 export const borrarHeroePorNombre = async (req, res) => {
   try {
     // obtiene el nombre del heroe desde los parámetros de la URL
