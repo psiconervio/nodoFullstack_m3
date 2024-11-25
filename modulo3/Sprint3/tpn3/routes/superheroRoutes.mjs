@@ -27,10 +27,13 @@ router.get('/heroes/buscar/mayores', obtenerSuperheroesMayoresDe30NativoControll
 // router.post('/heroes',validarCamposSuperHeroe, crearHeroeController );
 // router.post('/heroes',validarHeroeEvalidator, crearHeroeController );
 router.post('/heroes',validarHeroeEvalidator, crearHeroeController );
+router.post('/heroes', crearHeroeController );
 // ejercicio 3
 router.put('/heroes/nombre/:nombreSuperHeroe',validarHeroeEvalidator, actualizarHeroePorNombre);
 // ejercicio 4
 router.delete('/heroes/id/:id', borrarHeroePorId);
+//PETICION HTTP DE DELETE A GET PARA PODER ELMINAR 
+router.get('/heroes/id/:id', borrarHeroePorId);
 // ejercicio 5 Endpoint DELETE para eliminar un heroe por nombre
 router.delete('/heroes/nombre/:nombre', borrarHeroePorNombre);
 

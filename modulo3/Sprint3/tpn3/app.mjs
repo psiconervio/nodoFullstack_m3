@@ -22,18 +22,18 @@ app.set('views', './views');
 
 // Página para agregar superhéroes
 app.get('/addSuperhero', async(req, res) => {
-  try {
+  // try {
         // Obtener los superhéroes desde la API
-    const response = await fetch('http://127.0.0.1:3000/api/heroes');
-    if (!response.ok) {
-      throw new Error('Error al obtener superhéroes');
-    }
-    const superheroes = await response.json();
-    console.log('Superhéroes enviados a la vista:', superheroes);
-  } catch (error) {
-    console.error(error)
-  }
-  res.render('addSuperhero',{superheroes});
+  //   const response = await fetch('http://127.0.0.1:3000/api/heroes');
+  //   if (!response.ok) {
+  //     throw new Error('Error al obtener superhéroes');
+  //   }
+  //   const superheroes = await response.json();
+  //   console.log('Superhéroes enviados a la vista:', superheroes);
+  // } catch (error) {
+  //   console.error(error)
+  // }
+  res.render('addSuperhero');
 });
 
 app.get('/editSuperHero', async (req, res) => {

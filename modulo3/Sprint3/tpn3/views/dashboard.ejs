@@ -31,8 +31,7 @@
           <td><%= hero.id || "N/A" %></td>
           <td>
             <a href="/heroes/id/<%= hero.id %>">Editar</a>
-            <form action="/api/heroes/id/<%= hero.id %>"  style="display: inline;">
-              <input type="hidden" name="_method" value="DELETE">
+            <form action="/api/heroes/id/<%= hero.id %>" method="DELETE"  style="display: inline;">
               <button type="submit">Eliminar</button>
             </form>
             
