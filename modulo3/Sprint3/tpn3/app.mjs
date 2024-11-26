@@ -20,16 +20,38 @@ app.use(express.json());
 app.set('view engine', 'ejs');
 app.set('views', './views');
 
+
+// app.get('/editSuperhero/:id', async (req, res) => {
+//   const id = req.params.id;
+
+//   try {
+//     const superhero = await obtenerSuperheroePorId(id); // Llama a la función o servicio que obtiene el superhéroe
+//     console.log('Superhéroe cargado desde la base de datos:', superhero); // Imprime el objeto recuperado
+
+//     if (superhero) {
+//       res.render('editSuperhero', { superhero }); // Envia el superhéroe a la vista
+//     } else {
+//       console.log(`Superhéroe con ID ${id} no encontrado.`);
+//       res.status(404).render('editSuperhero', { superhero: null }); // Renderiza con superhero = null
+//     }
+//   } catch (error) {
+//     console.error('Error al obtener el superhéroe:', error);
+//     res.status(500).send('Error interno del servidor');
+//   }
+// });
+//enpoint actualizado
 app.get('/editSuperhero/:id', obtenerSuperheroePorIdController, (req, res) => {
-  const superheroe = req.superheroe; // Obtén el superhéroe desde `req`
-  console.log("Superhéroe a renderizar:", superheroe); // Verificar en consola
+  const superheroe = req.superheroe; // Obtenido desde el middleware
 
   if (superheroe) {
-    res.render('editSuperhero', { superhero: superheroe });
+    console.log(superheroe);
+    res.render('editSuperhero', { superhero: superheroe }); // Envía el superhéroe como 'superhero'
   } else {
     res.status(404).send({ mensaje: "Superhéroe no encontrado" });
   }
 });
+
+
 //ENPOINT VIEJO
 // app.get('/editSuperhero/:id', obtenerSuperheroePorIdController, (req, res) => {
 //   const superheroe = req.superheroe; // Obtén el superhéroe desde `req`
@@ -69,18 +91,18 @@ app.get('/addSuperhero', async(req, res) => {
 });
 
 // Ruta para renderizar la vista de edición
-app.get('/editSuperhero/:id', async (req, res) => {
-  try {
-    // Llamamos al controlador pasándole `req` y `res` directamente
-    await obtenerSuperheroePorIdController(req);
+// app.get('/editSuperhero/:id', async (req, res) => {
+//   try {
+//     // Llamamos al controlador pasándole `req` y `res` directamente
+//     await obtenerSuperheroePorIdController(req);
 
-    // Nota: Si `obtenerSuperheroePorIdController` envía la respuesta,
-    // este bloque adicional no se ejecutará.
-  } catch (error) {
-    console.error("Error al procesar la solicitud:", error);
-    res.status(500).send({ mensaje: "Error interno del servidor" });
-  }
-});
+//     // Nota: Si `obtenerSuperheroePorIdController` envía la respuesta,
+//     // este bloque adicional no se ejecutará.
+//   } catch (error) {
+//     console.error("Error al procesar la solicitud:", error);
+//     res.status(500).send({ mensaje: "Error interno del servidor" });
+//   }
+// });
 
 
 // Ruta para el dashboard
@@ -92,7 +114,7 @@ app.get('/', async (req, res) => {
       throw new Error('Error al obtener superhéroes');
     }
     const superheroes = await response.json();
-    console.log('Superhéroes enviados a la vista:', superheroes);
+    // console.log('Superhéroes enviados a la vista:', superheroes);
 
     // Renderizar la vista del dashboard
     res.render('dashboard', { superheroes });

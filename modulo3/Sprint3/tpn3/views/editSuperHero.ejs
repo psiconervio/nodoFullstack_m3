@@ -4,6 +4,74 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Editar Superhéroe</title>
+  <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+  <header>
+    <h1>Editar Superhéroe</h1>
+  </header>
+
+  <% if (superheroe) { %>
+    <!-- Imprimir el superhéroe en la consola del navegador -->
+    <script>
+      console.log('Superhéroe cargado:', <%= JSON.stringify(superheroe) %>);
+    </script>
+
+    <form action="/updateSuperhero/<%= superhero.id %>" method="POST">
+      <label for="Nombre">Nombre</label>
+      <input type="text" id="Nombre" name="Nombre" value="<%= superhero.Nombre || '' %>" required />
+    
+      <label for="NombreReal">Nombre Real</label>
+      <input type="text" id="NombreReal" name="NombreReal" value="<%= superhero.NombreReal || '' %>" required />
+    
+      <label for="Edad">Edad</label>
+      <input type="number" id="Edad" name="Edad" value="<%= superhero.Edad || '' %>" required />
+    
+      <label for="PlanetadeOrigen">Planeta de Origen</label>
+      <input type="text" id="PlanetadeOrigen" name="PlanetadeOrigen" value="<%= superhero.PlanetadeOrigen || '' %>" required />
+    
+      <label for="Debilidad">Debilidad</label>
+      <input type="text" id="Debilidad" name="Debilidad" value="<%= superhero.Debilidad || '' %>" required />
+    
+      <label for="Poderes">Poderes</label>
+      <textarea id="Poderes" name="Poderes" rows="4"><%= superhero.Poderes ? superhero.Poderes.join(', ') : '' %></textarea>
+    
+      <label for="Aliados">Aliados</label>
+      <textarea id="Aliados" name="Aliados" rows="3"><%= superhero.Aliados ? superhero.Aliados.join(', ') : '' %></textarea>
+    
+      <label for="Enemigos">Enemigos</label>
+      <textarea id="Enemigos" name="Enemigos" rows="3"><%= superhero.Enemigos ? superhero.Enemigos.join(', ') : '' %></textarea>
+    
+      <button type="submit">Actualizar</button>
+    </form>
+    
+  <% } else { %>
+    <p>El superhéroe no se encontró. <a href="/superheroes">Volver a la lista</a></p>
+  <% } %>
+</body>
+</html>
+
+
+<!-- <h1>Editar Superhéroe</h1>
+<form action="/updateSuperhero/<%= superhero.id %>" method="POST">
+  <label for="name">Nombre:</label>
+  <input type="text" id="name" name="name" value="<%= superhero.name %>">
+  
+  <label for="power">Poder:</label>
+  <input type="text" id="power" name="power" value="<%= superhero.power %>">
+  
+  <label for="universe">Universo:</label>
+  <input type="text" id="universe" name="universe" value="<%= superhero.universe %>">
+  
+  <button type="submit">Guardar</button>
+</form> -->
+
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Editar Superhéroe</title>
 </head>
 <body>
   <h1>Editar Superhéroe: <%= superhero.nombreSuperHeroe %></h1>
@@ -160,4 +228,4 @@
 
   <a href="/">Volver al Dashboard</a>
 </body>
-</html> --> -->
+</html> --> --> -->

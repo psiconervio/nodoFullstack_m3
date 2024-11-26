@@ -7,7 +7,7 @@
 </head>
 <body>
   <h1>Lista de Superhéroes</h1>
-  <a href="addSuperhero.ejs">Agregar Nuevo Superhéroe</a>
+  <a href="/addSuperhero">Agregar Nuevo Superhéroe</a>
   <table border="1">
     <thead>
       <tr>
@@ -34,8 +34,6 @@
             <form action="/api/heroes/id/<%= hero.id %>" method="DELETE"  style="display: inline;">
               <button type="submit">Eliminar</button>
             </form>
-            
-            
           </td>
         </tr>
       <% }); %>
