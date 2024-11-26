@@ -4,12 +4,12 @@ import { connectDB } from './config/dbConfig.mjs';
 import  methodOverride  from "method-override";
 import superHeroRoutes from './routes/superheroRoutes.mjs';
 import ejs from 'ejs';
+import { obtenerSuperheroePorIdController } from "./controllers/superheroesController.mjs";
 
 const app = express();
 const PORT = process.env.PORT || 3000;
 app.use(express.urlencoded({ extended: true }));
 app.use(methodOverride('_method'));
-
 
 // Middleware para parsear JSON
 app.use(express.json());
@@ -20,6 +20,38 @@ app.use(express.json());
 app.set('view engine', 'ejs');
 app.set('views', './views');
 
+app.get('/editSuperhero/:id', obtenerSuperheroePorIdController, (req, res) => {
+  const superheroe = req.superheroe; // Obtén el superhéroe desde `req`
+  console.log("Superhéroe a renderizar:", superheroe); // Verificar en consola
+
+  if (superheroe) {
+    res.render('editSuperhero', { superhero: superheroe });
+  } else {
+    res.status(404).send({ mensaje: "Superhéroe no encontrado" });
+  }
+});
+//ENPOINT VIEJO
+// app.get('/editSuperhero/:id', obtenerSuperheroePorIdController, (req, res) => {
+//   const superheroe = req.superheroe; // Obtén el superhéroe desde `req`
+//   console.log(superheroe); // Verifica si está mostrando el superhéroe correctamente
+
+//   if (superheroe) {
+//     res.render('editSuperhero', { superhero: superheroe });
+//   } else {
+//     res.status(404).send({ mensaje: "Superhéroe no encontrado" });
+//   }
+// });
+
+// app.get('/editSuperhero/:id',obtenerSuperheroePorIdController, async (req, res) => {
+//   const superheroe = await obtenerSuperheroePorIdController(res);
+//   console.log(req);  // Verifica si está mostrando el id correctamente
+
+//   if (superheroe) {
+//     res.render('editSuperhero', { superhero: superheroe });
+//   } else {
+//     res.status(404).send({ mensaje: "Superhéroe no encontrado" });
+//   }
+// });
 // Página para agregar superhéroes
 app.get('/addSuperhero', async(req, res) => {
   // try {
@@ -36,22 +68,20 @@ app.get('/addSuperhero', async(req, res) => {
   res.render('addSuperhero');
 });
 
-app.get('/editSuperHero', async (req, res) => {
-    try {
-        // Obtener los superhéroes desde la API
-    const response = await fetch('http://127.0.0.1:3000/api/heroes');
-    if (!response.ok) {
-      throw new Error('Error al obtener superhéroes');
-    }
-    const superheroes = await response.json();
-    
-    console.log('Superhéroes enviados a la vista:', superheroes);
-   res.render('editSuperHero',{superheroes});
+// Ruta para renderizar la vista de edición
+app.get('/editSuperhero/:id', async (req, res) => {
+  try {
+    // Llamamos al controlador pasándole `req` y `res` directamente
+    await obtenerSuperheroePorIdController(req);
 
+    // Nota: Si `obtenerSuperheroePorIdController` envía la respuesta,
+    // este bloque adicional no se ejecutará.
   } catch (error) {
-    console.error(error)
+    console.error("Error al procesar la solicitud:", error);
+    res.status(500).send({ mensaje: "Error interno del servidor" });
   }
 });
+
 
 // Ruta para el dashboard
 app.get('/', async (req, res) => {

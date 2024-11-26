@@ -3,16 +3,28 @@ import superHeroRepository from '../repositories/SuperHeroRepository.mjs';
 import { obtenerSuperheroePorId, obtenerTodosLosSuperheroes, buscarSuperheroesPorAtributo, obtenerSuperheroesMayoresDe30,obtenerSuperheroesMayoresDe30Nativo, } from '../services/superheroesService.mjs';
 import { renderizarSuperheroe, renderizarListaSuperheroes } from '../views/responseView.mjs';
 
-export async function obtenerSuperheroePorIdController(req, res) {
-  const { id } = req.params;
-  const superheroe = await obtenerSuperheroePorId(id);
+app.get('/editSuperhero/:id', obtenerSuperheroePorIdController, (req, res) => {
+  const superheroe = req.superheroe; // Obtén el superhéroe desde `req`
+  console.log("Superhéroe a renderizar:", superheroe); // Verificar en consola
 
   if (superheroe) {
-    res.send(renderizarSuperheroe(superheroe));
+    res.render('editSuperhero', { superhero: superheroe });
   } else {
     res.status(404).send({ mensaje: "Superhéroe no encontrado" });
   }
-}
+});
+
+//ENPOINT ORIGINAL
+// export async function obtenerSuperheroePorIdController(req, res) {
+//   const { id } = req.params;
+//   const superheroe = await obtenerSuperheroePorId(id);
+
+//   if (superheroe) {
+//     res.send(renderizarSuperheroe(superheroe));
+//   } else {
+//     res.status(404).send({ mensaje: "Superhéroe no encontrado" });
+//   }
+// }
 
 export async function obtenerTodosLosSuperheroesController(req, res) {
   const superheroes = await obtenerTodosLosSuperheroes();
