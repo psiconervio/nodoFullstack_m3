@@ -29,6 +29,6 @@ export const createSuperHeroService = async (superHeroData) => {
   return await superHeroRepository.create(superHeroData);
 };
 
-export const actualizarPorIdd = async (superHeroData) => {
+export const actualizarPorIdService = async (superHeroData) => {
   return await superHeroRepository.actualizarPorId(superHeroData);
 }

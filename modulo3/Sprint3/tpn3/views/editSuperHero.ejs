@@ -17,7 +17,7 @@
       console.log('Superhéroe cargado:', <%= JSON.stringify(superhero) %>);
     </script>
 
-    <form action="api/heroes/idput/<%= superhero.id %>" method="POST">
+    <form action="/api/heroes/idput/<%= superhero.id %>" method="POST">
       <label for="Nombre">Nombre</label>
       <input type="text" id="Nombre" name="Nombre" value="<%= superhero.Nombre || '' %>" required />
     
