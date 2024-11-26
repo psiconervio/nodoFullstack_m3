@@ -1,6 +1,6 @@
 import superHeroRepository from '../repositories/SuperHeroRepository.mjs';
 
-import { obtenerSuperheroePorId, obtenerTodosLosSuperheroes, buscarSuperheroesPorAtributo, obtenerSuperheroesMayoresDe30,obtenerSuperheroesMayoresDe30Nativo, } from '../services/superheroesService.mjs';
+import { obtenerSuperheroePorId, obtenerTodosLosSuperheroes, buscarSuperheroesPorAtributo, obtenerSuperheroesMayoresDe30,obtenerSuperheroesMayoresDe30Nativo,actualizarPorIdd } from '../services/superheroesService.mjs';
 import { renderizarSuperheroe, renderizarListaSuperheroes } from '../views/responseView.mjs';
 
 
@@ -88,6 +88,26 @@ export const actualizarHeroePorNombre = async (req, res) => {
     const updateData = req.body; 
     // llama al repositorio y le pasa los parametros
     const updatedSuperHero = await superHeroRepository.actualizarPorNombre(nombreSuperHeroe, updateData);
+
+    if (!updatedSuperHero) {
+      return res.status(404).json({ message: 'heroe no encontrado' });
+    }
+    // renderiza el heroe actualizado
+    const response = renderizarSuperheroe(updatedSuperHero); 
+    // devuelve el heroe actualizado
+    res.status(200).json(response); 
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+export const actualizarHeroePorId = async (req, res) => {
+  try {
+    // obtiene el id del heroe desde los parametros de la url
+    const { id } = req.params;
+    // datos nuevos enviados en el cuerpo de la solicitud
+    const updateData = req.body; 
+    // llama al repositorio y le pasa los parametros
+    const updatedSuperHero = await superHeroRepository.actualizarPorIdd(id, updateData);
 
     if (!updatedSuperHero) {
       return res.status(404).json({ message: 'heroe no encontrado' });

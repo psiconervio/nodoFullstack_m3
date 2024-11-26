@@ -28,3 +28,7 @@ export const createSuperHeroService = async (superHeroData) => {
   // Validaciones adicionales si es necesario
   return await superHeroRepository.create(superHeroData);
 };
+
+export const actualizarPorIdd = async (superHeroData) => {
+  return await superHeroRepository.actualizarPorId(superHeroData);
+}

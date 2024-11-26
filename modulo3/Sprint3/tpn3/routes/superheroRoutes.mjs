@@ -12,7 +12,8 @@ import {
   crearHeroeController,
   actualizarHeroePorNombre,
   borrarHeroePorId,
-  borrarHeroePorNombre
+  borrarHeroePorNombre,
+  actualizarHeroePorId
 } from '../controllers/superheroesController.mjs';
 
 const router = express.Router();
@@ -34,6 +35,8 @@ router.put('/heroes/nombre/:nombreSuperHeroe',validarHeroeEvalidator, actualizar
 router.delete('/heroes/id/:id', borrarHeroePorId);
 //PETICION HTTP DE DELETE A GET PARA PODER ELMINAR 
 router.get('/heroes/id/:id', borrarHeroePorId);
+//Actualizar por id
+router.get('/heroes/idput/:id', actualizarHeroePorId);
 // ejercicio 5 Endpoint DELETE para eliminar un heroe por nombre
 router.delete('/heroes/nombre/:nombre', borrarHeroePorNombre);
 

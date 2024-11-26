@@ -17,6 +17,10 @@ class IRepository {
     obtenerMayoresDe30() {
       throw new Error("Método 'obtenerMayoresDe30()' no implementado");
     }
+    // segundo paso definir metodo para actualizar
+    actualizarPorId(id) {
+      throw new Error("Método 'actualizarPorId()' no");
+    }
   }
-  
+
   export default IRepository;

@@ -9,7 +9,18 @@ class SuperHeroRepository extends IRepository {
   async obtenerPorId(id) {
     return await SuperHero.findById(id);
   }
-
+  //primer paso crear la interaccion con la db y exportar la funcion al irepository
+  async actualizarPorId(id, datosActualizados) {
+    return await SuperHero.findByIdAndUpdate(
+      // busca por id
+      id, 
+      // nuevos datos
+      datosActualizados,
+      // opciones: devuelve el documento actualizado y aplica validaciones
+      { new: true, runValidators: true }
+    );
+  }
+  
   async obtenerTodos() {
     return await SuperHero.find({});
   }
