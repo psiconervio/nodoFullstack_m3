@@ -1,6 +1,6 @@
 import superHeroRepository from '../repositories/SuperHeroRepository.mjs';
 import { obtenerSuperheroePorId, obtenerTodosLosSuperheroes, buscarSuperheroesPorAtributo,
-obtenerSuperheroesMayoresDe30,obtenerSuperheroesMayoresDe30Nativo,createSuperHeroService,actualizarPorIdService,borrarHeroePorIdService } from '../services/superheroesService.mjs';
+obtenerSuperheroesMayoresDe30,obtenerSuperheroesMayoresDe30Nativo,createSuperHeroService,borrarHeroePorIdService } from '../services/superheroesService.mjs';
 import { renderizarSuperheroe, renderizarListaSuperheroes } from '../views/responseView.mjs';
 
 export const actualizarHeroePorId = async (req, res) => {
@@ -30,7 +30,6 @@ export const actualizarHeroePorId = async (req, res) => {
     res.status(500).send('Error al actualizar');
   }
 };
-
 export async function obtenerSuperheroePorIdController(req, res, next) {
   const { id } = req.params;
   try {
@@ -65,7 +64,6 @@ export async function obtenerSuperheroesMayoresDe30Controller(req, res) {
   res.send(renderizarListaSuperheroes(superheroes));
 }
 export async function obtenerSuperheroesMayoresDe30NativoController(req, res) {
-//La solicitud HTTP entrante, //res: La respuesta HTTP que se enviara al cliente
 
 //obtenerSuperheroesMayoresDe30Nativo() servicio
   const superheroes = await obtenerSuperheroesMayoresDe30Nativo();
@@ -73,6 +71,10 @@ export async function obtenerSuperheroesMayoresDe30NativoController(req, res) {
 // una lista de los superheroes y la devuelve
   res.send(renderizarListaSuperheroes(superheroes));
 }
+// el controlador le pasa los datos al servicio,
+// el servicio ejecuta las funciones repositorio pasandole los datos,
+// devuelve esta ejecucion al controlador,
+// y el controllador devuelve la respuesta
 // controlador para crear un nuevo heroe
 export const crearHeroeController = async (req, res) => {
   try {
@@ -90,7 +92,6 @@ export const crearHeroeController = async (req, res) => {
     res.status(400).json({ message: error.message }); // Mejor manejo de errores
   }
 };
-
 
 export const actualizarHeroePorNombre = async (req, res) => {
   try {
@@ -112,7 +113,7 @@ export const actualizarHeroePorNombre = async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 };
-// controlador para eliminar un heroe por ID
+
 export const borrarHeroePorId = async (req, res) => {
   try {
     // Obtiene el ID del héroe desde los parámetros de la URL
