@@ -1,4 +1,4 @@
-// import SuperHeroRepository from '../repositories/SuperHeroRepository.mjs';
+import SuperHeroRepository from '../repositories/SuperHeroRepository.mjs';
 // import { renderizarSuperheroe } from '../views/responseView.mjs';
 import express from 'express';
 import { validarHeroeEvalidator  } from "../middleware/validarMidle.mjs";
@@ -36,12 +36,34 @@ router.delete('/heroes/id/:id', borrarHeroePorId);
 //PETICION HTTP DE DELETE A GET PARA PODER ELMINAR 
 router.get('/heroes/id/:id', borrarHeroePorId);
 //Actualizar por id
+// router.post('/heroes/idput/:id', actualizarHeroePorId);
 router.post('/heroes/idput/:id', actualizarHeroePorId);
+// router.post('/heroes/idput/:id', async (req, res) => {
+//   try {
+//     console.log('Datos recibidos:', req.body);
+//     const { poderes, aliados, enemigos, ...rest } = req.body;
+//     const updateData = {
+//       ...rest,
+//       poderes: poderes.split(',').map(p => p.trim()),
+//       aliados: aliados.split(',').map(a => a.trim()),
+//       enemigos: enemigos.split(',').map(e => e.trim()),
+//     };
+
+//     const updatedHero = await SuperHeroRepository.actualizarPorId(req.params.id, updateData);
+
+//     if (!updatedHero) {
+//       return res.status(404).send('Héroe no encontrado');
+//     }
+
+//     res.redirect(`/api/heroes/id/${req.params.id}`);
+//   } catch (error) {
+//     console.error(error);
+//     res.status(500).send('Error al actualizar');
+//   }
+// });
+
 // ejercicio 5 Endpoint DELETE para eliminar un heroe por nombre
 router.delete('/heroes/nombre/:nombre', borrarHeroePorNombre);
-
-router.get('/asd', obtenerTodosLosSuperheroesController);
-
 
 export default router;
 //obtener id

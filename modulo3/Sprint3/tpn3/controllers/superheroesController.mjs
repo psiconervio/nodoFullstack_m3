@@ -103,24 +103,52 @@ export const actualizarHeroePorNombre = async (req, res) => {
 };
 export const actualizarHeroePorId = async (req, res) => {
   try {
-    // obtiene el id del heroe desde los parametros de la url
-    const { id } = req.params;
-    // datos nuevos enviados en el cuerpo de la solicitud
-    const updateData = req.body; 
-    // llama al repositorio y le pasa los parametros
-    const updatedSuperHero = await superHeroRepository.actualizarPorId(id, updateData);
+    console.log('Datos recibidos:', req.body);
 
-    if (!updatedSuperHero) {
-      return res.status(404).json({ message: 'heroe no encontrado' });
+    // Destructuración y formateo de datos recibidos
+    const { poderes, aliados, enemigos, ...rest } = req.body;
+    const updateData = {
+      ...rest,
+      poderes: poderes.split(',').map(p => p.trim()),
+      aliados: aliados.split(',').map(a => a.trim()),
+      enemigos: enemigos.split(',').map(e => e.trim()),
+    };
+
+    // Llamada al repositorio para actualizar el héroe
+    const updatedHero = await superHeroRepository.actualizarPorId(req.params.id, updateData);
+
+    if (!updatedHero) {
+      return res.status(404).send('Héroe no encontrado');
     }
-    // renderiza el heroe actualizado
-    const response = renderizarSuperheroe(updatedSuperHero); 
-    // devuelve el heroe actualizado
-    res.status(200).json(response); 
+
+    // Redirige a la lista de héroes o a una página de éxito
+    res.redirect('/');
   } catch (error) {
-    res.status(500).json({ message: error.message });
+    console.error(error);
+    res.status(500).send('Error al actualizar');
   }
 };
+// Controlador viejo 
+// export const actualizarHeroePorId = async (req, res) => {
+//   try {
+//     // obtiene el id del heroe desde los parametros de la url
+//     const { id } = req.params;
+//     // datos nuevos enviados en el cuerpo de la solicitud
+//     const updateData = req.body; 
+//     // llama al repositorio y le pasa los parametros
+//     const updatedSuperHero = await superHeroRepository.actualizarPorId(id, updateData);
+
+//     if (!updatedSuperHero) {
+//       return res.status(404).json({ message: 'heroe no encontrado' });
+//     }
+//     // renderiza el heroe actualizado
+//     const response = renderizarSuperheroe(updatedSuperHero); 
+//     // devuelve el heroe actualizado
+//     res.status(200).json(response); 
+//   } catch (error) {
+//     res.status(500).json({ message: error.message });
+//   }
+// };
 
 // controlador para eliminar un heroe por ID
 export const borrarHeroePorId = async (req, res) => {
