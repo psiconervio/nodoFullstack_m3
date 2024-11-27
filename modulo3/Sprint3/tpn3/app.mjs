@@ -1,25 +1,73 @@
 import express from 'express';
-import { convertirFormularioAJSON } from "./middleware/midlewareConvertiraJson.mjs"; 
 import { connectDB } from './config/dbConfig.mjs';
 import  methodOverride  from "method-override";
 import superHeroRoutes from './routes/superheroRoutes.mjs';
-import ejs from 'ejs';
-import { obtenerSuperheroePorIdController } from "./controllers/superheroesController.mjs";
+import { obtenerSuperheroePorIdController, obtenerTodosLosSuperheroesController } from "./controllers/superheroesController.mjs";
 
 const app = express();
 const PORT = process.env.PORT || 3000;
 app.use(express.urlencoded({ extended: true }));
+// usar method-override para soportar métodos PUT y DELETE
 app.use(methodOverride('_method'));
-
-// Middleware para parsear JSON
+// middleware para parsear JSON
 app.use(express.json());
-// Usar method-override para soportar métodos PUT y DELETE
-// app.use(convertirFormularioAJSON);
-
-// Configuración de EJS
+// configuracion de EJS
 app.set('view engine', 'ejs');
 app.set('views', './views');
 
+// ruta para el dashboard
+app.get('/', async (req, res) => {
+  try {
+    // obtener los superhéroes desde la API
+    const response = await fetch('http://127.0.0.1:3000/api/heroes');
+    if (!response.ok) {
+      throw new Error('Error al obtener superhéroes');
+    }
+    const superheroes = await response.json();
+    // console.log('heroes enviados a la vista:', superheroes);
+
+    // renderiza la vista del dashboard
+    res.render('dashboard', { superheroes });
+  } catch (error) {
+    console.error('Error al cargar el dashboard:', error.message);
+    res.status(500).send('Error al cargar el dashboard');
+  }
+});
+
+//enpoint actualizado vistas
+app.get('/editSuperhero/:id', obtenerSuperheroePorIdController, (req, res) => {
+  const superheroe = req.superheroe; // Obtenido desde el middleware
+
+  if (superheroe) {
+    console.log(superheroe);
+    res.render('editSuperhero', { superhero: superheroe }); // Envía el superhéroe como 'superhero'
+  } else {
+    res.status(404).send({ mensaje: "Superhéroe no encontrado" });
+  }
+});
+
+// vista para agregar superhéroes
+app.get('/addSuperhero', async(req, res) => {
+  //renderiza la vista
+    res.render('addSuperhero');
+  });
+
+// Conexión a MongoDB
+connectDB();
+
+// Rutas para la API
+app.use('/api', superHeroRoutes);
+
+// Manejo de errores para rutas no encontradas
+app.use((req, res) => {
+  res.status(404).send({ mensaje: "Ruta no encontrada" });
+});
+
+// Inicialización del servidor
+app.listen(PORT, () => {
+  console.log(`Servidor corriendo en http://localhost:${PORT}`);
+});
+///CODIGOS DESACTUALIZADOS
 
 // app.get('/editSuperhero/:id', async (req, res) => {
 //   const id = req.params.id;
@@ -39,19 +87,7 @@ app.set('views', './views');
 //     res.status(500).send('Error interno del servidor');
 //   }
 // });
-//enpoint actualizado
-app.get('/editSuperhero/:id', obtenerSuperheroePorIdController, (req, res) => {
-  const superheroe = req.superheroe; // Obtenido desde el middleware
-
-  if (superheroe) {
-    console.log(superheroe);
-    res.render('editSuperhero', { superhero: superheroe }); // Envía el superhéroe como 'superhero'
-  } else {
-    res.status(404).send({ mensaje: "Superhéroe no encontrado" });
-  }
-});
-
-
+//
 //ENPOINT VIEJO
 // app.get('/editSuperhero/:id', obtenerSuperheroePorIdController, (req, res) => {
 //   const superheroe = req.superheroe; // Obtén el superhéroe desde `req`
@@ -74,22 +110,7 @@ app.get('/editSuperhero/:id', obtenerSuperheroePorIdController, (req, res) => {
 //     res.status(404).send({ mensaje: "Superhéroe no encontrado" });
 //   }
 // });
-// Página para agregar superhéroes
-app.get('/addSuperhero', async(req, res) => {
-  // try {
-        // Obtener los superhéroes desde la API
-  //   const response = await fetch('http://127.0.0.1:3000/api/heroes');
-  //   if (!response.ok) {
-  //     throw new Error('Error al obtener superhéroes');
-  //   }
-  //   const superheroes = await response.json();
-  //   console.log('Superhéroes enviados a la vista:', superheroes);
-  // } catch (error) {
-  //   console.error(error)
-  // }
-  res.render('addSuperhero');
-});
-
+//
 // Ruta para renderizar la vista de edición
 // app.get('/editSuperhero/:id', async (req, res) => {
 //   try {
@@ -105,41 +126,8 @@ app.get('/addSuperhero', async(req, res) => {
 // });
 
 
-// Ruta para el dashboard
-app.get('/', async (req, res) => {
-  try {
-    // Obtener los superhéroes desde la API
-    const response = await fetch('http://127.0.0.1:3000/api/heroes');
-    if (!response.ok) {
-      throw new Error('Error al obtener superhéroes');
-    }
-    const superheroes = await response.json();
-    // console.log('Superhéroes enviados a la vista:', superheroes);
 
-    // Renderizar la vista del dashboard
-    res.render('dashboard', { superheroes });
-  } catch (error) {
-    console.error('Error al cargar el dashboard:', error.message);
-    res.status(500).send('Error al cargar el dashboard');
-  }
-});
-
-// Conexión a MongoDB
-connectDB();
-
-// Rutas para la API
-app.use('/api', superHeroRoutes);
-
-// Manejo de errores para rutas no encontradas
-app.use((req, res) => {
-  res.status(404).send({ mensaje: "Ruta no encontrada" });
-});
-
-// Inicialización del servidor
-app.listen(PORT, () => {
-  console.log(`Servidor corriendo en http://localhost:${PORT}`);
-});
-
+////
 // import express from 'express';
 // import { connectDB } from './config/dbConfig.mjs';
 // import superHeroRoutes from './routes/superheroRoutes.mjs';

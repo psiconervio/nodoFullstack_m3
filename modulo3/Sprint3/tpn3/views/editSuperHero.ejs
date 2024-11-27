@@ -4,37 +4,81 @@
   </header>
 
   <% if (superhero) { %>
-    <!-- Imprimir el superhéroe en la consola del navegador -->
     <script>
       console.log('Superhéroe cargado:', <%= JSON.stringify(superhero) %>);
+
+      function validarFormulario(event) {
+        event.preventDefault(); // Evitar el envío del formulario
+
+        const nombreSuperHeroe = document.getElementById('nombreSuperHeroe').value.trim();
+        const nombreReal = document.getElementById('nombreReal').value.trim();
+        const edad = parseInt(document.getElementById('edad').value.trim());
+        const poderes = document.getElementById('poderes').value.split(',').map(poder => poder.trim());
+        
+        // Validaciones
+        if (!nombreSuperHeroe || nombreSuperHeroe.length < 3 || nombreSuperHeroe.length > 60) {
+          alert("El nombre del superhéroe debe tener entre 3 y 60 caracteres.");
+          return;
+        }
+
+        if (!nombreReal || nombreReal.length < 3 || nombreReal.length > 60) {
+          alert("El nombre real debe tener entre 3 y 60 caracteres.");
+          return;
+        }
+
+        if (isNaN(edad) || edad < 0) {
+          alert("La edad debe ser un número mayor o igual a 0.");
+          return;
+        }
+
+        if (poderes.length === 0 || poderes.some(poder => poder.length < 3 || poder.length > 60)) {
+          alert("Cada poder debe tener entre 3 y 60 caracteres.");
+          return;
+        }
+
+        // Convertir poderes a un string separado por comas
+        document.getElementById('poderes').value = poderes.join(', ');
+
+        // Si todas las validaciones pasan, envía el formulario
+        event.target.submit();
+      }
     </script>
 
-    <form action="/api/heroes/idput/<%= superhero.id %>" method="POST">
+    <form onsubmit="validarFormulario(event)">
+      <br>
+
       <label for="nombreSuperHeroe">Nombre del Superhéroe</label>
       <input type="text" id="nombreSuperHeroe" name="nombreSuperHeroe" value="<%= superhero.nombreSuperHeroe || '' %>" required />
-
+      <br>
       <label for="nombreReal">Nombre Real</label>
       <input type="text" id="nombreReal" name="nombreReal" value="<%= superhero.nombreReal || '' %>" required />
+      <br>
 
       <label for="edad">Edad</label>
-      <input type="number" id="edad" name="edad" value="<%= superhero.edad || '' %>" required />
+      <input type="number" id="edad" name="edad" value="<%= superhero.edad || '' %>" required min="0" />
+      <br>
 
       <label for="planetaOrigen">Planeta de Origen</label>
       <input type="text" id="planetaOrigen" name="planetaOrigen" value="<%= superhero.planetaOrigen || '' %>" required />
+      <br>
 
       <label for="debilidad">Debilidad</label>
       <input type="text" id="debilidad" name="debilidad" value="<%= superhero.debilidad || '' %>" required />
+      <br>
 
-      <label for="poderes">Poderes</label>
+      <label for="poderes">Poderes (separados por coma)</label>
       <textarea id="poderes" name="poderes" rows="4"><%= superhero.poderes ? superhero.poderes.join(', ') : '' %></textarea>
+      <br>
 
-      <label for="aliados">Aliados</label>
+      <label for="aliados">Aliados (separados por coma)</label>
       <textarea id="aliados" name="aliados" rows="3"><%= superhero.aliados ? superhero.aliados.join(', ') : '' %></textarea>
+      <br>
 
-      <label for="enemigos">Enemigos</label>
+      <label for="enemigos">Enemigos (separados por coma)</label>
       <textarea id="enemigos" name="enemigos" rows="3"><%= superhero.enemigos ? superhero.enemigos.join(', ') : '' %></textarea>
+      <br>
 
-      <button type="submit">Actualizar Superhéroe</button>
+      <button id="boton" type="submit">Actualizar Superhéroe</button>
     </form>
   <% } else { %>
     <p>El superhéroe no se encontró. <a href="/superheroes">Volver a la lista</a></p>
