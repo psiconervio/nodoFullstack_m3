@@ -81,7 +81,7 @@ export const crearHeroeController = async (req, res) => {
     // Llama al servicio para crear el superhéroe
     const newSuperHero = await createSuperHeroService(superHeroData);
 
-    // Renderiza el héroe (asumiendo que tienes esta función definida)
+    // renderiza el heroe
     const response = renderizarSuperheroe(newSuperHero);
 
     // Devuelve el héroe creado
@@ -90,19 +90,7 @@ export const crearHeroeController = async (req, res) => {
     res.status(400).json({ message: error.message }); // Mejor manejo de errores
   }
 };
-// export const crearHeroeController = async (req, res) => {
-//   try { // captura los datos enviados
-//     const superHeroData = req.body; 
-//      //llama al metodo del repositorio para crear
-//     const newSuperHero = await superHeroRepository.crear(superHeroData);
-//     // renderiza el heroe
-//     const response = renderizarSuperheroe(newSuperHero);
-//     // devuelve el heroe creado
-//     res.status(201).json(response); 
-//   } catch (error) {
-//     res.status(500).json({ message: error.message }); // manejo de errores
-//   }
-// };
+
 
 export const actualizarHeroePorNombre = async (req, res) => {
   try {
@@ -137,9 +125,9 @@ export const borrarHeroePorId = async (req, res) => {
       return res.status(404).json({ message: 'Héroe no encontrado' });
     }
 
-    // Renderiza el héroe eliminado
+    // Renderiza el heroe eliminado
     const response = renderizarSuperheroe(deletedSuperHero);
-    // Devuelve el héroe eliminado
+    // Devuelve el heroe eliminado
     res.status(200).json(response); 
   } catch (error) {
     res.status(500).json({ message: error.message });
@@ -178,6 +166,19 @@ export const borrarHeroePorNombre = async (req, res) => {
 
 
 // Controlador viejo 
+// export const crearHeroeController = async (req, res) => {
+//   try { // captura los datos enviados
+//     const superHeroData = req.body; 
+//      //llama al metodo del repositorio para crear
+//     const newSuperHero = await superHeroRepository.crear(superHeroData);
+//     // renderiza el heroe
+//     const response = renderizarSuperheroe(newSuperHero);
+//     // devuelve el heroe creado
+//     res.status(201).json(response); 
+//   } catch (error) {
+//     res.status(500).json({ message: error.message }); // manejo de errores
+//   }
+// };
 // export const actualizarHeroePorId = async (req, res) => {
 //   try {
 //     // obtiene el id del heroe desde los parametros de la url
