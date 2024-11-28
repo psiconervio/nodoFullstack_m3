@@ -3,6 +3,7 @@ import { connectDB } from './config/dbConfig.mjs';
 import  methodOverride  from "method-override";
 import superHeroRoutes from './routes/superheroRoutes.mjs';
 import { obtenerSuperheroePorIdController, obtenerTodosLosSuperheroesController } from "./controllers/superheroesController.mjs";
+import  ejs  from "ejs";
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -15,6 +16,7 @@ app.use(express.json());
 app.set('view engine', 'ejs');
 app.set('views', './views');
 
+// app.use('layout', 'layout')
 // ruta para el dashboard
 app.get('/', async (req, res) => {
   try {
