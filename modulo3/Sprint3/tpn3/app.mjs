@@ -18,22 +18,34 @@ app.set('views', './views');
 // ruta para el dashboard
 app.get('/', async (req, res) => {
   try {
-    // obtener los superhéroes desde la API
-    const response = await fetch('http://127.0.0.1:3000/api/heroes');
-    if (!response.ok) {
-      throw new Error('Error al obtener superhéroes');
-    }
-    const superheroes = await response.json();
-    // console.log('heroes enviados a la vista:', superheroes);
+    // Obtén los superhéroes desde el controlador
+    const superheroes = await obtenerTodosLosSuperheroesController();
 
-    // renderiza la vista del dashboard
+    console.log(superheroes)
+    // Renderiza la vista del dashboard con los superhéroes obtenidos
     res.render('dashboard', { superheroes });
   } catch (error) {
     console.error('Error al cargar el dashboard:', error.message);
     res.status(500).send('Error al cargar el dashboard');
   }
 });
+// app.get('/', async (req, res) => {
+//   try {
+//     // obtener los superhéroes desde la API
+//     const response = await fetch('http://127.0.0.1:3000/api/heroes');
+//     if (!response.ok) {
+//       throw new Error('Error al obtener superhéroes');
+//     }
+//     const superheroes = await response.json();
+//     // console.log('heroes enviados a la vista:', superheroes);
 
+//     // renderiza la vista del dashboard
+//     res.render('dashboard', { superheroes });
+//   } catch (error) {
+//     console.error('Error al cargar el dashboard:', error.message);
+//     res.status(500).send('Error al cargar el dashboard');
+//   }
+// });
 //enpoint actualizado vistas
 app.get('/editSuperhero/:id', obtenerSuperheroePorIdController, (req, res) => {
   const superheroe = req.superheroe; // Obtenido desde el middleware

@@ -45,9 +45,11 @@ export async function obtenerSuperheroePorIdController(req, res, next) {
     next(error); // Manejo de errores
   }
 }
-export async function obtenerTodosLosSuperheroesController(req, res) {
+export async function obtenerTodosLosSuperheroesController(req, res, next) {
   const superheroes = await obtenerTodosLosSuperheroes();
+  console.log(superheroes)
   res.send(renderizarListaSuperheroes(superheroes));
+  next()
 }
 export async function buscarSuperheroesPorAtributoController(req, res) {
   const { atributo, valor } = req.params;
