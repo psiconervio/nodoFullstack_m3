@@ -18,19 +18,19 @@ app.set('views', './views');
 
 // app.use('layout', 'layout')
 // ruta para el dashboard
-app.get('/', async (req, res) => {
-  try {
-    // Obtén los superhéroes desde el controlador
-    const superheroes = await obtenerTodosLosSuperheroesController();
+// app.get('/', async (req, res) => {
+//   try {
+//     // Obtén los superhéroes desde el controlador
+//     const superheroes = await obtenerTodosLosSuperheroesController();
 
-    console.log(superheroes)
-    // Renderiza la vista del dashboard con los superhéroes obtenidos
-    res.render('dashboard', { superheroes });
-  } catch (error) {
-    console.error('Error al cargar el dashboard:', error.message);
-    res.status(500).send('Error al cargar el dashboard');
-  }
-});
+//     console.log(superheroes)
+//     // Renderiza la vista del dashboard con los superhéroes obtenidos
+//     res.render('partials/layout', { superheroes });
+//   } catch (error) {
+//     console.error('Error al cargar el dashboard:', error.message);
+//     res.status(500).send('Error al cargar el dashboard');
+//   }
+// });
 app.get('/', async (req, res) => {
   try {
     // obtener los superhéroes desde la API
@@ -42,7 +42,7 @@ app.get('/', async (req, res) => {
     // console.log('heroes enviados a la vista:', superheroes);
 
     // renderiza la vista del dashboard
-    res.render('dashboard', { superheroes });
+    res.render('partials/layout', { superheroes });
   } catch (error) {
     console.error('Error al cargar el dashboard:', error.message);
     res.status(500).send('Error al cargar el dashboard');
