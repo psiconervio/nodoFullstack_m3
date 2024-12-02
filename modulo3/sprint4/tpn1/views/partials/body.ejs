@@ -1,9 +1,9 @@
 <div class="items-center align-center">
     <h1>Lista de Superhéroes</h1>
-    <a class="items-center align-center" href="/addSuperhero">Agregar Nuevo Superhéroe</a>
+    <a class="items-center align-center mx-4" href="/addSuperhero">Agregar Nuevo Superhéroe</a>
     <table border="1">
       <thead>
-        <tr>
+        <tr class="mx-4">
           <th>Nombre del Superhéroe</th>
           <th>Nombre Real</th>
           <th>Edad</th>
@@ -15,13 +15,13 @@
       </thead>
       <tbody>
         <% superheroes.forEach((hero) => { %>
-          <tr>
-            <td><%= hero.Nombre %></td>
-            <td><%= hero.NombreReal %></td>
-            <td><%= hero.Edad %></td>
-            <td><%= hero.PlanetadeOrigen %></td>
-            <td><%= hero.Debilidad || "N/A" %></td>
-            <td><%= hero.id || "N/A" %></td>
+          <tr class="mx-10">
+            <td class="mx-10"><%= hero.Nombre %></td>
+            <td class="mx-10"><%= hero.NombreReal %></td>
+            <td class="mx-10"><%= hero.Edad %></td>
+            <td class="mx-10"><%= hero.PlanetadeOrigen %></td>
+            <td class="mx-10"><%= hero.Debilidad || "N/A" %></td>
+            <td class="mx-10"><%= hero.id || "N/A" %></td>
             <td>
               <a href="/editSuperhero/<%= hero.id %>">Editar</a>
               <form action="/api/heroes/id/<%= hero.id %>" method="DELETE"  style="display: inline;">
