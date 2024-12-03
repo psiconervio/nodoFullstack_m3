@@ -36,7 +36,11 @@ app.get('/', async (req, res) => {
     // renderiza la vista del dashboard
     res.render('index',{
       title: 'pagina principal',
-      navbarLinks: [{text:'inicio', href:'/', icon: 'icons/homede.svg'}],superheroes
+      navbarLinks: [{text:'Inicio', href:'/', icon: 'icons/home.svg'},
+        {text:'Acerca de ', href:'/about', icon: 'icons/info.svg'},
+        {text:'Contacto', href:'/contact', icon: 'icons/contact.svg'}
+        
+      ],superheroes
     });
   } catch (error) {
     console.error('Error al cargar el dashboard:', error.message);
