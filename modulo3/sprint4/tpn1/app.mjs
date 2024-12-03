@@ -1,9 +1,11 @@
 import express from 'express';
+import path from "path";
 import { connectDB } from './config/dbConfig.mjs';
 import  methodOverride  from "method-override";
 import superHeroRoutes from './routes/superheroRoutes.mjs';
 import { obtenerSuperheroePorIdController, obtenerTodosLosSuperheroesController } from "./controllers/superheroesController.mjs";
-import  ejs  from "ejs";
+import expressLayouts from "express-ejs-layouts";
+import { body } from 'express-validator';
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -14,23 +16,13 @@ app.use(methodOverride('_method'));
 app.use(express.json());
 // configuracion de EJS
 app.set('view engine', 'ejs');
-app.set('views', './views');
+app.set('views', path.resolve('./views/partials'));
+//configurar express-ejs-layouts
+app.use(expressLayouts)
+app.set('layout','layout') //archivo base loyout
+//servir archivos estatitcos
+app.use(express.static(path.resolve('./views/public')))
 
-// app.use('layout', 'layout')
-// ruta para el dashboard
-// app.get('/', async (req, res) => {
-//   try {
-//     // Obtén los superhéroes desde el controlador
-//     const superheroes = await obtenerTodosLosSuperheroesController();
-
-//     console.log(superheroes)
-//     // Renderiza la vista del dashboard con los superhéroes obtenidos
-//     res.render('partials/layout', { superheroes });
-//   } catch (error) {
-//     console.error('Error al cargar el dashboard:', error.message);
-//     res.status(500).send('Error al cargar el dashboard');
-//   }
-// });
 app.get('/', async (req, res) => {
   try {
     // obtener los superhéroes desde la API
@@ -42,7 +34,10 @@ app.get('/', async (req, res) => {
     // console.log('heroes enviados a la vista:', superheroes);
 
     // renderiza la vista del dashboard
-    res.render('partials/layout', { superheroes });
+    res.render('index',{
+      title: 'pagina principal',
+      navbarLinks: [{text:'inicio', href:'/', icon: 'icons/homede.svg'}],superheroes
+    });
   } catch (error) {
     console.error('Error al cargar el dashboard:', error.message);
     res.status(500).send('Error al cargar el dashboard');
