@@ -1,69 +1,87 @@
 import express from 'express';
-import path from "path";
+import path from 'path';
 import { connectDB } from './config/dbConfig.mjs';
-import  methodOverride  from "method-override";
+import methodOverride from 'method-override';
 import superHeroRoutes from './routes/superheroRoutes.mjs';
-import { obtenerSuperheroePorIdController, obtenerTodosLosSuperheroesController } from "./controllers/superheroesController.mjs";
-import expressLayouts from "express-ejs-layouts";
-import { body } from 'express-validator';
+import { obtenerSuperheroePorIdController } from './controllers/superheroesController.mjs';
+import expressLayouts from 'express-ejs-layouts';
 
 const app = express();
 const PORT = process.env.PORT || 3000;
-app.use(express.urlencoded({ extended: true }));
-// usar method-override para soportar métodos PUT y DELETE
-app.use(methodOverride('_method'));
-// middleware para parsear JSON
-app.use(express.json());
-// configuracion de EJS
-app.set('view engine', 'ejs');
-app.set('views', path.resolve('./views/partials'));
-//configurar express-ejs-layouts
-app.use(expressLayouts)
-app.set('layout','layout') //archivo base loyout
-//servir archivos estatitcos
-app.use(express.static(path.resolve('./views/public')))
 
+// Middleware para parsear URL-encoded y JSON
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
+
+// Usar method-override para soportar métodos PUT y DELETE
+app.use(methodOverride('_method'));
+
+// Configuración del motor de vistas EJS
+app.set('view engine', 'ejs');
+app.set('views', path.resolve('./views')); // Asegúrate de que apunta al directorio 'views'
+
+// Configurar express-ejs-layouts
+app.use(expressLayouts);
+app.set('layout', 'partials/layout'); // Archivo base layout.ejs dentro de partials
+
+// Servir archivos estáticos desde 'public'
+app.use(express.static(path.resolve('./public')));
+// Middleware global para pasar datos comunes (navbarLinks)
+app.use((req, res, next) => {
+  res.locals.navbarLinks = [
+    { href: "/", text: "Inicio", icon: "./public/icons/home.svg" },
+    { href: "/addsuperhero", text: "Agregar Héroe", icon: "/icons/add.png" },
+    { href: "/list", text: "Lista de Héroes", icon: "/icons/list.png" },
+  ];
+  next();
+});
+
+// Ruta principal
 app.get('/', async (req, res) => {
   try {
-    // obtener los superhéroes desde la API
+    // Obtener los superhéroes desde la API
     const response = await fetch('http://127.0.0.1:3000/api/heroes');
     if (!response.ok) {
       throw new Error('Error al obtener superhéroes');
     }
     const superheroes = await response.json();
-    // console.log('heroes enviados a la vista:', superheroes);
 
-    // renderiza la vista del dashboard
-    res.render('index',{
-      title: 'pagina principal',
-      navbarLinks: [{text:'Inicio', href:'/', icon: 'icons/home.svg'},
-        {text:'Acerca de ', href:'/about', icon: 'icons/info.svg'},
-        {text:'Contacto', href:'/contact', icon: 'icons/contact.svg'}
-        
-      ],superheroes
+    // Renderiza la vista del dashboard
+    res.render('index', {
+      title: 'Página Principal',
+      navbarLinks: [
+        { text: 'Inicio', href: '/', icon: 'icons/home.svg' },
+        { text: 'Acerca de', href: '/about', icon: 'icons/info.svg' },
+        { text: 'Contacto', href: '/contact', icon: 'icons/contact.svg' },
+      ],
+      superheroes,
     });
   } catch (error) {
     console.error('Error al cargar el dashboard:', error.message);
     res.status(500).send('Error al cargar el dashboard');
   }
 });
-//enpoint actualizado vistas
+
+// Ruta para agregar superhéroes
+app.get('/addSuperhero', (req, res) => {
+  res.render('addSuperHero', {
+    title: 'Agregar Superhéroe',
+  });
+});
+
+// Ruta para editar superhéroes
 app.get('/editSuperhero/:id', obtenerSuperheroePorIdController, (req, res) => {
   const superheroe = req.superheroe; // Obtenido desde el middleware
 
   if (superheroe) {
-    console.log(superheroe);
-    res.render('editSuperhero', { superhero: superheroe }); // Envía el superhéroe como 'superhero'
+    res.render('editSuperHero', { 
+      title: 'Editar Superhéroe',
+      superhero: superheroe, // Envía el superhéroe como 'superhero'
+    });
   } else {
-    res.status(404).send({ mensaje: "Superhéroe no encontrado" });
+    res.status(404).send({ mensaje: 'Superhéroe no encontrado' });
   }
 });
-
-// vista para agregar superhéroes
-app.get('/addSuperhero', async(req, res) => {
-  //renderiza la vista
-    res.render('addSuperhero');
-  });
 
 // Conexión a MongoDB
 connectDB();
@@ -73,13 +91,96 @@ app.use('/api', superHeroRoutes);
 
 // Manejo de errores para rutas no encontradas
 app.use((req, res) => {
-  res.status(404).send({ mensaje: "Ruta no encontrada" });
+  res.status(404).send({ mensaje: 'Ruta no encontrada' });
 });
 
 // Inicialización del servidor
 app.listen(PORT, () => {
   console.log(`Servidor corriendo en http://localhost:${PORT}`);
 });
+
+// import express from 'express';
+// import path from "path";
+// import { connectDB } from './config/dbConfig.mjs';
+// import  methodOverride  from "method-override";
+// import superHeroRoutes from './routes/superheroRoutes.mjs';
+// import { obtenerSuperheroePorIdController, obtenerTodosLosSuperheroesController } from "./controllers/superheroesController.mjs";
+// import expressLayouts from "express-ejs-layouts";
+// import { body } from 'express-validator';
+
+// const app = express();
+// const PORT = process.env.PORT || 3000;
+// app.use(express.urlencoded({ extended: true }));
+// // usar method-override para soportar métodos PUT y DELETE
+// app.use(methodOverride('_method'));
+// // middleware para parsear JSON
+// app.use(express.json());
+// // configuracion de EJS
+// app.set('view engine', 'ejs');
+// app.set('views', path.resolve('./views/partials'));
+// //configurar express-ejs-layouts
+// app.use(expressLayouts)
+// app.set('layout','partials/layout') //archivo base loyout
+// //servir archivos estatitcos
+// app.use(express.static(path.resolve('./views')))
+
+// app.get('/', async (req, res) => {
+//   try {
+//     // obtener los superhéroes desde la API
+//     const response = await fetch('http://127.0.0.1:3000/api/heroes');
+//     if (!response.ok) {
+//       throw new Error('Error al obtener superhéroes');
+//     }
+//     const superheroes = await response.json();
+//     // console.log('heroes enviados a la vista:', superheroes);
+
+//     // renderiza la vista del dashboard
+//     res.render('index',{
+//       title: 'pagina principal',
+//       navbarLinks: [{text:'Inicio', href:'/', icon: 'icons/home.svg'},
+//         {text:'Acerca de ', href:'/about', icon: 'icons/info.svg'},
+//         {text:'Contacto', href:'/contact', icon: 'icons/contact.svg'}
+        
+//       ],superheroes
+//     });
+//   } catch (error) {
+//     console.error('Error al cargar el dashboard:', error.message);
+//     res.status(500).send('Error al cargar el dashboard');
+//   }
+// });
+// //enpoint actualizado vistas
+// app.get('/editSuperhero/:id', obtenerSuperheroePorIdController, (req, res) => {
+//   const superheroe = req.superheroe; // Obtenido desde el middleware
+
+//   if (superheroe) {
+//     console.log(superheroe);
+//     res.render('editSuperhero', { superhero: superheroe }); // Envía el superhéroe como 'superhero'
+//   } else {
+//     res.status(404).send({ mensaje: "Superhéroe no encontrado" });
+//   }
+// });
+
+// // vista para agregar superhéroes
+// app.get('/addSuperhero', async(req, res) => {
+//   //renderiza la vista
+//     res.render('addSuperhero');
+//   });
+
+// // Conexión a MongoDB
+// connectDB();
+
+// // Rutas para la API
+// app.use('/api', superHeroRoutes);
+
+// // Manejo de errores para rutas no encontradas
+// app.use((req, res) => {
+//   res.status(404).send({ mensaje: "Ruta no encontrada" });
+// });
+
+// // Inicialización del servidor
+// app.listen(PORT, () => {
+//   console.log(`Servidor corriendo en http://localhost:${PORT}`);
+// });
 ///CODIGOS DESACTUALIZADOS
 
 // app.get('/editSuperhero/:id', async (req, res) => {
