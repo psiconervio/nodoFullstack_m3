@@ -6,15 +6,11 @@ import superHeroRoutes from './routes/superheroRoutes.mjs';
 import { fileURLToPath } from 'url'
 import { obtenerSuperheroePorIdController } from './controllers/superheroesController.mjs';
 import expressLayouts from 'express-ejs-layouts';
-
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 const app = express();
 const PORT = process.env.PORT || 3000;
-
-
-
 
 // Middleware para parsear URL-encoded y JSON
 app.use(express.urlencoded({ extended: true }));
@@ -33,37 +29,19 @@ app.set('views', path.resolve('./views')); // Asegúrate de que apunta al direct
 app.use(expressLayouts);
 app.set('layout', 'partials/layout'); // Archivo base layout.ejs dentro de partials
 
-// Servir archivos estáticos desde 'public'
-// Middleware global para pasar datos comunes (navbarLinks)
-// app.use((req, res, next) => {
-//   res.locals.navbarLinks = [
-//     { href: "/", text: "Inicio", icon: "./public/icons/home.svg" },
-//     { href: "/addsuperhero", text: "Agregar Héroe", icon: "/icons/add.png" },
-//     { href: "/list", text: "Lista de Héroes", icon: "/icons/list.png" },
-//   ];
-//   next();
-// });
 
-// Ruta principal
 app.get('/', async (req, res) => {
   try {
-    // Obtener los superhéroes desde la API
-    const response = await fetch('http://127.0.0.1:3000/api/heroes');
+    // obtener los heroes desde la API
+    // const response = await fetch('http://127.0.0.1:3000/api/heroes');
+    const response = await fetch('https://nodofullstack-m3.onrender.com/api/heroes');
     if (!response.ok) {
       throw new Error('Error al obtener superhéroes');
     }
     const superheroes = await response.json();
 
-    // Renderiza la vista del dashboard
-    res.render('index', {
-      // title: 'Página Principal',
-      // navbarLinks: [
-      //   { text: 'Inicio', href: '/', icon: 'icons/home.svg' },
-      //   { text: 'Acerca de', href: '/about', icon: 'icons/info.svg' },
-      //   { text: 'Contacto', href: '/contact', icon: 'icons/contact.svg' },
-      // ],
-      superheroes,
-    });
+    // renderizar la vista del dashboard
+    res.render('index', {superheroes});
   } catch (error) {
     console.error('Error al cargar el dashboard:', error.message);
     res.status(500).send('Error al cargar el dashboard');
