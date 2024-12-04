@@ -33,8 +33,8 @@ app.set('layout', 'layout'); // Archivo base layout.ejs dentro de partials
 app.get('/', async (req, res) => {
   try {
     // obtener los heroes desde la API
-    const response = await fetch('http://127.0.0.1:3000/api/heroes');
-    // const response = await fetch('https://nodofullstack-m3.onrender.com/api/heroes');
+    // const response = await fetch('http://127.0.0.1:3000/api/heroes');
+    const response = await fetch('https://nodofullstack-m3.onrender.com/api/heroes');
     if (!response.ok) {
       throw new Error('Error al obtener superhéroes');
     }
