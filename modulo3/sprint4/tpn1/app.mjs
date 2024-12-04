@@ -6,8 +6,8 @@ import superHeroRoutes from './routes/superheroRoutes.mjs';
 import { fileURLToPath } from 'url'
 import { obtenerSuperheroePorIdController } from './controllers/superheroesController.mjs';
 import expressLayouts from 'express-ejs-layouts';
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
+// const __filename = fileURLToPath(import.meta.url);
+// const __dirname = path.dirname(__filename);
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -23,7 +23,7 @@ app.use(methodOverride('_method'));
 
 // Configuración del motor de vistas EJS
 app.set('view engine', 'ejs');
-// app.set('views', path.resolve('./public')); // Asegúrate de que apunta al directorio 'views'
+app.set('views', path.resolve('./views')); // Asegúrate de que apunta al directorio 'views'
 app.use(express.static(path.resolve('./public')));
 // Configurar express-ejs-layouts
 app.use(expressLayouts);
@@ -33,8 +33,8 @@ app.set('layout', 'layout'); // Archivo base layout.ejs dentro de partials
 app.get('/', async (req, res) => {
   try {
     // obtener los heroes desde la API
-    // const response = await fetch('http://127.0.0.1:3000/api/heroes');
-    const response = await fetch('https://nodofullstack-m3.onrender.com/api/heroes');
+    const response = await fetch('http://127.0.0.1:3000/api/heroes');
+    // const response = await fetch('https://nodofullstack-m3.onrender.com/api/heroes');
     if (!response.ok) {
       throw new Error('Error al obtener superhéroes');
     }
@@ -56,12 +56,11 @@ app.get('/addSuperhero', (req, res) => {
 });
 
 // Ruta para editar superhéroes
-app.get('/editSuperhero/:id', obtenerSuperheroePorIdController, (req, res) => {
+app.get('/editSuperhero/id/:id([a-fA-F0-9]{24})', obtenerSuperheroePorIdController,  (req, res) => {
   const superheroe = req.superheroe; // Obtenido desde el middleware
 
   if (superheroe) {
     res.render('editSuperhero', { 
-      title: 'Editar Superhéroe',
       superhero: superheroe, // Envía el superhéroe como 'superhero'
     });
   } else {
@@ -69,8 +68,12 @@ app.get('/editSuperhero/:id', obtenerSuperheroePorIdController, (req, res) => {
   }
 });
 
+
+
+
 // Conexión a MongoDB
 connectDB();
+// app.use(express.static(path.resolve('./public')));
 
 // Rutas para la API
 app.use('/api', superHeroRoutes);

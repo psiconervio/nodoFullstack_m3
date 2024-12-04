@@ -1,6 +1,6 @@
-<body>
-    <a style="display: flex; justify-content: center;" href="/addSuperhero">Agregar Nuevo Superhéroe</a>
 <div class="contenedorr">
+  <a style="display: flex; justify-content: center;" href="/addSuperhero">Agregar Nuevo Superhéroe</a>
+
   <table class="tabla"  border="2">
     <thead>
       <tr>
@@ -23,7 +23,7 @@
           <td><%= hero.Debilidad || "N/A" %></td>
           <td><%= hero.id || "N/A" %></td>
           <td>
-            <a href="/editSuperhero/<%= hero.id %>" class="btn- btn-editar">Editar</a>
+            <a href="/editSuperhero/id/<%= hero.id %>" class="btn- btn-editar">Editar</a>
             <form action="/api/heroes/id/<%= hero.id %>" method="DELETE"  style="display: inline;">
               <button class="btn bt-eliminar" type="submit">Eliminar</button>
             </form>
@@ -33,4 +33,3 @@
     </tbody>
   </table>
 </div>
-  </body>

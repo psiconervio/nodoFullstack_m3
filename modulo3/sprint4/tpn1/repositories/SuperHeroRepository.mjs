@@ -1,5 +1,7 @@
 import SuperHero from "../models/SuperHero.mjs";
 import IRepository from "./IRepository.mjs";
+import mongoose from 'mongoose';
+
 /*implementa los metodos definidos en la interfaz
  interactuando directamente con mongodb  para realizar operaciones
 con los datos,centraliza estas operaciones en el repositorio 
@@ -7,8 +9,29 @@ para mejorar la organización */
 //la clase SuperHeroRepository esta extendiendo (heredando) de la clase IRepository
 class SuperHeroRepository extends IRepository {
   async obtenerPorId(id) {
-    return await SuperHero.findById(id);
+    // Validar si el id es un ObjectId válido
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+      throw new Error('El ID proporcionado no es válido');
+    }
+  
+    try {
+      // Buscar el superhéroe por ID
+      const superheroe = await SuperHero.findById(id);
+  
+      // Verificar si se encontró un superhéroe
+      if (!superheroe) {
+        throw new Error('Superhéroe no encontrado');
+      }
+  
+      return superheroe;
+    } catch (error) {
+      // Lanzar el error para que pueda ser manejado por quien llama a esta función
+      throw new Error(`Error al buscar superhéroe: ${error.message}`);
+    }
   }
+  // async obtenerPorId(id) {
+  //   return await SuperHero.findById(id);
+  // }
   //primer paso crear la interaccion con la db y exportar la funcion al irepository
   async actualizarPorId(id, datosActualizados) {
     try {
