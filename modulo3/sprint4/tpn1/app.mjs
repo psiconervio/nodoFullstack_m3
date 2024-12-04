@@ -50,7 +50,7 @@ app.get('/', async (req, res) => {
 
 // Ruta para agregar superhéroes
 app.get('/addSuperhero', (req, res) => {
-  res.render('addSuperHero', {
+  res.render('addSuperhero', {
     title: 'Agregar Superhéroe',
   });
 });
@@ -60,7 +60,7 @@ app.get('/editSuperhero/:id', obtenerSuperheroePorIdController, (req, res) => {
   const superheroe = req.superheroe; // Obtenido desde el middleware
 
   if (superheroe) {
-    res.render('editSuperHero', { 
+    res.render('editSuperhero', { 
       title: 'Editar Superhéroe',
       superhero: superheroe, // Envía el superhéroe como 'superhero'
     });
