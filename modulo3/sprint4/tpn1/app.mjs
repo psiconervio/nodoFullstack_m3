@@ -27,14 +27,14 @@ app.set('layout', 'partials/layout'); // Archivo base layout.ejs dentro de parti
 // Servir archivos estáticos desde 'public'
 app.use(express.static(path.resolve('./public')));
 // Middleware global para pasar datos comunes (navbarLinks)
-app.use((req, res, next) => {
-  res.locals.navbarLinks = [
-    { href: "/", text: "Inicio", icon: "./public/icons/home.svg" },
-    { href: "/addsuperhero", text: "Agregar Héroe", icon: "/icons/add.png" },
-    { href: "/list", text: "Lista de Héroes", icon: "/icons/list.png" },
-  ];
-  next();
-});
+// app.use((req, res, next) => {
+//   res.locals.navbarLinks = [
+//     { href: "/", text: "Inicio", icon: "./public/icons/home.svg" },
+//     { href: "/addsuperhero", text: "Agregar Héroe", icon: "/icons/add.png" },
+//     { href: "/list", text: "Lista de Héroes", icon: "/icons/list.png" },
+//   ];
+//   next();
+// });
 
 // Ruta principal
 app.get('/', async (req, res) => {
@@ -48,12 +48,12 @@ app.get('/', async (req, res) => {
 
     // Renderiza la vista del dashboard
     res.render('index', {
-      title: 'Página Principal',
-      navbarLinks: [
-        { text: 'Inicio', href: '/', icon: 'icons/home.svg' },
-        { text: 'Acerca de', href: '/about', icon: 'icons/info.svg' },
-        { text: 'Contacto', href: '/contact', icon: 'icons/contact.svg' },
-      ],
+      // title: 'Página Principal',
+      // navbarLinks: [
+      //   { text: 'Inicio', href: '/', icon: 'icons/home.svg' },
+      //   { text: 'Acerca de', href: '/about', icon: 'icons/info.svg' },
+      //   { text: 'Contacto', href: '/contact', icon: 'icons/contact.svg' },
+      // ],
       superheroes,
     });
   } catch (error) {
