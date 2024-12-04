@@ -3,14 +3,23 @@ import path from 'path';
 import { connectDB } from './config/dbConfig.mjs';
 import methodOverride from 'method-override';
 import superHeroRoutes from './routes/superheroRoutes.mjs';
+import { fileURLToPath } from 'url'
 import { obtenerSuperheroePorIdController } from './controllers/superheroesController.mjs';
 import expressLayouts from 'express-ejs-layouts';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 const app = express();
 const PORT = process.env.PORT || 3000;
 
+
+
+
 // Middleware para parsear URL-encoded y JSON
 app.use(express.urlencoded({ extended: true }));
+// app.use(express.static(path.resolve('./public')));
+app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.json());
 
 // Usar method-override para soportar métodos PUT y DELETE
@@ -25,7 +34,6 @@ app.use(expressLayouts);
 app.set('layout', 'partials/layout'); // Archivo base layout.ejs dentro de partials
 
 // Servir archivos estáticos desde 'public'
-app.use(express.static(path.resolve('./public')));
 // Middleware global para pasar datos comunes (navbarLinks)
 // app.use((req, res, next) => {
 //   res.locals.navbarLinks = [

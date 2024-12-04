@@ -1,7 +1,7 @@
-  <title>Agregar heroe</title>
 </head>
-<body>
-  <h1>Agregar heroe</h1>
+<body >
+  <h1 style="display: flex; justify-content: center;">Agregar heroe</h1>
+<div class="contenedorr">
   <form id="superHeroForm">
     <label for="nombreSuperHeroe">Nombre del heroe:</label>
     <input type="text" id="nombreSuperHeroe" name="nombreSuperHeroe" required><br>
@@ -29,6 +29,7 @@
 
     <button type="submit">Agregar</button>
   </form>
+</div>
 
   <script>
     document.getElementById('superHeroForm').addEventListener('submit', async function(event) {
