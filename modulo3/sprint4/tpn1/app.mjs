@@ -15,7 +15,7 @@ const PORT = process.env.PORT || 3000;
 // Middleware para parsear URL-encoded y JSON
 app.use(express.urlencoded({ extended: true }));
 // app.use(express.static(path.resolve('./public')));
-app.use(express.static(path.join(__dirname, 'public')));
+// app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.json());
 
 // Usar method-override para soportar métodos PUT y DELETE
@@ -23,11 +23,11 @@ app.use(methodOverride('_method'));
 
 // Configuración del motor de vistas EJS
 app.set('view engine', 'ejs');
-app.set('views', path.resolve('./views')); // Asegúrate de que apunta al directorio 'views'
-
+// app.set('views', path.resolve('./public')); // Asegúrate de que apunta al directorio 'views'
+app.use(express.static(path.resolve('./public')));
 // Configurar express-ejs-layouts
 app.use(expressLayouts);
-app.set('layout', 'partials/layout'); // Archivo base layout.ejs dentro de partials
+app.set('layout', 'layout'); // Archivo base layout.ejs dentro de partials
 
 
 app.get('/', async (req, res) => {
