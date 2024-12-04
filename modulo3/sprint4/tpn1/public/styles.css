@@ -3,6 +3,12 @@ body {
     margin: 0;
     padding: 0;
     align-items: center;
+    background-image: url('./images/universo.png'); /* Ruta de la imagen */
+    background-size: cover; /* Hace que la imagen cubra todo el fondo */
+    background-repeat: no-repeat; /* Evita que la imagen se repita */
+    background-position: center; /* Centra la imagen en el fondo */
+    margin: 0; /* Elimina márgenes del body */
+    height: 100vh; /* Hace que el fondo abarque toda la pantalla */
 
   }
 .tabla{
@@ -56,4 +62,13 @@ body {
   img{
     height: 30px;
     width: 30px;
+  }
+
+  table{
+    align-items: center;
+    justify-content: center;
+  }
+  .listasuper{
+    justify-content: center;
+    align-items: center;
   }
