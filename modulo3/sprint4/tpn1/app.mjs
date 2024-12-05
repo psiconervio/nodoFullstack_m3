@@ -32,6 +32,8 @@ app.use(express.static(path.resolve('./public')));
 // Configurar express-ejs-layouts
 app.use(expressLayouts);
 app.set('layout', 'layout'); // Archivo base layout.ejs dentro de partials
+app.set('views', path.join(__dirname, 'views'));
+console.log('Views directory set to:', path.join(__dirname, 'views')); // Agregar log
 
 
 app.get('/', async (req, res) => {
