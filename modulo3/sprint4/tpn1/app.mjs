@@ -8,6 +8,8 @@ import { obtenerSuperheroePorIdController } from './controllers/superheroesContr
 import expressLayouts from 'express-ejs-layouts';
 // const __filename = fileURLToPath(import.meta.url);
 // const __dirname = path.dirname(__filename);
+const __dirname = path.dirname(new URL(import.meta.url).pathname); 
+
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -20,6 +22,7 @@ app.use(express.json());
 
 // Usar method-override para soportar métodos PUT y DELETE
 app.use(methodOverride('_method'));
+app.set('views', path.join(__dirname, 'views'));
 
 // Configuración del motor de vistas EJS
 app.set('view engine', 'ejs');
@@ -33,8 +36,8 @@ app.set('layout', 'layout'); // Archivo base layout.ejs dentro de partials
 app.get('/', async (req, res) => {
   try {
     // obtener los heroes desde la API
-    // const response = await fetch('http://127.0.0.1:3000/api/heroes');
-    const response = await fetch('https://nodofullstack-m3.onrender.com/api/heroes');
+    const response = await fetch('http://127.0.0.1:3000/api/heroes');
+    // const response = await fetch('https://nodofullstack-m3.onrender.com/api/heroes');
     if (!response.ok) {
       throw new Error('Error al obtener superhéroes');
     }
