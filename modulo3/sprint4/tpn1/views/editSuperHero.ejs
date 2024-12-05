@@ -1,10 +1,7 @@
-
-  <div style="display:  flex;flex-direction: column;  justify-content: center; align-items: center; /* Añade esta regla */ ">
-    <h1>Editar Superhéroe</h1>
   <% if (superheroe) { %>
     <!-- Imprimir el superhéroe en la consola del navegador -->
 
-    <form action="/api/heroes/idput/<%= superhero.id %>" method="POST">
+    <form >
       <br>
 
       <label for="nombreSuperHeroe">Nombre del Superhéroe</label>
@@ -44,4 +41,3 @@
   <% } else { %>
     <p>El superhéroe no se encontró. <a href="/superheroes">Volver a la lista</a></p>
   <% } %>
-</div>
