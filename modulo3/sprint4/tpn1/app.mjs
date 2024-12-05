@@ -69,7 +69,7 @@ app.get('/editSuperhero/id/:id', obtenerSuperheroePorIdController,  (req, res) =
   if (superheroe) {
     
     res.render('editSuperhero', { 
-      superhero: superheroe, // Envía el superhéroe como 'superhero'
+       superheroe // Envía el superhéroe como 'superhero'
     });
   } else {
     res.status(404).send({ mensaje: 'Superhéroe no encontrado' });
