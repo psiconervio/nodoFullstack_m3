@@ -1,7 +1,8 @@
+<div>
   <% if (superheroe) { %>
     <!-- Imprimir el superhéroe en la consola del navegador -->
 
-    <form >
+    <form action="/api/heroes/idput/<%= superhero.id %>" method="POST">
       <br>
 
       <label for="nombreSuperHeroe">Nombre del Superhéroe</label>
@@ -41,3 +42,4 @@
   <% } else { %>
     <p>El superhéroe no se encontró. <a href="/superheroes">Volver a la lista</a></p>
   <% } %>
+</div>
