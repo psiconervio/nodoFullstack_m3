@@ -5,9 +5,6 @@
 
   <% if (superhero) { %>
     <!-- Imprimir el superhéroe en la consola del navegador -->
-    <script>
-      console.log('Superhéroe cargado:', <%= JSON.stringify(superhero) %>);
-    </script>
 
     <form action="/api/heroes/idput/<%= superhero.id %>" method="POST">
       <br>

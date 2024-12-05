@@ -56,7 +56,7 @@ app.get('/addSuperhero', (req, res) => {
 });
 
 // Ruta para editar superhéroes
-app.get('/editSuperhero/id/:id([a-fA-F0-9]{24})', obtenerSuperheroePorIdController,  (req, res) => {
+app.get('/editSuperhero/id/:id', obtenerSuperheroePorIdController,  (req, res) => {
   const superheroe = req.superheroe; // Obtenido desde el middleware
 
   if (superheroe) {
