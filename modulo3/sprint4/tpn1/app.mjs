@@ -35,6 +35,7 @@ app.set('layout', 'layout'); // Archivo base layout.ejs dentro de partials
 app.set('views', path.join(__dirname, 'views'));
 console.log('Views directory set to:', path.join(__dirname, 'views')); // Agregar log
 
+console.log('Directorio de vistas:', path.join(__dirname, 'views'));
 
 app.get('/', async (req, res) => {
   try {
