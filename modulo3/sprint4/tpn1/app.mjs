@@ -68,7 +68,7 @@ app.get('/editSuperhero/id/:id', obtenerSuperheroePorIdController,  (req, res) =
   console.log(superheroe);
   if (superheroe) {
     
-    res.render('editSuperhero'
+    res.render('nuevavista'
       // , { 
       //  superheroe // Envía el superhéroe como 'superhero'
     // }
