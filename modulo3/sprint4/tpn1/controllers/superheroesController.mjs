@@ -30,21 +30,47 @@ export const actualizarHeroePorId = async (req, res) => {
     res.status(500).send('Error al actualizar');
   }
 };
+
+
+// export async function obtenerSuperheroePorIdController(req, res) {
+//   const { id } = req.params;
+//   try {
+//     console.log(`Obteniendo superhéroe con ID: ${id}`); // Log adicional
+
+//     const superheroe = await obtenerSuperheroePorId(id); // Lógica para obtener el superhéroe por ID
+
+//     if (superheroe) {
+//       const renderedSuperheroe = renderizarSuperheroe(superheroe); // Adjunta el superhéroe a `req`
+//       res.json(renderedSuperheroe); // Envía el superhéroe en formato JSON
+//     } else {
+//       res.status(404).send({ mensaje: 'Superhéroe no encontrado' });
+//     }
+//   } catch (error) {
+//     console.error('Error en obtenerSuperheroePorIdController:', error.message); // Log adicional de errores
+//     res.status(500).send('Error al obtener superhéroe');
+//   }
+// }
+
+
 export async function obtenerSuperheroePorIdController(req, res, next) {
   const { id } = req.params;
   try {
+    console.log(`Obteniendo superhéroe con ID: ${id}`); // Log adicional
+
     const superheroe = await obtenerSuperheroePorId(id); // Lógica para obtener el superhéroe por ID
 
     if (superheroe) {
-      req.superheroe = renderizarSuperheroe(superheroe); // Adjunta el superhéroe a `req`
+      req.superheroe = superheroe; // Adjunta el superhéroe a `req`
       next(); // Pasa al siguiente middleware
     } else {
-      res.status(404).send({ mensaje: "Superhéroe no encontrado" });
+      res.status(404).send({ mensaje: 'Superhéroe no encontrado' });
     }
   } catch (error) {
-    next(error); // Manejo de errores
+    console.error('Error en obtenerSuperheroePorIdController:', error.message); // Log adicional de errores
+    res.status(500).send({ mensaje: 'Error al obtener superhéroe' });
   }
 }
+
 export async function obtenerTodosLosSuperheroesController(req, res) {
   const superheroes = await obtenerTodosLosSuperheroes();
   // console.log(superheroes)

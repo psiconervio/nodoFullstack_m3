@@ -63,21 +63,33 @@ app.get('/addSuperhero', (req, res) => {
 });
 
 // Ruta para editar superhéroes
-app.get('/editSuperhero/id/:id', obtenerSuperheroePorIdController,  (req, res) => {
-  const superheroe = req.superheroe; // Obtenido desde el middleware
-  console.log(superheroe);
-  if (superheroe) {
+// app.get('/editSuperhero/id/:id', obtenerSuperheroePorIdController,  (req, res) => {
+//   const superheroe = req.superheroe; // Obtenido desde el middleware
+//   console.log(superheroe);
+//   if (superheroe) {
     
-    res.render('editSuperhero'
-      , { 
-       superheroe // Envía el superhéroe como 'superhero'
+//     res.render('editSuperhero'
+//       , { 
+//        superheroe // Envía el superhéroe como 'superhero'
+//     }
+//   );
+//   } else {
+//     res.status(404).send({ mensaje: 'Superhéroe no encontrado' });
+//   }
+// });
+app.get('/editSuperhero/id/:id', obtenerSuperheroePorIdController, (req, res, next) => {
+  try {
+    const superheroe = req.superheroe; // Obtenido desde el middleware
+    if (superheroe) {
+      res.render('editSuperhero', { superheroe });
+    } else {
+      res.status(404).send({ mensaje: 'Superhéroe no encontrado' });
     }
-  );
-  } else {
-    res.status(404).send({ mensaje: 'Superhéroe no encontrado' });
+  } catch (error) {
+    console.error('Error al renderizar la vista:', error);
+    res.status(500).send({ mensaje: 'Error interno del servidor' });
   }
 });
-
 
 
 
