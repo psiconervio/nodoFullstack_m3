@@ -27,7 +27,7 @@ app.set('views', path.join(__dirname, 'views'));
 
 // Configuración del motor de vistas EJS
 app.set('view engine', 'ejs');
-app.set('views', path.resolve('./views')); // Asegúrate de que apunta al directorio 'views'
+// app.set('views', path.resolve('./views')); // Asegúrate de que apunta al directorio 'views'
 app.use(express.static(path.resolve('./public')));
 // Configurar express-ejs-layouts
 app.use(expressLayouts);
