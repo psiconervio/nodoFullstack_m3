@@ -63,34 +63,21 @@ app.get('/addSuperhero', (req, res) => {
 });
 
 // Ruta para editar superhéroes
-// app.get('/editSuperhero/id/:id', obtenerSuperheroePorIdController,  (req, res) => {
-//   const superheroe = req.superheroe; // Obtenido desde el middleware
-//   console.log(superheroe);
-//   if (superheroe) {
+app.get('/editSuperhero/id/:id', obtenerSuperheroePorIdController,  (req, res) => {
+  const superheroe = req.superheroe; // Obtenido desde el middleware
+  console.log(superheroe);
+  if (superheroe) {
     
-//     res.render('editSuperhero'
-//       , { 
-//        superheroe // Envía el superhéroe como 'superhero'
-//     }
-//   );
-//   } else {
-//     res.status(404).send({ mensaje: 'Superhéroe no encontrado' });
-//   }
-// });
-app.get('/editSuperhero/id/:id', (req, res) => {
-  const superheroe = {
-    nombreSuperHeroe: 'Ejemplo',
-    nombreReal: 'Ejemplo Real',
-    edad: 30,
-    planetaOrigen: 'Tierra',
-    debilidad: 'Kryptonita',
-    poderes: ['Fuerza', 'Vuelo'], // Asegúrate de que sea un arreglo.
-    aliados: ['Batman', 'Robin'], // Asegúrate de que sea un arreglo.
-    enemigos: ['Lex Luthor'], // Asegúrate de que sea un arreglo.
-  };
-
-  res.render('editSuperhero', { superheroe });
+    res.render('editSuperhero'
+      , { 
+       superheroe // Envía el superhéroe como 'superhero'
+    }
+  );
+  } else {
+    res.status(404).send({ mensaje: 'Superhéroe no encontrado' });
+  }
 });
+
 
 
 
