@@ -14,8 +14,6 @@ import expressLayouts from 'express-ejs-layouts';
 // const __dirname = path.dirname(__filename);
 // const __filename = fileURLToPath(import.meta.url);
 //  const __dirname = path.dirname(new URL(import.meta.url).pathname);
-
-
 const app = express();
 const PORT = process.env.PORT || 3000;
 // Obtener __dirname en un módulo ESM
@@ -24,14 +22,11 @@ const __dirname = path.dirname(new URL(import.meta.url).pathname);
 // Middleware para servir archivos estáticos
 app.use(express.static(path.resolve('./public')));
 
-
-
-
-
 // Conexión a MongoDB
 connectDB();
 // Configurar EJS como motor de plantillas
 app.set('view engine', 'ejs');
+app.set('views', path.join(process.cwd(), 'views'));
 app.set('views', path.resolve('./views'));
 
 // Configurar express-ejs-layouts
@@ -66,7 +61,11 @@ app.use(express.json()); // JSON adicional
 // console.log('Views directory set to:', path.join(__dirname, 'views')); // Agregar log
 
 // console.log('Directorio de vistas:', path.join(__dirname, 'views'));
-
+// Middleware para loguear las rutas de las solicitudes
+app.use((req, res, next) => {
+  console.log('Incoming request:', req.method, req.path);
+  next();
+});
 app.get('/', async (req, res) => {
   try {
     // obtener los heroes desde la API
@@ -139,6 +138,7 @@ app.get('/editSuperhero/id/:id', async (req, res) => {
     res.status(500).send('Error al obtener los datos del superhéroe');
   }
 });
+
 app.put('/editSuperhero/id/:id', 
   async (req, res) => {
     // Verificar si hay errores en la validación
