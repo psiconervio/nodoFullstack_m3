@@ -3,7 +3,6 @@ import SuperHero from './models/SuperHero.mjs';
 import mongoose from 'mongoose';
 import bodyParser from 'body-parser';
 import { body, validationResult } from 'express-validator';
-
 import path from 'path';
 import { connectDB } from './config/dbConfig.mjs';
 import methodOverride from 'method-override';
@@ -26,6 +25,24 @@ const __dirname = path.dirname(new URL(import.meta.url).pathname);
 app.use(express.static(path.resolve('./public')));
 
 
+
+
+
+// Conexión a MongoDB
+connectDB();
+// Configurar EJS como motor de plantillas
+app.set('view engine', 'ejs');
+app.set('views', path.resolve('./views'));
+
+// Configurar express-ejs-layouts
+app.use(expressLayouts);
+app.set('layout', 'layout');
+
+// Middleware para procesar datos del formulario
+app.use(bodyParser.urlencoded({ extended: true })); // Formularios
+app.use(express.json()); // JSON adicional
+
+// app.use(express.static(path.resolve('./public')));
 // Middleware para parsear URL-encoded y JSON
 // app.use(express.urlencoded({ extended: true }));
 // // app.use(express.static(path.resolve('./public')));
@@ -191,23 +208,6 @@ app.post('/editSuperhero/id/:id',
     }
   }
 );
-
-
-// Conexión a MongoDB
-connectDB();
-// Configurar EJS como motor de plantillas
-app.set('view engine', 'ejs');
-app.set('views', path.resolve('./views'));
-
-// Configurar express-ejs-layouts
-app.use(expressLayouts);
-app.set('layout', 'layout');
-
-// Middleware para procesar datos del formulario
-app.use(bodyParser.urlencoded({ extended: true })); // Formularios
-app.use(express.json()); // JSON adicional
-
-// app.use(express.static(path.resolve('./public')));
 
 // Rutas para la API
 app.use('/api', superHeroRoutes);
