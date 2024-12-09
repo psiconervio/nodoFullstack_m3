@@ -9,8 +9,8 @@ import superHeroRoutes from './routes/superheroRoutes.mjs';
 import { fileURLToPath } from 'url'
 import { obtenerSuperheroePorIdController,actualizarHeroePorId } from './controllers/superheroesController.mjs';
 import expressLayouts from 'express-ejs-layouts';
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
+// const __filename = fileURLToPath(import.meta.url);
+// const __dirname = path.dirname(__filename);
 // const __filename = fileURLToPath(import.meta.url);
 //  const __dirname = path.dirname(new URL(import.meta.url).pathname);
 
