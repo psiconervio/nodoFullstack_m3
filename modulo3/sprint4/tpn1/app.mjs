@@ -132,14 +132,14 @@ app.get('/editSuperhero/id/:id', async (req, res) => {
     }
 
     console.log('Superhéroe encontrado:', superHeroe.nombreSuperHeroe);
-    res.render('editSuperhero', { superheroe: superHeroe });
+    res.render('editSuperHero', { superheroe: superHeroe });
   } catch (err) {
     console.error('Error al obtener el superhéroe:', err);
     res.status(500).send('Error al obtener los datos del superhéroe');
   }
 });
 
-app.put('/editSuperhero/id/:id', 
+app.put('/editSuperHero/id/:id', 
   async (req, res) => {
     // Verificar si hay errores en la validación
     const errors = validationResult(req);
