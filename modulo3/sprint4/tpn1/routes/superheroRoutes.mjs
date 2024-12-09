@@ -36,7 +36,7 @@ router.delete('/heroes/id/:id', borrarHeroePorId);
 router.get('/heroes/id/:id', borrarHeroePorId);
 //Actualizar por id
 // router.post('/heroes/idput/:id', actualizarHeroePorId);
-router.put('/heroes/idput/:id', actualizarHeroePorId);
+router.put('/heroes/idput/:id',validarHeroeEvalidator, actualizarHeroePorId);
 // ejercicio 5 Endpoint DELETE para eliminar un heroe por nombre
 router.delete('/heroes/nombre/:nombre', borrarHeroePorNombre);
 
