@@ -40,11 +40,11 @@ router.post('/heroes/idput/:id', actualizarHeroePorId);
 // ejercicio 5 Endpoint DELETE para eliminar un heroe por nombre
 router.delete('/heroes/nombre/:nombre', borrarHeroePorNombre);
 
-router.get('/editSuperhero/id/:id', obtenerSuperheroePorIdController, (req, res) => {
-  res.render('editSuperhero', { superheroe: req.superheroe });
-});
+// router.get('/editSuperhero/id/:id', obtenerSuperheroePorIdController, (req, res) => {
+//   res.render('editSuperhero', { superheroe: req.superheroe });
+// });
 
-router.post('/editSuperhero/id/:id', actualizarHeroePorId);
+// router.post('/editSuperhero/id/:id', actualizarHeroePorId);
 
 export default router;
 

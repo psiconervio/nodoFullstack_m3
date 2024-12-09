@@ -33,11 +33,11 @@ class SuperHeroRepository extends IRepository {
     return await SuperHero.findById(id);
   }
   //primer paso crear la interaccion con la db y exportar la funcion al irepository
-  async actualizarPorId(id, updateData) {
-    // Encuentra el héroe por ID y lo actualiza
-    const hero = await SuperHero.findByIdAndUpdate(id, updateData, { new: true });
-    return hero;
-  }
+  // async actualizarPorId(id, updateData) {
+  //   // Encuentra el héroe por ID y lo actualiza
+  //   const hero = await SuperHero.findByIdAndUpdate(id, updateData, { new: true });
+  //   return hero;
+  // }
   // async actualizarPorId(id, datosActualizados) {
   //   return await SuperHero.findByIdAndUpdate(id, datosActualizados, { new: true });
   // }
@@ -51,7 +51,23 @@ class SuperHeroRepository extends IRepository {
   //     { new: true, runValidators: true }
   //   );
   // }
+  async actualizarPorId(id, datosActualizados) {
+    console.log('Actualizando héroe con ID:', id);
+    console.log('Datos actualizados:', datosActualizados);
   
+    try {
+      const result = await SuperHero.findByIdAndUpdate(
+        id,
+        datosActualizados,
+        { new: true, runValidators: true }
+      );
+      console.log('Resultado de actualización:', result);
+      return result;
+    } catch (error) {
+      console.error('Error en la actualización:', error.message);
+      throw error;
+    }
+  }
   async obtenerTodos() {
     return await SuperHero.find({});
   }

@@ -3,59 +3,71 @@ import { obtenerSuperheroePorId, obtenerTodosLosSuperheroes, buscarSuperheroesPo
 obtenerSuperheroesMayoresDe30,obtenerSuperheroesMayoresDe30Nativo,createSuperHeroService,borrarHeroePorIdService } from '../services/superheroesService.mjs';
 import { renderizarSuperheroe, renderizarListaSuperheroes } from '../views/responseView.mjs';
 
-export const actualizarHeroePorId = async (req, res) => {
-  try {
-    console.log('ID recibido:', req.params.id);
-    console.log('Datos recibidos:', req.body);
-
-    const { poderes, aliados, enemigos, ...rest } = req.body;
-    const updateData = {
-      ...rest,
-      poderes: poderes ? poderes.split(',').map(p => p.trim()) : [],
-      aliados: aliados ? aliados.split(',').map(a => a.trim()) : [],
-      enemigos: enemigos ? enemigos.split(',').map(e => e.trim()) : [],
-    };
-
-    const updatedHero = await superHeroRepository.actualizarPorId(req.params.id, updateData);
-
-    if (!updatedHero) {
-      return res.status(404).send('Héroe no encontrado');
-    }
-
-    console.log('Héroe actualizado:', updatedHero);
-    res.redirect('/');
-  } catch (error) {
-    console.error('Error al actualizar el héroe:', error);
-    res.status(500).send('Error al actualizar');
-  }
-};
 // export const actualizarHeroePorId = async (req, res) => {
 //   try {
+//     console.log('ID recibido:', req.params.id);
 //     console.log('Datos recibidos:', req.body);
 
-//     // desesctructuracion y formateo de datos recibidos
 //     const { poderes, aliados, enemigos, ...rest } = req.body;
 //     const updateData = {
 //       ...rest,
-//       poderes: poderes.split(',').map(p => p.trim()),
-//       aliados: aliados.split(',').map(a => a.trim()),
-//       enemigos: enemigos.split(',').map(e => e.trim()),
+//       poderes: poderes ? poderes.split(',').map(p => p.trim()) : [],
+//       aliados: aliados ? aliados.split(',').map(a => a.trim()) : [],
+//       enemigos: enemigos ? enemigos.split(',').map(e => e.trim()) : [],
 //     };
 
-//     // llamada al repositorio para actualizar el heroe
 //     const updatedHero = await superHeroRepository.actualizarPorId(req.params.id, updateData);
 
 //     if (!updatedHero) {
 //       return res.status(404).send('Héroe no encontrado');
 //     }
 
-//     // Redirige a la lista de heroes o a una página de éxito
+//     console.log('Héroe actualizado:', updatedHero);
 //     res.redirect('/');
 //   } catch (error) {
-//     console.error(error);
+//     console.error('Error al actualizar el héroe:', error);
 //     res.status(500).send('Error al actualizar');
 //   }
 // };
+// export const actualizarHeroePorId = async (req, res) => {
+//   try {
+//     const id = req.params.id;
+
+//     // Validar si el ID es válido
+//     if (!mongoose.Types.ObjectId.isValid(id)) {
+//       return res.status(400).send('ID inválido');
+//     }
+
+//     // Extraer datos del cuerpo de la solicitud
+//     const { poderes = '', aliados = '', enemigos = '', ...rest } = req.body;
+
+//     // Formatear los datos para actualizar
+//     const updateData = {
+//       ...rest,
+//       poderes: poderes ? poderes.split(',').map(p => p.trim()) : [],
+//       aliados: aliados ? aliados.split(',').map(a => a.trim()) : [],
+//       enemigos: enemigos ? enemigos.split(',').map(e => e.trim()) : [],
+//     };
+
+//     // Llamar al repositorio para actualizar
+//     const updatedHero = await superHeroRepository.actualizarPorId(id, updateData);
+
+//     if (!updatedHero) {
+//       return res.status(404).send('Héroe no encontrado');
+//     }
+
+//     // Redirigir a la página principal después de actualizar
+//     res.redirect('/');
+//   } catch (error) {
+//     // Manejar errores de validación y otros errores
+//     if (error.name === 'ValidationError') {
+//       return res.status(400).json({ error: error.message });
+//     }
+//     console.error('Error al actualizar el héroe:', error.message);
+//     res.status(500).send('Error al actualizar el héroe');
+//   }
+// };
+
 
 
 // export async function obtenerSuperheroePorIdController(req, res) {
@@ -233,26 +245,26 @@ export const borrarHeroePorNombre = async (req, res) => {
 //     res.status(500).json({ message: error.message }); // manejo de errores
 //   }
 // };
-// export const actualizarHeroePorId = async (req, res) => {
-//   try {
-//     // obtiene el id del heroe desde los parametros de la url
-//     const { id } = req.params;
-//     // datos nuevos enviados en el cuerpo de la solicitud
-//     const updateData = req.body; 
-//     // llama al repositorio y le pasa los parametros
-//     const updatedSuperHero = await superHeroRepository.actualizarPorId(id, updateData);
+export const actualizarHeroePorId = async (req, res) => {
+  try {
+    // obtiene el id del heroe desde los parametros de la url
+    const { id } = req.params;
+    // datos nuevos enviados en el cuerpo de la solicitud
+    const updateData = req.body; 
+    // llama al repositorio y le pasa los parametros
+    const updatedSuperHero = await superHeroRepository.actualizarPorId(id, updateData);
 
-//     if (!updatedSuperHero) {
-//       return res.status(404).json({ message: 'heroe no encontrado' });
-//     }
-//     // renderiza el heroe actualizado
-//     const response = renderizarSuperheroe(updatedSuperHero); 
-//     // devuelve el heroe actualizado
-//     res.status(200).json(response); 
-//   } catch (error) {
-//     res.status(500).json({ message: error.message });
-//   }
-// };
+    if (!updatedSuperHero) {
+      return res.status(404).json({ message: 'heroe no encontrado' });
+    }
+    // renderiza el heroe actualizado
+    const response = renderizarSuperheroe(updatedSuperHero); 
+    // devuelve el heroe actualizado
+    res.status(200).json(response); 
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
 
 
 

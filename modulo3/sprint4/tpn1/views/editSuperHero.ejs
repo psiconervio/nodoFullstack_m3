@@ -10,8 +10,7 @@
 </head>
 
 <body>
-    <form action="/superheroes/editar/<%= superheroe._id %>" method="POST" id="editForm">
-      <input type="hidden" name="_method" value="PUT">
+    <form action="/api/heroes/idput/<%= superheroe._id %>" method="POST" id="editForm">
 
       <label for="heroName">Nombre del Superhéroe:</label>
       <input name="heroName" id="heroName" value="<%= superheroe.nombreSuperHeroe %>">
@@ -44,7 +43,6 @@
     
     </form>
  
-  <script src="/js/validarEdicion.js"></script>
 </body>
 
 </html>
