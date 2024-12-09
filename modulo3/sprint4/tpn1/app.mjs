@@ -1,16 +1,11 @@
 import express from "express";
-import SuperHero from "./models/SuperHero.mjs";
-import mongoose from "mongoose";
 import bodyParser from "body-parser";
-import { body, validationResult } from "express-validator";
 import path from "path";
 import { connectDB } from "./config/dbConfig.mjs";
 import methodOverride from "method-override";
 import superHeroRoutes from "./routes/superheroRoutes.mjs";
-import { fileURLToPath } from "url";
 import {
   obtenerSuperheroePorIdController,
-  actualizarHeroePorId,
 } from "./controllers/superheroesController.mjs";
 import expressLayouts from "express-ejs-layouts";
 
