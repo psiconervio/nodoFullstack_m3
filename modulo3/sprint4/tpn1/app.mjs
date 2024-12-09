@@ -1,6 +1,8 @@
 import express from 'express';
 import SuperHero from './models/SuperHero.mjs';
 import mongoose from 'mongoose';
+import bodyParser from 'body-parser';
+import { body, validationResult } from 'express-validator';
 
 import path from 'path';
 import { connectDB } from './config/dbConfig.mjs';
