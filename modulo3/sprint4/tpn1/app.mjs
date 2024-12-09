@@ -17,30 +17,36 @@ const __dirname = path.dirname(__filename);
 
 const app = express();
 const PORT = process.env.PORT || 3000;
+// Obtener __dirname en un módulo ESM
+const __dirname = path.dirname(new URL(import.meta.url).pathname);
+
+// Middleware para servir archivos estáticos
+app.use(express.static(path.resolve('./public')));
+
 
 // Middleware para parsear URL-encoded y JSON
-app.use(express.urlencoded({ extended: true }));
+// app.use(express.urlencoded({ extended: true }));
+// // app.use(express.static(path.resolve('./public')));
+// // app.use(express.static(path.join(__dirname, 'public')));
+// app.use(express.json());
+
+// // Usar method-override para soportar métodos PUT y DELETE
+// app.use(methodOverride('_method'));
+// app.set('views', path.join(__dirname, 'views'));
+// app.set('view engine', 'ejs');
+// app.set('views', path.resolve('./views'));
+
+// // Configuración del motor de vistas EJS
+// app.set('view engine', 'ejs');
+// // app.set('views', path.resolve('./views')); // Asegúrate de que apunta al directorio 'views'
 // app.use(express.static(path.resolve('./public')));
-// app.use(express.static(path.join(__dirname, 'public')));
-app.use(express.json());
+// // Configurar express-ejs-layouts
+// app.use(expressLayouts);
+// app.set('layout', 'layout'); // Archivo base layout.ejs dentro de partials
+// app.set('views', path.join(__dirname, 'views'));
+// console.log('Views directory set to:', path.join(__dirname, 'views')); // Agregar log
 
-// Usar method-override para soportar métodos PUT y DELETE
-app.use(methodOverride('_method'));
-app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'ejs');
-app.set('views', path.resolve('./views'));
-
-// Configuración del motor de vistas EJS
-app.set('view engine', 'ejs');
-// app.set('views', path.resolve('./views')); // Asegúrate de que apunta al directorio 'views'
-app.use(express.static(path.resolve('./public')));
-// Configurar express-ejs-layouts
-app.use(expressLayouts);
-app.set('layout', 'layout'); // Archivo base layout.ejs dentro de partials
-app.set('views', path.join(__dirname, 'views'));
-console.log('Views directory set to:', path.join(__dirname, 'views')); // Agregar log
-
-console.log('Directorio de vistas:', path.join(__dirname, 'views'));
+// console.log('Directorio de vistas:', path.join(__dirname, 'views'));
 
 app.get('/', async (req, res) => {
   try {
@@ -187,6 +193,18 @@ app.post('/editSuperhero/id/:id',
 
 // Conexión a MongoDB
 connectDB();
+// Configurar EJS como motor de plantillas
+app.set('view engine', 'ejs');
+app.set('views', path.resolve('./views'));
+
+// Configurar express-ejs-layouts
+app.use(expressLayouts);
+app.set('layout', 'layout');
+
+// Middleware para procesar datos del formulario
+app.use(bodyParser.urlencoded({ extended: true })); // Formularios
+app.use(express.json()); // JSON adicional
+
 // app.use(express.static(path.resolve('./public')));
 
 // Rutas para la API
