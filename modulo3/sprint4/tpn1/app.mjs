@@ -1,220 +1,98 @@
-import express from 'express';
-import SuperHero from './models/SuperHero.mjs';
-import mongoose from 'mongoose';
-import bodyParser from 'body-parser';
-import { body, validationResult } from 'express-validator';
-import path from 'path';
-import { connectDB } from './config/dbConfig.mjs';
-import methodOverride from 'method-override';
-import superHeroRoutes from './routes/superheroRoutes.mjs';
-import { fileURLToPath } from 'url'
-import { obtenerSuperheroePorIdController,actualizarHeroePorId } from './controllers/superheroesController.mjs';
-import expressLayouts from 'express-ejs-layouts';
-// const __filename = fileURLToPath(import.meta.url);
-// const __dirname = path.dirname(__filename);
-// const __filename = fileURLToPath(import.meta.url);
-//  const __dirname = path.dirname(new URL(import.meta.url).pathname);
+import express from "express";
+import SuperHero from "./models/SuperHero.mjs";
+import mongoose from "mongoose";
+import bodyParser from "body-parser";
+import { body, validationResult } from "express-validator";
+import path from "path";
+import { connectDB } from "./config/dbConfig.mjs";
+import methodOverride from "method-override";
+import superHeroRoutes from "./routes/superheroRoutes.mjs";
+import { fileURLToPath } from "url";
+import {
+  obtenerSuperheroePorIdController,
+  actualizarHeroePorId,
+} from "./controllers/superheroesController.mjs";
+import expressLayouts from "express-ejs-layouts";
+
 const app = express();
 const PORT = process.env.PORT || 3000;
 // Obtener __dirname en un módulo ESM
 const __dirname = path.dirname(new URL(import.meta.url).pathname);
 
 // Middleware para servir archivos estáticos
-app.use(express.static(path.resolve('./public')));
+app.use(express.static(path.resolve("./public")));
 
 // Conexión a MongoDB
 connectDB();
 // Configurar EJS como motor de plantillas
-app.set('view engine', 'ejs');
-app.set('views', path.join(process.cwd(), 'views'));
-app.set('views', path.resolve('./views'));
+app.set("view engine", "ejs");
+app.set("views", path.join(process.cwd(), "views"));
+app.set("views", path.resolve("./views"));
 
 // Configurar express-ejs-layouts
 app.use(expressLayouts);
-app.set('layout', 'layout');
+app.set("layout", "layout");
 
 // Middleware para procesar datos del formulario
 app.use(bodyParser.urlencoded({ extended: true })); // Formularios
 app.use(express.json()); // JSON adicional
 
-// app.use(express.static(path.resolve('./public')));
-// Middleware para parsear URL-encoded y JSON
-// app.use(express.urlencoded({ extended: true }));
-// // app.use(express.static(path.resolve('./public')));
-// // app.use(express.static(path.join(__dirname, 'public')));
-// app.use(express.json());
-
-// // Usar method-override para soportar métodos PUT y DELETE
-// app.use(methodOverride('_method'));
-// app.set('views', path.join(__dirname, 'views'));
-// app.set('view engine', 'ejs');
-// app.set('views', path.resolve('./views'));
-
-// // Configuración del motor de vistas EJS
-// app.set('view engine', 'ejs');
-// // app.set('views', path.resolve('./views')); // Asegúrate de que apunta al directorio 'views'
-// app.use(express.static(path.resolve('./public')));
-// // Configurar express-ejs-layouts
-// app.use(expressLayouts);
-// app.set('layout', 'layout'); // Archivo base layout.ejs dentro de partials
-// app.set('views', path.join(__dirname, 'views'));
-// console.log('Views directory set to:', path.join(__dirname, 'views')); // Agregar log
-
-// console.log('Directorio de vistas:', path.join(__dirname, 'views'));
-// Middleware para loguear las rutas de las solicitudes
 app.use((req, res, next) => {
-  console.log('Incoming request:', req.method, req.path);
+  console.log("Incoming request:", req.method, req.path);
   next();
 });
-app.get('/', async (req, res) => {
+
+app.get("/", async (req, res) => {
   try {
     // obtener los heroes desde la API
     // const response = await fetch('http://127.0.0.1:3000/api/heroes');
-    const response = await fetch('https://nodofullstack-m3.onrender.com/api/heroes');
+    const response = await fetch(
+      "https://nodofullstack-m3.onrender.com/api/heroes"
+    );
     if (!response.ok) {
-      throw new Error('Error al obtener superhéroes');
+      throw new Error("Error al obtener superhéroes");
     }
     const superheroes = await response.json();
 
     // renderizar la vista del dashboard
-    res.render('index', {superheroes});
+    res.render("index", { superheroes });
   } catch (error) {
-    console.error('Error al cargar el dashboard:', error.message);
-    res.status(500).send('Error al cargar el dashboard');
+    console.error("Error al cargar el dashboard:", error.message);
+    res.status(500).send("Error al cargar el dashboard");
   }
 });
 
 // Ruta para agregar superhéroes
-app.get('/addSuperhero', (req, res) => {
-  res.render('addSuperhero', {
-    title: 'Agregar Superhéroe',
+app.get("/addSuperhero", (req, res) => {
+  res.render("addSuperhero", {
+    title: "Agregar Superhéroe",
   });
 });
 
 // Ruta para editar superhéroes
-// app.get('/editSuperhero/id/:id', obtenerSuperheroePorIdController,  (req, res) => {
-//   const superheroe = req.superheroe; // Obtenido desde el middleware
-//   console.log(superheroe);
-//   if (superheroe) {
-    
-//     res.render('editSuperhero'
-//       , { 
-//        superheroe // Envía el superhéroe como 'superhero'
-//     }
-//   );
-//   } else {
-//     res.status(404).send({ mensaje: 'Superhéroe no encontrado' });
-//   }
-// });
-// app.get('/editSuperhero/id/:id', obtenerSuperheroePorIdController, (req, res) => {
-//   const superheroe = req.superheroe;
-//   console.log(app._router.stack);
-
-//   res.render('editSuperhero', { superheroe });
-// });
-// app.post('/editSuperhero/id/:id', actualizarHeroePorId);
-//Muestra el formulario de edición para un superhéroe específico.
-app.get('/editSuperhero/id/:id', async (req, res) => {
-  console.log('Ruta de edición llamada');
-  const { id } = req.params;
-  console.log('ID recibido:', id);
-
-  if (!mongoose.Types.ObjectId.isValid(id)) {
-    console.log('ID no válido');
-    return res.status(400).send('ID no válido');
-  }
-
-  try {
-    const superHeroe = await SuperHero.findById(id);
-    if (!superHeroe) {
-      console.log('Superhéroe no encontrado');
-      return res.status(404).send('Superhéroe no encontrado');
-    }
-
-    console.log('Superhéroe encontrado:', superHeroe.nombreSuperHeroe);
-    res.render('editSuperHero', { superheroe: superHeroe });
-  } catch (err) {
-    console.error('Error al obtener el superhéroe:', err);
-    res.status(500).send('Error al obtener los datos del superhéroe');
-  }
-});
-
-app.put('/editSuperHero/id/:id', 
-  async (req, res) => {
-    // Verificar si hay errores en la validación
-    const errors = validationResult(req);
-    if (!errors.isEmpty()) {
-      return res.status(400).json({ errors: errors.array() });
-    }
-
-    const { id } = req.params;
-    const { heroName, realName, heroAge, planetaOrigen, debilidad, poderes, aliados, enemigos } = req.body;
-
-    try {
-      const updatedHeroe = await SuperHero.findByIdAndUpdate(id, {
-        nombreSuperHeroe: heroName,
-        nombreReal: realName,
-        edad: heroAge,
-        planetaOrigen,
-        debilidad,
-        poderes: poderes ? poderes.split(',') : [],
-        aliados: aliados ? aliados.split(',') : [],
-        enemigos: enemigos ? enemigos.split(',') : []
-      }, { new: true });
-
-      // Redirigir después de actualizar el superhéroe
-      res.redirect('/superheroes');
-    } catch (error) {
-      res.status(500).send('Error al actualizar el superhéroe');
+app.get(
+  "/editSuperhero/id/:id",
+  obtenerSuperheroePorIdController,
+  (req, res) => {
+    const superheroe = req.superheroe; // Obtenido desde el middleware
+    console.log(superheroe);
+    if (superheroe) {
+      res.render("editSuperHero", {
+        superheroe, // Envía el superhéroe como 'superhero'
+      });
+    } else {
+      res.status(404).send({ mensaje: "Superhéroe no encontrado" });
     }
   }
 );
-app.post('/editSuperhero/id/:id', 
-  async (req, res) => {
-    // Check for validation errors
-    const errors = validationResult(req);
-    if (!errors.isEmpty()) {
-      console.error('Validation Errors:', errors.array());
-      return res.status(400).json({ errors: errors.array() });
-    }
 
-    const { id } = req.params;
-    const { heroName, realName, heroAge, planetaOrigen, debilidad, poderes, aliados, enemigos } = req.body;
-
-    console.log('Update Request Body:', req.body);  // Add logging
-
-    try {
-      const updatedHeroe = await SuperHero.findByIdAndUpdate(id, {
-        nombreSuperHeroe: heroName,
-        nombreReal: realName,
-        edad: heroAge,
-        planetaOrigen,
-        debilidad,
-        poderes: poderes ? poderes.split(',').map(p => p.trim()) : [],
-        aliados: aliados ? aliados.split(',').map(a => a.trim()) : [],
-        enemigos: enemigos ? enemigos.split(',').map(e => e.trim()) : []
-      }, { new: true });
-
-      if (!updatedHeroe) {
-        console.log('No superhero found with ID:', id);
-        return res.status(404).send('Superhéroe no encontrado');
-      }
-
-      console.log('Superhero updated successfully');
-      res.redirect('/superheroes');
-    } catch (error) {
-      console.error('Error updating superhero:', error);
-      res.status(500).send('Error al actualizar el superhéroe');
-    }
-  }
-);
 
 // Rutas para la API
-app.use('/api', superHeroRoutes);
+app.use("/api", superHeroRoutes);
 
 // Manejo de errores para rutas no encontradas
 app.use((req, res) => {
-  res.status(404).send({ mensaje: 'Ruta no encontrada' });
+  res.status(404).send({ mensaje: "Ruta no encontrada" });
 });
 
 // Inicialización del servidor
@@ -263,7 +141,7 @@ app.listen(PORT, () => {
 //       navbarLinks: [{text:'Inicio', href:'/', icon: 'icons/home.svg'},
 //         {text:'Acerca de ', href:'/about', icon: 'icons/info.svg'},
 //         {text:'Contacto', href:'/contact', icon: 'icons/contact.svg'}
-        
+
 //       ],superheroes
 //     });
 //   } catch (error) {
@@ -362,8 +240,6 @@ app.listen(PORT, () => {
 //   }
 // });
 
-
-
 ////
 // import express from 'express';
 // import { connectDB } from './config/dbConfig.mjs';
@@ -394,8 +270,8 @@ app.listen(PORT, () => {
 //       throw new Error('Error al obtener superhéroes');
 //     }
 //     // datos recibidos de la api
-//     const superheroes = await response.json(); 
-//     console.log('datos enviados a la vista:', superheroes); 
+//     const superheroes = await response.json();
+//     console.log('datos enviados a la vista:', superheroes);
 
 //     // renderiza la vista  dashboard y envia los datos
 //     res.render('dashboard', { superheroes });
@@ -462,7 +338,7 @@ app.listen(PORT, () => {
 // connectDB();
 
 // try {
-// //configuración de rutas atraves de la subruta /api 
+// //configuración de rutas atraves de la subruta /api
 // //configuracion de capa de rutas de apis, le pasamos rutas definidas
 // app.use('/api', superHeroRoutes);
 // //RUTA GLOBAL CON MIDDLEWARE
