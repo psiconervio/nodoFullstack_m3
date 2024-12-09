@@ -4,7 +4,7 @@ import { connectDB } from './config/dbConfig.mjs';
 import methodOverride from 'method-override';
 import superHeroRoutes from './routes/superheroRoutes.mjs';
 import { fileURLToPath } from 'url'
-import { obtenerSuperheroePorIdController } from './controllers/superheroesController.mjs';
+import { obtenerSuperheroePorIdController,actualizarHeroePorId } from './controllers/superheroesController.mjs';
 import expressLayouts from 'express-ejs-layouts';
 // const __filename = fileURLToPath(import.meta.url);
 // const __dirname = path.dirname(__filename);
@@ -90,6 +90,7 @@ app.get('/editSuperhero/id/:id', obtenerSuperheroePorIdController, (req, res, ne
     res.status(500).send({ mensaje: 'Error interno del servidor' });
   }
 });
+app.post('/editSuperhero/id/:id', actualizarHeroePorId);
 
 
 

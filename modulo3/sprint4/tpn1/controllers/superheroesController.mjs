@@ -5,31 +5,31 @@ import { renderizarSuperheroe, renderizarListaSuperheroes } from '../views/respo
 
 export const actualizarHeroePorId = async (req, res) => {
   try {
+    console.log('ID recibido:', req.params.id);
     console.log('Datos recibidos:', req.body);
 
-    // desesctructuracion y formateo de datos recibidos
     const { poderes, aliados, enemigos, ...rest } = req.body;
     const updateData = {
       ...rest,
-      poderes: poderes.split(',').map(p => p.trim()),
-      aliados: aliados.split(',').map(a => a.trim()),
-      enemigos: enemigos.split(',').map(e => e.trim()),
+      poderes: poderes ? poderes.split(',').map(p => p.trim()) : [],
+      aliados: aliados ? aliados.split(',').map(a => a.trim()) : [],
+      enemigos: enemigos ? enemigos.split(',').map(e => e.trim()) : [],
     };
 
-    // llamada al repositorio para actualizar el heroe
     const updatedHero = await superHeroRepository.actualizarPorId(req.params.id, updateData);
 
     if (!updatedHero) {
       return res.status(404).send('Héroe no encontrado');
     }
 
-    // Redirige a la lista de heroes o a una página de éxito
+    console.log('Héroe actualizado:', updatedHero);
     res.redirect('/');
   } catch (error) {
-    console.error(error);
+    console.error('Error al actualizar el héroe:', error);
     res.status(500).send('Error al actualizar');
   }
 };
+
 
 
 // export async function obtenerSuperheroePorIdController(req, res) {

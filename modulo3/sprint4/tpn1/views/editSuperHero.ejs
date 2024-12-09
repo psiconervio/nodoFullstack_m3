@@ -1,45 +1,89 @@
-<div>
-  <% if (superheroe) { %>
-    <!-- Imprimir el superhéroe en la consola del navegador -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Editar Superhéroe</title>
+</head>
+<body>
+  <h1>Editar Superhéroe</h1>
+  <form action="/editSuperhero/id/<%= superheroe._id %>" method="POST">
 
-    <form >
-      <br>
+    <label for="nombreSuperHeroe">Nombre del Superhéroe</label>
+    <input
+      type="text"
+      id="nombreSuperHeroe"
+      name="nombreSuperHeroe"
+      value="<%= superheroe.nombreSuperHeroe %>"
+      required
+    />
+    <br />
 
-      <label for="nombreSuperHeroe">Nombre del Superhéroe</label>
-      <input type="text" id="nombreSuperHeroe" name="nombreSuperHeroe" value="<%= superheroe.nombreSuperHeroe || '' %>" required />
-      <br>
-      <label for="nombreReal">Nombre Real</label>
-      <input type="text" id="nombreReal" name="nombreReal" value="<%= superheroe.nombreReal || '' %>" required />
-      <br>
+    <label for="nombreReal">Nombre Real</label>
+    <input
+      type="text"
+      id="nombreReal"
+      name="nombreReal"
+      value="<%= superheroe.nombreReal %>"
+      required
+    />
+    <br />
 
-      <label for="edad">Edad</label>
-      <input type="number" id="edad" name="edad" value="<%= superheroe.edad || '' %>" required />
-      <br>
+    <label for="edad">Edad</label>
+    <input
+      type="number"
+      id="edad"
+      name="edad"
+      value="<%= superheroe.edad %>"
+      required
+    />
+    <br />
 
-      <label for="planetaOrigen">Planeta de Origen</label>
-      <input type="text" id="planetaOrigen" name="planetaOrigen" value="<%= superheroe.planetaOrigen || '' %>" required />
-      <br>
+    <label for="planetaOrigen">Planeta de Origen</label>
+    <input
+      type="text"
+      id="planetaOrigen"
+      name="planetaOrigen"
+      value="<%= superheroe.planetaOrigen %>"
+      required
+    />
+    <br />
 
-      <label for="debilidad">Debilidad</label>
-      <input type="text" id="debilidad" name="debilidad" value="<%= superheroe.debilidad || '' %>" required />
-      <br>
+    <label for="debilidad">Debilidad</label>
+    <input
+      type="text"
+      id="debilidad"
+      name="debilidad"
+      value="<%= superheroe.debilidad %>"
+      required
+    />
+    <br />
 
-      <label for="poderes">Poderes</label>
-      <textarea id="poderes" name="poderes" rows="4"><%= superheroe.poderes ? superheroe.poderes.join(', ') : '' %></textarea>
-      <br>
+    <label for="poderes">Poderes</label>
+    <textarea
+      id="poderes"
+      name="poderes"
+      rows="4"
+    ><%= superheroe.poderes ? superheroe.poderes.join(', ') : '' %></textarea>
+    <br />
 
-      <label for="aliados">Aliados</label>
-      <textarea id="aliados" name="aliados" rows="3"><%= superheroe.aliados ? superheroe.aliados.join(', ') : '' %></textarea>
-      <br>
+    <label for="aliados">Aliados</label>
+    <textarea
+      id="aliados"
+      name="aliados"
+      rows="3"
+    ><%= superheroe.aliados ? superheroe.aliados.join(', ') : '' %></textarea>
+    <br />
 
-      <label for="enemigos">Enemigos</label>
-      <textarea id="enemigos" name="enemigos" rows="3"><%= superheroe.enemigos ? superheroe.enemigos.join(', ') : '' %></textarea>
-      <br>
+    <label for="enemigos">Enemigos</label>
+    <textarea
+      id="enemigos"
+      name="enemigos"
+      rows="3"
+    ><%= superheroe.enemigos ? superheroe.enemigos.join(', ') : '' %></textarea>
+    <br />
 
-      <button id="boton" type="submit">Actualizar Superhéroe</button>
-
-    </form>
-  <% } else { %>
-    <p>El superhéroe no se encontró. <a href="/superheroes">Volver a la lista</a></p>
-  <% } %>
-</div>
+    <button type="submit">Actualizar Superhéroe</button>
+  </form>
+</body>
+</html>

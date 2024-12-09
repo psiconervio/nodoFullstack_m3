@@ -33,27 +33,10 @@ class SuperHeroRepository extends IRepository {
     return await SuperHero.findById(id);
   }
   //primer paso crear la interaccion con la db y exportar la funcion al irepository
-  async actualizarPorId(id, datosActualizados) {
-    try {
-      // Busca por ID y actualiza con los datos proporcionados
-      const heroActualizado = await SuperHero.findByIdAndUpdate(
-        id, // ID del héroe a actualizar
-        datosActualizados, // Nuevos datos a actualizar
-        {
-          new: true, // Devuelve el documento actualizado
-          runValidators: true, // Aplica validaciones de Mongoose
-        }
-      );
-
-      if (!heroActualizado) {
-        throw new Error('Héroe no encontrado');
-      }
-
-      return heroActualizado;
-    } catch (error) {
-      console.error('Error al actualizar el héroe:', error);
-      throw new Error('Error en la actualización del héroe');
-    }
+  async actualizarPorId(id, updateData) {
+    // Encuentra el héroe por ID y lo actualiza
+    const hero = await SuperHero.findByIdAndUpdate(id, updateData, { new: true });
+    return hero;
   }
   // async actualizarPorId(id, datosActualizados) {
   //   return await SuperHero.findByIdAndUpdate(
