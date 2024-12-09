@@ -1,4 +1,7 @@
 import express from 'express';
+import SuperHero from './models/SuperHero.mjs';
+import mongoose from 'mongoose';
+
 import path from 'path';
 import { connectDB } from './config/dbConfig.mjs';
 import methodOverride from 'method-override';
@@ -6,10 +9,10 @@ import superHeroRoutes from './routes/superheroRoutes.mjs';
 import { fileURLToPath } from 'url'
 import { obtenerSuperheroePorIdController,actualizarHeroePorId } from './controllers/superheroesController.mjs';
 import expressLayouts from 'express-ejs-layouts';
-// const __filename = fileURLToPath(import.meta.url);
-// const __dirname = path.dirname(__filename);
 const __filename = fileURLToPath(import.meta.url);
- const __dirname = path.dirname(__filename);
+const __dirname = path.dirname(__filename);
+// const __filename = fileURLToPath(import.meta.url);
+//  const __dirname = path.dirname(new URL(import.meta.url).pathname);
 
 
 const app = express();
@@ -24,6 +27,8 @@ app.use(express.json());
 // Usar method-override para soportar métodos PUT y DELETE
 app.use(methodOverride('_method'));
 app.set('views', path.join(__dirname, 'views'));
+app.set('view engine', 'ejs');
+app.set('views', path.resolve('./views'));
 
 // Configuración del motor de vistas EJS
 app.set('view engine', 'ejs');
@@ -77,21 +82,107 @@ app.get('/addSuperhero', (req, res) => {
 //     res.status(404).send({ mensaje: 'Superhéroe no encontrado' });
 //   }
 // });
-app.get('/editSuperhero/id/:id', obtenerSuperheroePorIdController, (req, res, next) => {
+// app.get('/editSuperhero/id/:id', obtenerSuperheroePorIdController, (req, res) => {
+//   const superheroe = req.superheroe;
+//   console.log(app._router.stack);
+
+//   res.render('editSuperhero', { superheroe });
+// });
+// app.post('/editSuperhero/id/:id', actualizarHeroePorId);
+//Muestra el formulario de edición para un superhéroe específico.
+app.get('/editSuperhero/id/:id', async (req, res) => {
+  console.log('Ruta de edición llamada');
+  const { id } = req.params;
+  console.log('ID recibido:', id);
+
+  if (!mongoose.Types.ObjectId.isValid(id)) {
+    console.log('ID no válido');
+    return res.status(400).send('ID no válido');
+  }
+
   try {
-    const superheroe = req.superheroe; // Obtenido desde el middleware
-    if (superheroe) {
-      res.render('editSuperhero', { superheroe });
-    } else {
-      res.status(404).send({ mensaje: 'Superhéroe no encontrado' });
+    const superHeroe = await SuperHero.findById(id);
+    if (!superHeroe) {
+      console.log('Superhéroe no encontrado');
+      return res.status(404).send('Superhéroe no encontrado');
     }
-  } catch (error) {
-    console.error('Error al renderizar la vista:', error);
-    res.status(500).send({ mensaje: 'Error interno del servidor' });
+
+    console.log('Superhéroe encontrado:', superHeroe.nombreSuperHeroe);
+    res.render('editSuperhero', { superheroe: superHeroe });
+  } catch (err) {
+    console.error('Error al obtener el superhéroe:', err);
+    res.status(500).send('Error al obtener los datos del superhéroe');
   }
 });
-app.post('/editSuperhero/id/:id', actualizarHeroePorId);
+app.put('/editSuperhero/id/:id', 
+  async (req, res) => {
+    // Verificar si hay errores en la validación
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(400).json({ errors: errors.array() });
+    }
 
+    const { id } = req.params;
+    const { heroName, realName, heroAge, planetaOrigen, debilidad, poderes, aliados, enemigos } = req.body;
+
+    try {
+      const updatedHeroe = await SuperHero.findByIdAndUpdate(id, {
+        nombreSuperHeroe: heroName,
+        nombreReal: realName,
+        edad: heroAge,
+        planetaOrigen,
+        debilidad,
+        poderes: poderes ? poderes.split(',') : [],
+        aliados: aliados ? aliados.split(',') : [],
+        enemigos: enemigos ? enemigos.split(',') : []
+      }, { new: true });
+
+      // Redirigir después de actualizar el superhéroe
+      res.redirect('/superheroes');
+    } catch (error) {
+      res.status(500).send('Error al actualizar el superhéroe');
+    }
+  }
+);
+app.post('/editSuperhero/id/:id', 
+  async (req, res) => {
+    // Check for validation errors
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      console.error('Validation Errors:', errors.array());
+      return res.status(400).json({ errors: errors.array() });
+    }
+
+    const { id } = req.params;
+    const { heroName, realName, heroAge, planetaOrigen, debilidad, poderes, aliados, enemigos } = req.body;
+
+    console.log('Update Request Body:', req.body);  // Add logging
+
+    try {
+      const updatedHeroe = await SuperHero.findByIdAndUpdate(id, {
+        nombreSuperHeroe: heroName,
+        nombreReal: realName,
+        edad: heroAge,
+        planetaOrigen,
+        debilidad,
+        poderes: poderes ? poderes.split(',').map(p => p.trim()) : [],
+        aliados: aliados ? aliados.split(',').map(a => a.trim()) : [],
+        enemigos: enemigos ? enemigos.split(',').map(e => e.trim()) : []
+      }, { new: true });
+
+      if (!updatedHeroe) {
+        console.log('No superhero found with ID:', id);
+        return res.status(404).send('Superhéroe no encontrado');
+      }
+
+      console.log('Superhero updated successfully');
+      res.redirect('/superheroes');
+    } catch (error) {
+      console.error('Error updating superhero:', error);
+      res.status(500).send('Error al actualizar el superhéroe');
+    }
+  }
+);
 
 
 // Conexión a MongoDB

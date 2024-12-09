@@ -39,6 +39,9 @@ class SuperHeroRepository extends IRepository {
     return hero;
   }
   // async actualizarPorId(id, datosActualizados) {
+  //   return await SuperHero.findByIdAndUpdate(id, datosActualizados, { new: true });
+  // }
+  // async actualizarPorId(id, datosActualizados) {
   //   return await SuperHero.findByIdAndUpdate(
   //     // busca por id
   //     id, 
