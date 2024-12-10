@@ -1,35 +1,33 @@
-<div class="contenedorr">
-  <a style="display: flex; justify-content: center;" href="/addSuperhero">Agregar Nuevo Superhéroe</a>
-
-  <table class="tabla"  border="2">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Countries</title>
+</head>
+<body>
+  <h1>Lista de países</h1>
+  <table border="1">
     <thead>
       <tr>
-        <th>Nombre del Superhéroe</th>
-        <th>Nombre Real</th>
-        <th>Edad</th>
-        <th>Planeta de Origen</th>
-        <th>Debilidad</th>
-        <th>ID</th>
-        <th>Acciones</th>
+        <th>Nombre</th>
+        <th>Región</th>
+        <th>Población</th>
+        <th>Capital</th>
+        <th>Área</th>
       </tr>
     </thead>
     <tbody>
-      <% superheroes.forEach((hero) => { %>
+      <% countries.forEach(country => { %>
         <tr>
-          <td><%= hero.Nombre %></td>
-          <td><%= hero.NombreReal %></td>
-          <td><%= hero.Edad %></td>
-          <td><%= hero.PlanetadeOrigen %></td>
-          <td><%= hero.Debilidad || "N/A" %></td>
-          <td><%= hero.id || "N/A" %></td>
-          <td>
-            <a href="/editSuperhero/id/<%= hero.id %>" class="btn- btn-editar">Editar</a>
-            <form action="/api/heroes/id/<%= hero.id %>" method="DELETE"  style="display: inline;">
-              <button class="btn bt-eliminar" type="submit">Eliminar</button>
-            </form>
-          </td>
+          <td><%= country.name %></td>
+          <td><%= country.region %></td>
+          <td><%= country.population %></td>
+          <td><%= country.capital %></td>
+          <td><%= country.area %></td>
         </tr>
       <% }); %>
     </tbody>
   </table>
-</div>
+</body>
+</html>

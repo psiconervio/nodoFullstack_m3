@@ -1,5 +1,6 @@
 import express from "express";
 import bodyParser from "body-parser";
+import { AbortController } from "node-abort-controller";
 import path from "path";
 import { connectDB } from "./config/dbConfig.mjs";
 import methodOverride from "method-override";
@@ -37,25 +38,63 @@ app.use((req, res, next) => {
   next();
 });
 
+
 app.get("/", async (req, res) => {
   try {
-    // obtener los heroes desde la API
-    // const response = await fetch('http://127.0.0.1:3000/api/heroes');
-    const response = await fetch(
-      "https://restcountries.com/v3.1/all"
-    );
+    // Obtener los datos desde la API
+    const response = await fetch("https://restcountries.com/v3.1/all?fields=name,region,population,capital,area");
+
+    // Verificar si la respuesta es válida
     if (!response.ok) {
-      throw new Error("Error al obtener superhéroes");
+      throw new Error("Error al obtener datos de la API restcountries");
     }
-    const superheroes = await response.json();
-    console.log(superheroes)
-    // renderizar la vista del dashboard
-    res.render("index", { superheroes });
+
+    // Parsear la respuesta como JSON
+    const countries = await response.json();
+
+    // Seleccionar 5 datos relevantes
+    const selectedData = countries.slice(0, 5).map((country) => ({
+      name: country.name.common,
+      region: country.region,
+      population: country.population,
+      capital: country.capital ? country.capital[0] : "N/A",
+      area: country.area,
+    }));
+
+    // Mostrar los datos en la consola
+    console.log("Datos seleccionados:", selectedData);
+
+    // Renderizar la vista y pasar los datos
+    res.render("index", { countries: selectedData });
   } catch (error) {
-    console.error("Error al cargar el dashboard:", error.message);
-    res.status(500).send("Error al cargar el dashboard");
+    console.error("Error al cargar los datos:", error.message);
+    res.status(500).send("Error al cargar los datos");
   }
 });
+
+
+
+
+
+// app.get("/", async (req, res) => {
+//   try {
+//     // obtener los heroes desde la API
+//     // const response = await fetch('http://127.0.0.1:3000/api/heroes');
+//     const response = await fetch(
+//       "https://restcountries.com/v3.1/all"
+//     );
+//     if (!response.ok) {
+//       throw new Error("Error al obtener superhéroes");
+//     }
+//     const superheroes = await response.json();
+//     console.log("Datos obtenidos:", superheroes.slice(0, 5)); // Muestra solo los primeros 5
+//     // renderizar la vista del dashboard
+//     res.render("index", { superheroes: superheroes.slice(0, 5) });
+//   } catch (error) {
+//     console.error("Error al cargar el dashboard:", error.message);
+//     res.status(500).send("Error al cargar el dashboard");
+//   }
+// });
 
 // Ruta para agregar superhéroes
 app.get("/addSuperhero", (req, res) => {
