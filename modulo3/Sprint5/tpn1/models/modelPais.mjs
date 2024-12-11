@@ -1,20 +1,61 @@
-// import mongoose from 'mongoose';
+const mongoose = require('mongoose');
 
-// //MODELO DE DATOS PARA LA COLLECION sUPERHEROES, DANDOLE LA ESTRUCTURA
-// // Y LAS REGLAS DE VALIDACION PARA LOS DATOS ALMACENADOS EN MONGODB
+const CountrySchema = new mongoose.Schema({
+  name: {
+    common: String,
+    official: String,
+    nativeName: {
+      type: Map,
+      of: {
+        official: String,
+        common: String
+      }
+    }
+  },
+  independent: Boolean,
+  status: String,
+  unMember: Boolean,
+  currencies: {
+    type: Map,
+    of: {
+      name: String,
+      symbol: String
+    }
+  },
+  capital: [String],
+  region: String,
+  subregion: String,
+  languages: {
+    type: Map,
+    of: String
+  },
+  latlng: [Number],
+  landlocked: Boolean,
+  borders: [String],
+  area: Number,
+  flag: String,
+  maps: {
+    googleMaps: String,
+    openStreetMaps: String
+  },
+  population: Number,
+  gini: {
+    type: Map,
+    of: Number
+  },
+  fifa: String,
+  timezones: [String],
+  continents: [String],
+  flags: {
+    png: String,
+    svg: String,
+    alt: String
+  },
+  startOfWeek: String,
+  capitalInfo: {
+    latlng: [Number]
+  },
+  creador: String
+});
 
-// const superheroSchema = new mongoose.Schema({
-//   nombreSuperHeroe: { type: String, required: true },
-//   nombreReal: { type: String, required: true },
-//   edad: { type: Number, min: 0 },
-//   planetaOrigen: { type: String, default: 'Desconocido' },
-//   debilidad: String,
-//   poderes: [String],
-//   aliados: [String],
-//   enemigos: [String],
-//   createdAt: { type: Date, default: Date.now }
-//   creadoPor: String,
-// }, { collection: 'Grupo-18' }); // Aquí defines la colección de cada grupo
-
-
-// export default mongoose.model('SuperHero', superheroSchema);
+module.exports = mongoose.model('Country', CountrySchema);
