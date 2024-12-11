@@ -59,6 +59,12 @@
       if (poderes.length < 1 || poderes.some(p => p.length < 3 || p.length > 60)) {
         errors.push("Los poderes deben ser al menos un elemento con entre 3 y 60 caracteres.");
       }
+      if (poderes.length < 1 || aliados.some(p => p.length < 3 || p.length > 60)) {
+        errors.push("Los poderes deben ser al menos un elemento con entre 3 y 60 caracteres.");
+      }
+      if (poderes.length < 1 || enemigos.some(p => p.length < 3 || p.length > 60)) {
+        errors.push("Los poderes deben ser al menos un elemento con entre 3 y 60 caracteres.");
+      }
 
       if (errors.length > 0) {
         alert(errors.join('\n'));

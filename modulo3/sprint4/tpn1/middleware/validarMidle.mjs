@@ -41,6 +41,56 @@ export const validarHeroeEvalidator = [
       }
       return true;
     }),
+    body("aliados")
+    .custom((value, { req }) => {
+      if (typeof value === "string") {
+        req.body.poderes = value.split(',').map(poder => poder.trim());
+      }
+      return true;
+    })
+    .isArray({ min: 1 })
+    .withMessage("Los poderes deben ser un array con al menos un elemento")
+    .custom((poderes) => {
+      if (Array.isArray(poderes)) {
+        const valid = poderes.every(
+          (poder) =>
+            typeof poder === "string" &&
+            poder.trim().length >= 3 &&
+            poder.trim().length <= 60
+        );
+        if (!valid) {
+          throw new Error("Cada poder debe tener entre 3 y 60 caracteres");
+        }
+      } else {
+        throw new Error("poderes debe ser un array");
+      }
+      return true;
+    }),
+    body("enemigos")
+    .custom((value, { req }) => {
+      if (typeof value === "string") {
+        req.body.poderes = value.split(',').map(poder => poder.trim());
+      }
+      return true;
+    })
+    .isArray({ min: 1 })
+    .withMessage("Los poderes deben ser un array con al menos un elemento")
+    .custom((poderes) => {
+      if (Array.isArray(poderes)) {
+        const valid = poderes.every(
+          (poder) =>
+            typeof poder === "string" &&
+            poder.trim().length >= 3 &&
+            poder.trim().length <= 60
+        );
+        if (!valid) {
+          throw new Error("Cada poder debe tener entre 3 y 60 caracteres");
+        }
+      } else {
+        throw new Error("poderes debe ser un array");
+      }
+      return true;
+    }),
   (req, res, next) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
