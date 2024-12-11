@@ -34,4 +34,3 @@ export const borrarHeroePorIdService = async (id) => {
   return await superHeroRepository.eliminarPorId(id);
 };
 //paises
-export async function obtenerpaises 

@@ -220,13 +220,7 @@ export const borrarHeroePorNombre = async (req, res) => {
   }
 };
 
-export const obtenerpaises = async(req,res) => {
-  try {
-    const 
-  } catch (error) {
-    
-  }
-}
+
 
 
 
