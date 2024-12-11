@@ -1,61 +1,30 @@
-const mongoose = require('mongoose');
+import mongoose from 'mongoose';
 
-const CountrySchema = new mongoose.Schema({
-  name: {
-    common: String,
-    official: String,
-    nativeName: {
-      type: Map,
-      of: {
-        official: String,
-        common: String
-      }
-    }
-  },
+const countrySchema = new mongoose.Schema({
+  name: Object,
   independent: Boolean,
   status: String,
   unMember: Boolean,
-  currencies: {
-    type: Map,
-    of: {
-      name: String,
-      symbol: String
-    }
-  },
+  currencies: Object,
   capital: [String],
   region: String,
   subregion: String,
-  languages: {
-    type: Map,
-    of: String
-  },
+  languages: Object,
   latlng: [Number],
   landlocked: Boolean,
   borders: [String],
   area: Number,
   flag: String,
-  maps: {
-    googleMaps: String,
-    openStreetMaps: String
-  },
+  maps: Object,
   population: Number,
-  gini: {
-    type: Map,
-    of: Number
-  },
+  gini: Object,
   fifa: String,
   timezones: [String],
   continents: [String],
-  flags: {
-    png: String,
-    svg: String,
-    alt: String
-  },
+  flags: Object,
   startOfWeek: String,
-  capitalInfo: {
-    latlng: [Number]
-  },
+  capitalInfo: Object,
   creador: String
-});
+}, { collection: 'Grupo-18' });
 
-module.exports = mongoose.model('Country', CountrySchema);
+module.exports = mongoose.model("Country", countrySchema);
