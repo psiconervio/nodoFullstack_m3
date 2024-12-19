@@ -42,7 +42,7 @@ app.use((req, res, next) => {
 // Endpoint para obtener los datos transformados
 app.get('/countries', async (req, res) => {
   const controller = new AbortController(); // Crear un AbortController
-  const timeout = setTimeout(() => controller.abort(), 20000); // Configurar tiempo máximo de espera
+  const timeout = setTimeout(() => controller.abort(),30000); // Configurar tiempo máximo de espera
 
   try {
     // Realizar solicitud a la API externa con AbortController
@@ -52,8 +52,13 @@ app.get('/countries', async (req, res) => {
 
     const countries = response.data;
 
+    // Filtrar los países por idioma (spa: Spanish)
+    const filteredCountries = countries.filter((country) =>
+      country.languages && Object.values(country.languages).includes('Spanish')
+    );
+
     // Transformar los datos al formato deseado
-    const transformedCountries = countries.map((country) => ({
+    const transformedCountries = filteredCountries.map((country) => ({
       _id: {
         $oid: generateObjectId(),
       },
@@ -93,7 +98,8 @@ app.get('/countries', async (req, res) => {
     }));
 
     clearTimeout(timeout); // Limpiar el timeout si la solicitud fue exitosa
-    res.json(transformedCountries);
+    // res.json(transformedCountries);
+    res.json(response);
   } catch (error) {
     clearTimeout(timeout); // Limpiar el timeout en caso de error
 
@@ -106,10 +112,6 @@ app.get('/countries', async (req, res) => {
   }
 });
 
-// Función para generar un ObjectId simulado
-function generateObjectId() {
-  return Math.floor(Date.now() / 1000).toString(16) + '0000000000000000';
-}
 
 // app.get("/", async (req, res) => {
 //   // Crear un AbortController
