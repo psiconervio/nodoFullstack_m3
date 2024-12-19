@@ -9,6 +9,7 @@ import {
   obtenerSuperheroePorIdController,
 } from "./controllers/superheroesController.mjs";
 import expressLayouts from "express-ejs-layouts";
+import axios from "axios";
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -37,63 +38,127 @@ app.use((req, res, next) => {
   console.log("Incoming request:", req.method, req.path);
   next();
 });
-
-
-app.get("/", async (req, res) => {
-  // Crear un AbortController
-  const controller = new AbortController();
-  const timeout = setTimeout(() => {
-    controller.abort(); // Abortar la solicitud después de 5 segundos
-  }, 5000); // Tiempo en milisegundos
+// Endpoint para obtener los datos transformados
+// Endpoint para obtener los datos transformados
+app.get('/countries', async (req, res) => {
+  const controller = new AbortController(); // Crear un AbortController
+  const timeout = setTimeout(() => controller.abort(), 20000); // Configurar tiempo máximo de espera
 
   try {
-    // Hacer la solicitud con AbortController
-    const response = await fetch("https://restcountries.com/v3.1/all", {
+    // Realizar solicitud a la API externa con AbortController
+    const response = await axios.get('https://restcountries.com/v3.1/all', {
       signal: controller.signal,
     });
 
-    // Limpiar el timeout si la solicitud fue exitosa
-    clearTimeout(timeout);
+    const countries = response.data;
 
-    // Verificar si la respuesta es válida
-    if (!response.ok) {
-      throw new Error("Error al obtener datos de la API restcountries");
-    }
-
-    // Parsear la respuesta como JSON
-    const countries = await response.json();
-
-    // Filtrar países con idioma español
-    const spanishSpeakingCountries = countries.filter((country) => 
-      country.languages && Object.values(country.languages).includes("Spanish")
-    );
-
-    // Seleccionar 5 datos relevantes
-    const selectedData = spanishSpeakingCountries.map((country) => ({
-      id: country.cca3, // Usar `cca3` como ID único
-      name: country.name.common,
+    // Transformar los datos al formato deseado
+    const transformedCountries = countries.map((country) => ({
+      _id: {
+        $oid: generateObjectId(),
+      },
+      name: {
+        common: country.name.common,
+        official: country.name.official,
+        nativeName: country.name.nativeName,
+      },
+      independent: country.independent,
+      status: country.status,
+      unMember: country.unMember,
+      currencies: country.currencies,
+      capital: country.capital,
       region: country.region,
-      population: country.population,
-      capital: country.capital ? country.capital[0] : "N/A",
+      subregion: country.subregion || null,
+      languages: country.languages,
+      latlng: country.latlng,
+      landlocked: country.landlocked,
+      borders: country.borders || [],
       area: country.area,
+      flag: country.flag,
+      maps: country.maps,
+      population: country.population,
+      gini: country.gini || null,
+      fifa: country.fifa || null,
+      timezones: country.timezones,
+      continents: country.continents,
+      flags: {
+        png: country.flags.png,
+        svg: country.flags.svg,
+        alt: country.flags.alt || '',
+      },
+      startOfWeek: country.startOfWeek,
+      capitalInfo: country.capitalInfo,
+      creador: 'Martin',
+      __v: 0,
     }));
 
-    // Enviar los datos al cliente
-    res.json(selectedData);
+    clearTimeout(timeout); // Limpiar el timeout si la solicitud fue exitosa
+    res.json(transformedCountries);
   } catch (error) {
-    // Limpiar el timeout en caso de error
-    clearTimeout(timeout);
+    clearTimeout(timeout); // Limpiar el timeout en caso de error
 
-    // Manejar errores específicos de AbortController
-    if (error.name === "AbortError") {
-      console.error("Error: La solicitud fue abortada debido al tiempo de espera");
-      res.status(408).send("La solicitud tardó demasiado en responder"); // Código 408: Request Timeout
+    if (error.name === 'AbortError') {
+      res.status(408).json({ error: 'La solicitud se canceló por tiempo de espera.' });
     } else {
-      console.error("Error al cargar los datos:", error.message);
-      res.status(500).send("Error al cargar los datos");
+      console.error('Error al obtener los datos:', error.message);
+      res.status(500).json({ error: 'Error al obtener los datos.' });
     }
   }
 });
+
+// Función para generar un ObjectId simulado
+function generateObjectId() {
+  return Math.floor(Date.now() / 1000).toString(16) + '0000000000000000';
+}
+
+// app.get("/", async (req, res) => {
+//   // Crear un AbortController
+//   const controller = new AbortController();
+//   const timeout = setTimeout(() => {
+//     controller.abort(); // Abortar la solicitud después de 5 segundos
+//   }, 15000); // Tiempo en milisegundos
+//   try {
+//     // Hacer la solicitud con AbortController
+//     const response = await fetch("https://restcountries.com/v3.1/all", {
+//       signal: controller.signal,
+//     });
+//     // Limpiar el timeout si la solicitud fue exitosa
+//     clearTimeout(timeout);
+//     // Verificar si la respuesta es válida
+//     if (!response.ok) {
+//       throw new Error("Error al obtener datos de la API restcountries");
+//     }
+//     // Parsear la respuesta como JSON
+//     const countries = await response.json();
+//     // Filtrar países con idioma español
+//     const spanishSpeakingCountries = countries.filter((country) => 
+//       country.languages && Object.values(country.languages).includes("Spanish")
+//     );
+//     // Seleccionar 5 datos relevantes
+//     const selectedData = spanishSpeakingCountries.map((country) => ({
+//       id: country.cca3, // Usar `cca3` como ID único
+//       name: country.name.common,
+//       region: country.region,
+//       population: country.population,
+//       capital: country.capital ? country.capital[0] : "N/A",
+//       area: country.area,
+//     }));
+//     // Enviar los datos al cliente
+//     // res.json(selectedData);
+//     res.json(countries);
+//   } catch (error) {
+//     // Limpiar el timeout en caso de error
+//     clearTimeout(timeout);
+//     // Manejar errores específicos de AbortController
+//     if (error.name === "AbortError") {
+//       console.error("Error: La solicitud fue abortada debido al tiempo de espera");
+//       res.status(408).send("La solicitud tardó demasiado en responder"); // Código 408: Request Timeout
+//     } else {
+//       console.error("Error al cargar los datos:", error.message);
+//       res.status(500).send("Error al cargar los datos");
+//     }
+//   }
+// });
 
 
 
