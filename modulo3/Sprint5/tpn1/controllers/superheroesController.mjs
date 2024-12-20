@@ -89,7 +89,6 @@ import { renderizarSuperheroe, renderizarListaSuperheroes } from '../views/respo
 //   }
 // }
 
-
 export async function obtenerSuperheroePorIdController(req, res, next) {
   const { id } = req.params;
   try {
