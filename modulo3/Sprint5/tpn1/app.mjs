@@ -39,67 +39,53 @@ app.use((req, res, next) => {
   next();
 });
 // Endpoint para obtener los datos transformados
-// Endpoint para obtener los datos transformados
 app.get('/countries', async (req, res) => {
   const controller = new AbortController(); // Crear un AbortController
-  const timeout = setTimeout(() => controller.abort(),30000); // Configurar tiempo máximo de espera
+  const timeout = setTimeout(() => controller.abort(), 30000); // Configurar tiempo máximo de espera
 
   try {
-    // Realizar solicitud a la API externa con AbortController
+    // Consumir la API de países
     const response = await axios.get('https://restcountries.com/v3.1/all', {
       signal: controller.signal,
     });
 
     const countries = response.data;
+    // console.log(countries)
 
-    // Filtrar los países por idioma (spa: Spanish)
-    const filteredCountries = countries.filter((country) =>
-      country.languages && Object.values(country.languages).includes('Spanish')
+    // Filtrar los países que hablan español (spa: Spanish)
+    const filteredCountries = countries.filter(
+      (country) =>
+        country.languages && Object.values(country.languages).includes('Spanish')
     );
 
-    // Transformar los datos al formato deseado
-    const transformedCountries = filteredCountries.map((country) => ({
-      _id: {
-        $oid: generateObjectId(),
-      },
-      name: {
-        common: country.name.common,
-        official: country.name.official,
-        nativeName: country.name.nativeName,
-      },
-      independent: country.independent,
-      status: country.status,
-      unMember: country.unMember,
-      currencies: country.currencies,
-      capital: country.capital,
-      region: country.region,
-      subregion: country.subregion || null,
-      languages: country.languages,
-      latlng: country.latlng,
-      landlocked: country.landlocked,
-      borders: country.borders || [],
-      area: country.area,
-      flag: country.flag,
-      maps: country.maps,
-      population: country.population,
-      gini: country.gini || null,
-      fifa: country.fifa || null,
-      timezones: country.timezones,
-      continents: country.continents,
-      flags: {
-        png: country.flags.png,
-        svg: country.flags.svg,
-        alt: country.flags.alt || '',
-      },
-      startOfWeek: country.startOfWeek,
-      capitalInfo: country.capitalInfo,
-      creador: 'Martin',
-      __v: 0,
-    }));
+    // Transformar y limpiar los datos
+    const transformedCountries = filteredCountries.map((country) => {
+      // Eliminar propiedades innecesarias
+      const {
+        translations,
+        tld,
+        cca2,
+        ccn3,
+        cca3,
+        cioc,
+        idd,
+        altSpellings,
+        car,
+        coatOfArms,
+        postalCode,
+        demonyms,
+        ...cleanedCountry
+      } = country;
+
+      return {
+        ...cleanedCountry,
+        creador: 'Augusto',
+      };
+    });
 
     clearTimeout(timeout); // Limpiar el timeout si la solicitud fue exitosa
-    // res.json(transformedCountries);
-    res.json(response);
+    res.json(transformedCountries);
+    // res.json(countries);
   } catch (error) {
     clearTimeout(timeout); // Limpiar el timeout en caso de error
 
@@ -111,7 +97,6 @@ app.get('/countries', async (req, res) => {
     }
   }
 });
-
 
 // app.get("/", async (req, res) => {
 //   // Crear un AbortController
