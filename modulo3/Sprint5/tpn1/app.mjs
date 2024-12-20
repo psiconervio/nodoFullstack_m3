@@ -8,6 +8,7 @@ import superHeroRoutes from "./routes/superheroRoutes.mjs";
 import {
   obtenerSuperheroePorIdController,
 } from "./controllers/superheroesController.mjs";
+import  countryRoutes  from "./routes/countryRoutes.mjs";
 import expressLayouts from "express-ejs-layouts";
 import axios from "axios";
 
@@ -97,6 +98,8 @@ app.get('/countries', async (req, res) => {
     }
   }
 });
+
+
 
 // app.get("/", async (req, res) => {
 //   // Crear un AbortController
@@ -198,6 +201,7 @@ app.get(
 
 // Rutas para la API
 app.use("/api", superHeroRoutes);
+app.use('/api', countryRoutes);
 
 // Manejo de errores para rutas no encontradas
 app.use((req, res) => {
