@@ -5,7 +5,7 @@ import {
   crearPaisController,
   actualizarPaisController,
   eliminarPaisController,
-} from '../controllers/CountryController.mjs';
+} from '../controllers/countryController.mjs';
 
 const router = express.Router();
 
