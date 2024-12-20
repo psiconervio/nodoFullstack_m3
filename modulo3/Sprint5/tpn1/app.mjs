@@ -35,10 +35,10 @@ app.set("layout", "layout");
 app.use(bodyParser.urlencoded({ extended: true })); // Formularios
 app.use(express.json()); // JSON adicional
 
-app.use((req, res, next) => {
-  console.log("Incoming request:", req.method, req.path);
-  next();
-});
+// app.use((req, res, next) => {
+//   console.log("Incoming request:", req.method, req.path);
+//   next();
+// });
 // Endpoint para obtener los datos transformados
 app.get('/countries', async (req, res) => {
   const controller = new AbortController(); // Crear un AbortController
