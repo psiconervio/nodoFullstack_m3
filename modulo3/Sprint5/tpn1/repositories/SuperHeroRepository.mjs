@@ -108,11 +108,11 @@ class SuperHeroRepository extends IRepository {
   async actualizarPorNombre(nombreSuperHeroe, datosActualizados) {
     return await SuperHero.findOneAndUpdate(
       // busca por nombre (case-insensitive)
-      { nombreSuperHeroe: new RegExp(`^${nombreSuperHeroe}$`, "i") }, 
+      { nombreSuperHeroe: new RegExp(`^${nombreSuperHeroe}$`, "i") },
       // nuevos datos
       datosActualizados,
       //opciones: devuelve el documento actualizado y aplica validaciones
-      { new: true, runValidators: true } 
+      { new: true, runValidators: true }
     );
   }
 

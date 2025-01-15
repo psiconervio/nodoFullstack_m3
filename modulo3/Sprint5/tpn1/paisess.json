@@ -62,7 +62,7 @@
       "capitalInfo": {
         "latlng": [19.43, -99.13]
       },
-      "creador": "Augusto"
+      "creator": "Augusto"
     },
     {
       "name": {
@@ -137,7 +137,7 @@
       "capitalInfo": {
         "latlng": [-12.05, -77.05]
       },
-      "creador": "Augusto"
+      "creator": "Augusto"
     },
     {
       "name": {
@@ -202,7 +202,7 @@
       "capitalInfo": {
         "latlng": [4.71, -74.07]
       },
-      "creador": "Augusto"
+      "creator": "Augusto"
     },
     {
       "name": {
@@ -261,7 +261,7 @@
       "capitalInfo": {
         "latlng": [18.47, -66.12]
       },
-      "creador": "Augusto"
+      "creator": "Augusto"
     },
     {
       "name": {
@@ -322,7 +322,7 @@
       "capitalInfo": {
         "latlng": [18.47, -69.9]
       },
-      "creador": "Augusto"
+      "creator": "Augusto"
     },
     {
       "name": {
@@ -390,7 +390,7 @@
       "capitalInfo": {
         "latlng": [-25.28, -57.57]
       },
-      "creador": "Augusto"
+      "creator": "Augusto"
     },
     {
       "name": {
@@ -452,7 +452,7 @@
       "capitalInfo": {
         "latlng": [13.7, -89.2]
       },
-      "creador": "Augusto"
+      "creator": "Augusto"
     },
     {
       "name": {
@@ -511,7 +511,7 @@
       "capitalInfo": {
         "latlng": [23.12, -82.35]
       },
-      "creador": "Augusto"
+      "creator": "Augusto"
     },
     {
       "name": {
@@ -580,7 +580,7 @@
       "capitalInfo": {
         "latlng": [40.4, -3.68]
       },
-      "creador": "Augusto"
+      "creator": "Augusto"
     },
     {
       "name": {
@@ -650,7 +650,7 @@
       "capitalInfo": {
         "latlng": [-34.58, -58.67]
       },
-      "creador": "Augusto"
+      "creator": "Augusto"
     },
     {
       "name": {
@@ -726,7 +726,7 @@
       "capitalInfo": {
         "latlng": [-13.28, 27.14]
       },
-      "creador": "Augusto"
+      "creator": "Augusto"
     },
     {
       "name": {
@@ -788,7 +788,7 @@
       "capitalInfo": {
         "latlng": [9.93, -84.09]
       },
-      "creador": "Augusto"
+      "creator": "Augusto"
     },
     {
       "name": {
@@ -851,7 +851,7 @@
       "capitalInfo": {
         "latlng": [14.1, -87.22]
       },
-      "creador": "Augusto"
+      "creator": "Augusto"
     },
     {
       "name": {
@@ -920,7 +920,7 @@
       "capitalInfo": {
         "latlng": [3.75, 8.78]
       },
-      "creador": "Augusto"
+      "creator": "Augusto"
     },
     {
       "name": {
@@ -982,7 +982,7 @@
       "capitalInfo": {
         "latlng": [-34.85, -56.17]
       },
-      "creador": "Augusto"
+      "creator": "Augusto"
     },
     {
       "name": {
@@ -1048,7 +1048,7 @@
       "capitalInfo": {
         "latlng": [8.97, -79.53]
       },
-      "creador": "Augusto"
+      "creator": "Augusto"
     },
     {
       "name": {
@@ -1128,7 +1128,7 @@
       "capitalInfo": {
         "latlng": [-19.02, -65.26]
       },
-      "creador": "Augusto"
+      "creator": "Augusto"
     },
     {
       "name": {
@@ -1192,7 +1192,7 @@
       "capitalInfo": {
         "latlng": [-33.45, -70.67]
       },
-      "creador": "Augusto"
+      "creator": "Augusto"
     },
     {
       "name": {
@@ -1256,7 +1256,7 @@
       "capitalInfo": {
         "latlng": [14.62, -90.52]
       },
-      "creador": "Augusto"
+      "creator": "Augusto"
     },
     {
       "name": {
@@ -1319,7 +1319,7 @@
       "capitalInfo": {
         "latlng": [-0.22, -78.5]
       },
-      "creador": "Augusto"
+      "creator": "Augusto"
     },
     {
       "name": {
@@ -1391,7 +1391,7 @@
       "capitalInfo": {
         "latlng": [17.25, -88.77]
       },
-      "creador": "Augusto"
+      "creator": "Augusto"
     },
     {
       "name": {
@@ -1454,7 +1454,7 @@
       "capitalInfo": {
         "latlng": [10.48, -66.87]
       },
-      "creador": "Augusto"
+      "creator": "Augusto"
     },
     {
       "name": {
@@ -1518,7 +1518,7 @@
       "capitalInfo": {
         "latlng": [13.48, 144.75]
       },
-      "creador": "Augusto"
+      "creator": "Augusto"
     },
     {
       "name": {
@@ -1580,6 +1580,6 @@
       "capitalInfo": {
         "latlng": [12.13, -86.25]
       },
-      "creador": "Augusto"
+      "creator": "Augusto"
     }
   ]
