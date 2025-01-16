@@ -11,11 +11,13 @@ export async function obtenerTodosLosPaisesController(req, res) {
   res.json(paises);
 }
 
-export async function obtenerPaisPorIdController(req, res) {
+export async function obtenerPaisPorIdController(req, res, next) {
   const { id } = req.params;
   const pais = await obtenerPaisPorId(id);
   if (!pais) return res.status(404).json({ error: 'País no encontrado' });
-  res.json(pais);
+  req.country = pais;
+  // res.json(pais);
+  next();
 }
 
 export async function crearPaisController(req, res) {

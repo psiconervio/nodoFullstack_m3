@@ -11,7 +11,7 @@ import {
 import  countryRoutes  from "./routes/countryRoutes.mjs";
 import expressLayouts from "express-ejs-layouts";
 import axios from "axios";
-
+import { obtenerPaisPorIdController } from "./controllers/countryController.mjs";
 const app = express();
 const PORT = process.env.PORT || 3000;
 // Obtener __dirname en un módulo ESM
@@ -39,7 +39,7 @@ app.use(express.json()); // JSON adicional
 //   console.log("Incoming request:", req.method, req.path);
 //   next();
 // });
-// Endpoint para obtener los datos transformados
+// // Endpoint para obtener los datos transformados
 
 app.get('/', async (req, res) => {
   try {
@@ -49,7 +49,7 @@ app.get('/', async (req, res) => {
       throw new Error('Error al obtener superhéroes');
     }
     const countries = await response.json();
-    console.log('heroes enviados a la vista:', countries);
+    // console.log('heroes enviados a la vista:', countries);
 
     // renderiza la vista del dashboard
     res.render('index',{
@@ -67,22 +67,21 @@ app.get('/', async (req, res) => {
 });
 
 // Ruta para agregar superhéroes
-app.get("/addSuperhero", (req, res) => {
-  res.render("addSuperhero", {
-    title: "Agregar Superhéroe",
+app.get('/addCountry', (req, res) => {
+  res.render('addCountry', {
+    title: 'Agregar País',
   });
 });
 
 // Ruta para editar superhéroes
 app.get(
-  "/editSuperhero/id/:id",
-  obtenerSuperheroePorIdController,
+  "/editCountry/:id",
+  obtenerPaisPorIdController,
   (req, res) => {
-    const superheroe = req.superheroe; // Obtenido desde el middleware
-    console.log(superheroe);
-    if (superheroe) {
-      res.render("editSuperHero", {
-        superheroe, // Envía el superhéroe como 'superhero'
+    const country = req.country; // Obtenido desde el middleware
+    if (country) {
+      res.render("editCountry", {
+        country, // Envía el superhéroe como 'superhero'
       });
     } else {
       res.status(404).send({ mensaje: "Superhéroe no encontrado" });

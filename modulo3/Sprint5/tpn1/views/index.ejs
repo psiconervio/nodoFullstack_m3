@@ -25,9 +25,10 @@
           <td><%= country.population %></td>
           <td><%= country.capital %></td>
           <td><%= country.area %></td>
+          <td><%= country._id %></td>
           <td>
-            <a href="/editSuperhero/id/<%= hero.id %>" class="btn- btn-editar">Editar</a>
-            <form action="/api/heroes/id/<%= hero.id %>" method="DELETE"  style="display: inline;">
+            <a href="/editCountry/<%= country._id %>" class="btn- btn-editar">Editar</a>
+            <form action="/apipais/countries/<%= country._id %>" method="DELETE"  style="display: inline;">
               <button class="btn bt-eliminar" type="submit">Eliminar</button>
             </form>
           </td>
