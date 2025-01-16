@@ -2,7 +2,7 @@ import Country from '../models/Country.mjs';
 
 class CountryRepository {
   async obtenerTodos() {
-    return await Country.find({ category: "country" });
+    return await Country.find({ creator: "Augusto" });
   }
 
   async obtenerPorId(id) {

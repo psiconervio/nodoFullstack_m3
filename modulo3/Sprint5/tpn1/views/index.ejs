@@ -1,11 +1,11 @@
 <!DOCTYPE html>
-<html lang="en">
+<div  style="display:flex; justify-content: center; align-items: center; "lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Countries</title>
 </head>
-<body>
+<body >
   <h1>Lista de países</h1>
   <table border="1">
     <thead>
@@ -20,14 +20,20 @@
     <tbody>
       <% countries.forEach(country => { %>
         <tr>
-          <td><%= country.name %></td>
+          <td><%= country.name.common %></td>
           <td><%= country.region %></td>
           <td><%= country.population %></td>
           <td><%= country.capital %></td>
           <td><%= country.area %></td>
+          <td>
+            <a href="/editSuperhero/id/<%= hero.id %>" class="btn- btn-editar">Editar</a>
+            <form action="/api/heroes/id/<%= hero.id %>" method="DELETE"  style="display: inline;">
+              <button class="btn bt-eliminar" type="submit">Eliminar</button>
+            </form>
+          </td>
         </tr>
       <% }); %>
     </tbody>
   </table>
 </body>
-</html>
+</div>

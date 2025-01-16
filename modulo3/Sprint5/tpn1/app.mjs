@@ -41,6 +41,30 @@ app.use(express.json()); // JSON adicional
 // });
 // Endpoint para obtener los datos transformados
 
+app.get('/', async (req, res) => {
+  try {
+    // obtener los superhéroes desde la API
+    const response = await fetch('http://127.0.0.1:3000/apipais/countries');
+    if (!response.ok) {
+      throw new Error('Error al obtener superhéroes');
+    }
+    const countries = await response.json();
+    console.log('heroes enviados a la vista:', countries);
+
+    // renderiza la vista del dashboard
+    res.render('index',{
+      title: 'pagina principal',
+      navbarLinks: [{text:'Inicio', href:'/', icon: 'icons/home.svg'},
+        {text:'Acerca de ', href:'/about', icon: 'icons/info.svg'},
+        {text:'Contacto', href:'/contact', icon: 'icons/contact.svg'}
+
+      ],countries
+    });
+  } catch (error) {
+    console.error('Error al cargar el dashboard:', error.message);
+    res.status(500).send('Error al cargar el dashboard');
+  }
+});
 
 // Ruta para agregar superhéroes
 app.get("/addSuperhero", (req, res) => {
