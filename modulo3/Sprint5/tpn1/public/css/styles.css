@@ -5,7 +5,7 @@ body {
     align-items: center;
     background-image: url('https://images.unsplash.com/photo-1534796636912-3b95b3ab5986?q=80&w=2342'); /* Ruta de la imagen */
     background-size: cover; /* Hace que la imagen cubra todo el fondo */
-    background-repeat: no-repeat; /* Evita que la imagen se repita */
+    /* background-repeat: no-repeat;  */
     background-position: center; /* Centra la imagen en el fondo */
     margin: 0; /* Elimina márgenes del body */
     height: 100vh; /* Hace que el fondo abarque toda la pantalla */
@@ -52,10 +52,10 @@ body {
     padding: 10px;
     background-color: #333;
     color: white;
-    position: fixed;
-    bottom: 0;
     width: 100%;
-    bottom:0;
+    /* position: absolute; */
+    bottom: 0;
+    margin-bottom: 0;
   }
 
   img{
@@ -159,4 +159,23 @@ body {
     background-color: #f44336;
     color: white;
   }
-  
+  #editCountryForm {
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+    width: fit-content;
+}
+
+table {
+  margin-left: auto;
+  margin-right: auto;
+  display: block;
+  width: fit-content;
+}
+
+#addCountryForm {
+  margin-left: auto;
+  margin-right: auto;
+  display: block;
+  width: fit-content;
+}

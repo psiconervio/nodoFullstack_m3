@@ -60,6 +60,9 @@
     <label for="independent">Independiente:</label>
     <input type="checkbox" id="independent" name="independent"><br>
 
+    <label for="language">Lenguaje:</label>
+    <input type="text" id="language" name="language" required><br>
+
     <button type="button" id="submitButton">Agregar País</button>
   </form>
 
@@ -90,7 +93,9 @@
         landlocked: document.getElementById('landlocked').checked,
         unMember: document.getElementById('unMember').checked,
         status: document.getElementById('status').value,
-        independent: document.getElementById('independent').checked
+        independent: document.getElementById('independent').checked,
+        language: document.getElementById('language').value
+
       };
 
       try {
