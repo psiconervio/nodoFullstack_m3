@@ -49,7 +49,7 @@ app.get('/', async (req, res) => {
       throw new Error('Error al obtener superhéroes');
     }
     const countries = await response.json();
-    // console.log('heroes enviados a la vista:', countries);
+    console.log('heroes enviados a la vista:', countries);
 
     // renderiza la vista del dashboard
     res.render('index',{
