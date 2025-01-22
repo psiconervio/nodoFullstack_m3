@@ -1,25 +1,32 @@
 import Country from '../models/Country.mjs';
 //Encapsulan las operaciones de acceso a datos, como consultas, inserciones,
 //  actualizaciones, y eliminaciones. Esto permite que otras capas (como servicios) no tengan que preocuparse por cómo se accede a la base de datos.
+//Se encargan de acceder a los modelos o directamente a la base de datos.
 class CountryRepository {
   async obtenerTodos() {
+    // return await Country.find(); // Busca todos los documentos en la colección
     return await Country.find({ creator: "Augusto" });
   }
 
   async obtenerPorId(id) {
+    // return await Country.findById(id); // Busca un documento por su ID
     return await Country.findById(id);
   }
 
   async crear(paisData) {
+    // const newCountry = new Country(countryData); // Crear instancia del modelo
     const nuevoPais = new Country(paisData);
+    // return await newCountry.save(); // Guardar en la base de datos
     return await nuevoPais.save();
   }
-
+//actualizar un pais existente por ID 
   async actualizar(id, paisData) {
+    // return await Country.findByIdAndUpdate(id, countryData, { new: true }); // Actualizar documento
     return await Country.findByIdAndUpdate(id, paisData, { new: true });
   }
 
   async eliminar(id) {
+    // return await Country.findByIdAndDelete(id); // Eliminar documento
     return await Country.findByIdAndDelete(id);
   }
 }
