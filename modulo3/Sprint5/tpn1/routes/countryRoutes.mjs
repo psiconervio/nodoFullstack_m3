@@ -8,7 +8,7 @@ import {
 } from '../controllers/countryController.mjs';
 import { validateCountry } from "../middleware/validarCountry.mjs";
 const router = express.Router();
-
+//Las rutas actúan como un puente entre las solicitudes HTTP y los controladores, definiendo qué controlador se ejecuta para una URL dada.
 // Endpoints
 router.get('/countries', obtenerTodosLosPaisesController); // Obtener todos los países
 router.get('/countries/:id', obtenerPaisPorIdController); // Obtener un país por ID

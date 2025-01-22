@@ -5,7 +5,8 @@ import {
   actualizarPais,
   eliminarPais,
 } from '../services/CountryService.mjs';
-
+//Actúan como intermediarios entre las rutas y los servicios/modelos.
+//Los controladores reciben las solicitudes, llaman a los servicios o modelos para realizar tareas específicas, y luego devuelven una respuesta al cliente.
 export async function obtenerTodosLosPaisesController(req, res) {
   const paises = await obtenerTodosLosPaises();
   res.json(paises);

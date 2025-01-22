@@ -1,5 +1,6 @@
 import mongoose from 'mongoose';
-
+//Almacenan variables y configuraciones globales, 
+// como credenciales de bases de datos, claves de API, configuraciones de servidores, y más.
 mongoose.set('strictQuery', true);
 
 export async function connectDB() {

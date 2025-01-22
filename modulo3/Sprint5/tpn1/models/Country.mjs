@@ -1,4 +1,6 @@
 import mongoose from "mongoose";
+//Definen cómo se modelan los datos dentro de tu aplicación.
+//  En frameworks como Sequelize o Mongoose, los modelos también pueden incluir validaciones y relaciones entre entidades.
 const countrySchema = new mongoose.Schema(
   {
     name: {

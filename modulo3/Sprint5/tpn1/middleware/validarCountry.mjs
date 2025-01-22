@@ -1,5 +1,6 @@
 import { body, validationResult } from 'express-validator';
-
+//Los middlewares son funciones intermedias que pueden realizar tareas como autenticación,
+//  registro de solicitudes, validación de datos, o manejo de errores.
 export const validateCountry = [
   body('name.common')
     .trim()

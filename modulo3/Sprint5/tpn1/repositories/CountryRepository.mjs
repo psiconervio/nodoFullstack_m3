@@ -1,5 +1,6 @@
 import Country from '../models/Country.mjs';
-
+//Encapsulan las operaciones de acceso a datos, como consultas, inserciones,
+//  actualizaciones, y eliminaciones. Esto permite que otras capas (como servicios) no tengan que preocuparse por cómo se accede a la base de datos.
 class CountryRepository {
   async obtenerTodos() {
     return await Country.find({ creator: "Augusto" });

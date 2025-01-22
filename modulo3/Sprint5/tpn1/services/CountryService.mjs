@@ -1,5 +1,5 @@
 import countryRepository from '../repositories/CountryRepository.mjs';
-
+//Los servicios procesan datos, realizan validaciones avanzadas, o coordinan llamadas a los repositories.
 export async function obtenerTodosLosPaises() {
   return await countryRepository.obtenerTodos();
 }
