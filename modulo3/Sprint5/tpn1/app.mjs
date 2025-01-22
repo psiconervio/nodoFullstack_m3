@@ -44,7 +44,8 @@ app.use(express.json()); // JSON adicional
 app.get('/', async (req, res) => {
   try {
     // obtener los superhéroes desde la API
-    const response = await fetch('http://127.0.0.1:3000/apipais/countries');
+    // const response = await fetch('http://127.0.0.1:3000/apipais/countries');
+    const response = await fetch('https://nodofullstack-m3.onrender.com/apipais/countries');
     if (!response.ok) {
       throw new Error('Error al obtener superhéroes');
     }
