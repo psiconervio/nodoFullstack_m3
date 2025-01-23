@@ -134,6 +134,7 @@
           //     languages[code] = name;
           //   }
           // });
+          
 
           const data = {
             name: {
@@ -164,7 +165,7 @@
             // status: document.getElementById("status").value,
             // independent: document.getElementById("independent").checked,
             // languages: languages,
-            borders: document.getElementById("borders").value,
+            borders: document.getElementById("borders").value.split(',').map(border => border.trim()),
 
           };
 

@@ -1,4 +1,4 @@
-import { body, validationResult } from 'express-validator';
+import { body, validationResult } from "express-validator";
 //Los middlewares son funciones intermedias que pueden realizar tareas como autenticación,
 //  registro de solicitudes, validación de datos, o manejo de errores.
 export const validateCountry = [
@@ -6,15 +6,17 @@ export const validateCountry = [
   //   .trim()
   //   .notEmpty()
   //   .withMessage('El nombre común es obligatorio.'),
-  body('name.official')
+  body("name.official")
     .trim()
     .notEmpty()
-    .withMessage('El nombre oficial es obligatorio.'),
-  body('capital')
+    .withMessage("El nombre oficial es obligatorio."),
+  body("capital")
     .isArray({ min: 1 })
-    .withMessage('Debe haber al menos una capital.')
-    .custom((value) => value.every((v) => typeof v === 'string' && v.trim() !== ''))
-    .withMessage('Cada capital debe ser una cadena de texto no vacía.'),
+    .withMessage("Debe haber al menos una capital.")
+    .custom((value) =>
+      value.every((v) => typeof v === "string" && v.trim() !== "")
+    )
+    .withMessage("Cada capital debe ser una cadena de texto no vacía."),
   // body('region')
   //   .trim()
   //   .notEmpty()
@@ -23,16 +25,13 @@ export const validateCountry = [
   //   .trim()
   //   .notEmpty()
   //   .withMessage('La subregión es obligatoria.'),
-  body('population')
+  body("population")
     .isInt({ min: 0 })
-    .withMessage('La población debe ser un número entero positivo.'),
-  body('area')
+    .withMessage("La población debe ser un número entero positivo."),
+  body("area")
     .isFloat({ min: 0 })
-    .withMessage('El área debe ser un número positivo.'),
-  body('creator')
-    .trim()
-    .notEmpty()
-    .withMessage('El creador es obligatorio.'),
+    .withMessage("El área debe ser un número positivo."),
+  body("creator").trim().notEmpty().withMessage("El creador es obligatorio."),
   // body('startOfWeek')
   //   .trim()
   //   .notEmpty()
@@ -67,34 +66,61 @@ export const validateCountry = [
   //   .trim()
   //   .notEmpty()
   //   .withMessage('El estado es obligatorio.'),
-    body('borders')
-    .trim()
-    .notEmpty()
-    .withMessage('los paises limitrofes son obligatorios.'),
+  // body('borders')
+  // .trim()
+  // .notEmpty()
+  // .withMessage('los paises limitrofes son obligatorios.'),
+  body("borders")
+    .custom((value, { req }) => {
+      if (typeof value === "string") {
+        req.body.borders = value.split(",").map((border) => border.trim());
+      }
+      return true;
+    })
+    .isArray({ min: 1 })
+    .withMessage("Las fronteras deben ser un array con al menos un elemento")
+    .custom((borders) => {
+      if (Array.isArray(borders)) {
+        const valid = borders.every(
+          (border) =>
+            typeof border === "string" &&
+            border.trim().length >= 2 &&
+            border.trim().length <= 3
+        );
+        if (!valid) {
+          throw new Error("Cada frontera debe tener entre 2 y 3 caracteres");
+        }
+      } else {
+        throw new Error("borders debe ser un array");
+      }
+      return true;
+    }),
   // body('independent')
   //   .isBoolean()
   //   .withMessage('El campo independiente debe ser un valor booleano.'),
   (req, res, next) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
-      const errorMessages = errors.array().map(error => {
+      const errorMessages = errors.array().map((error) => {
         switch (error.param) {
           // case 'name.common':
           //   return 'El nombre común es obligatorio y no puede estar vacío.';
-          case 'name.official':
-            return 'El nombre oficial es obligatorio y no puede estar vacío.';
-          case 'capital':
-            return 'Debe haber al menos una capital y cada capital debe ser una cadena de texto no vacía.';
+          case "name.official":
+            return "El nombre oficial es obligatorio y no puede estar vacío.";
+          case "capital":
+            return "Debe haber al menos una capital y cada capital debe ser una cadena de texto no vacía.";
           // case 'region':
           //   return 'La región es obligatoria y no puede estar vacía.';
           // case 'subregion':
           //   return 'La subregión es obligatoria y no puede estar vacía.';
-          case 'population':
-            return 'La población debe ser un número entero positivo.';
-          case 'area':
-            return 'El área debe ser un número positivo.';
-          case 'creator':
-            return 'El creador es obligatorio y no puede estar vacío.';
+          case "population":
+            return "La población debe ser un número entero positivo.";
+          case "area":
+            return "El área debe ser un número positivo.";
+          case "borders":
+            return "Las fronteras deben ser un array con al menos un elemento y cada frontera debe tener entre 2 y 3 caracteres.";
+          case "creator":
+            return "El creador es obligatorio y no puede estar vacío.";
           // case 'startOfWeek':
           //   return 'El inicio de la semana es obligatorio y no puede estar vacío.';
           // case 'flags.svg':
@@ -122,7 +148,7 @@ export const validateCountry = [
       return res.status(400).json({ errors: errorMessages });
     }
     next();
-  }
+  },
 ];
 // import { body, validationResult } from 'express-validator';
 
