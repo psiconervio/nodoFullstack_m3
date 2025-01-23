@@ -14,11 +14,10 @@
     <thead>
       <tr>
         <th>Nombre</th>
-        <th>Región</th>
-        <th>Población</th>
+        <th>Poblacion</th>
         <th>Capital</th>
         <th>Área</th>
-        <th>Lenguajes</th>
+        <th>Gini</th>
         <th>ID</th>
         <th>Acciones</th>
       </tr>
@@ -26,16 +25,16 @@
     <tbody>
       <% countries.forEach(country => { %>
         <tr>
-          <td><%= country.name.common %></td>
-          <td><%= country.region %></td>
+          <td><%= country.name.official %></td>
           <td><%= country.population %></td>
           <td><%= country.capital %></td>
           <td><%= country.area %></td>
-          <td>
+          <td><%= country.gini %></td>
+          <!-- <td>
             <% for (let lang in country.languages) { %>
               <%= country.languages[lang] %><br>
             <% } %>
-          </td>
+          </td> -->
           <td><%= country._id %></td>
           <td>
             <a href="/editCountry/<%= country._id %>" class="btn- btn-editar">Editar</a>

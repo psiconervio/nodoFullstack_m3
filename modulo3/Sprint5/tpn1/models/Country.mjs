@@ -4,41 +4,41 @@ import mongoose from "mongoose";
 const countrySchema = new mongoose.Schema(
   {
     name: {
-      common: { type: String, required: true },
+      common: { type: String },
       official: { type: String, required: true },
       nativeName: {
         type: Map,
         of: {
-          official: { type: String, required: true },
-          common: { type: String, required: true },
+          official: { type: String },
+          common: { type: String },
         },
       },
     },
-    independent: { type: Boolean, required: true },
-    status: { type: String, required: true },
-    unMember: { type: Boolean, required: true },
+    independent: { type: Boolean  },
+    status: { type: String },
+    unMember: { type: Boolean },
     currencies: {
       type: Map,
       of: {
-        name: { type: String, required: true },
-        symbol: { type: String, required: true },
+        name: { type: String },
+        symbol: { type: String },
       },
     },
     capital: [String],
-    region: { type: String, required: true },
-    subregion: { type: String, required: true },
+    region: { type: String  },
+    subregion: { type: String},
     languages: {
       type: Map,
       of: String,
     },
     latlng: [Number],
-    landlocked: { type: Boolean, required: true },
+    landlocked: { type: Boolean },
     borders: [String],
-    area: { type: Number, required: true },
-    flag: { type: String, required: true },
+    area: { type: Number },
+    flag: { type: String },
     maps: {
-      googleMaps: { type: String, required: true },
-      openStreetMaps: { type: String, required: true },
+      googleMaps: { type: String },
+      openStreetMaps: { type: String },
     },
     population: { type: Number, required: true },
     gini: {
@@ -49,11 +49,11 @@ const countrySchema = new mongoose.Schema(
     timezones: [String],
     continents: [String],
     flags: {
-      png: { type: String, required: true },
-      svg: { type: String, required: true },
+      png: { type: String },
+      svg: { type: String },
       alt: { type: String },
     },
-    startOfWeek: { type: String, required: true },
+    startOfWeek: { type: String},
     capitalInfo: {
       latlng: [Number],
     },

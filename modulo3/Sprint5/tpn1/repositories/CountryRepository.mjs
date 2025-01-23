@@ -4,7 +4,7 @@ import Country from '../models/Country.mjs';
 //Se encargan de acceder a los modelos o directamente a la base de datos.
 class CountryRepository {
   async obtenerTodos() {
-    //usando el modelo Country busca todos los documentos en la coleccion con el filtro creador: Augusto 
+    //usando el modelo Country busca todos los documentos en la coleccion con el filtro creador: Augusto
     return await Country.find({ creator: "Augusto" });
   }
 
