@@ -24,15 +24,15 @@ export const validateCountry = [
   .notEmpty()
   .withMessage("El creador es obligatorio."),
   body("borders")
-    .custom((value, { req }) => {
-      // Si el valor de "borders" es una cadena de texto
-      if (typeof value === "string") {
-        // Divide la cadena por comas y elimina los espacios en blanco alrededor de cada frontera
-        req.body.borders = value.split(",").map((border) => border.trim());
-      }
-      // Retorna true para indicar que la validación pasó
-      return true;
-    })
+    // .custom((value, { req }) => {
+    //   // Si el valor de "borders" es una cadena de texto
+    //   if (typeof value === "string") {
+    //     // Divide la cadena por comas y elimina los espacios en blanco alrededor de cada frontera
+    //     req.body.borders = value.split(",").map((border) => border.trim());
+    //   }
+    //   // Retorna true para indicar que la validación pasó
+    //   return true;
+    // })
     // Verifica que "borders" sea un array con al menos un elemento
     .isArray({ min: 1 })
     // Mensaje de error si la validación anterior falla
@@ -46,12 +46,11 @@ export const validateCountry = [
         const valid = borders.every(
           (border) =>
             typeof border === "string" &&
-            border.trim().length >= 2 &&
             border.trim().length <= 3
         );
         // Si alguna frontera no cumple con las condiciones, lanza un error
         if (!valid) {
-          throw new Error("Cada frontera debe tener entre 2 y 3 caracteres");
+          throw new Error("Cada frontera debe tener entre  3 caracteres");
         }
       } else {
         // Si "borders" no es un array, lanza un error
@@ -78,7 +77,6 @@ export const validateCountry = [
             return "Las fronteras deben ser un array con al menos un elemento y cada frontera debe tener entre 2 y 3 caracteres.";
           case "creator":
             return "El creador es obligatorio y no puede estar vacío.";
-
           default:
             return error.msg;
         }
