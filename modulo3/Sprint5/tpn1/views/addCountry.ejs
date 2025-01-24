@@ -7,8 +7,6 @@
   <body>
     <h1>Agregar País</h1>
     <form id="addCountryForm">
-      <!-- <label for="commonName">Nombre Común:</label>
-      <input type="text" id="commonName" name="name.common" required /><br /> -->
 
       <label for="officialName">Nombre Oficial:</label>
       <input
@@ -37,26 +35,6 @@
         name="borders"
         placeholder="Ej: BOL, BRA, CHL, COL, ECU"
       /><br />
-      <!-- <label for="gini">Índice de Gini (1999):</label>
-<input type="number" step="0.1" id="gini" name="gini[1999]" placeholder="Ej: 53.3" required /><br /> -->
-
-      <!-- <label for="languages">Lenguajes:</label>
-      <div id="languagesContainer">
-        <div class="language-entry">
-          <input
-            type="text"
-            placeholder="Código del idioma"
-            class="language-code"
-          />
-          <input
-            type="text"
-            placeholder="Nombre del idioma"
-            class="language-name"
-          />
-        </div>
-      </div>
-      <button type="button" id="addLanguageButton">Agregar Lenguaje</button
-      ><br /> -->
 
       <button type="button" id="submitButton">Agregar País</button>
     </form>
@@ -65,16 +43,6 @@
       document
         .getElementById("submitButton")
         .addEventListener("click", async () => {
-          // Recopilar datos del formulario
-          // const languages = {};
-          // document.querySelectorAll(".language-entry").forEach((entry) => {
-          //   const code = entry.querySelector(".language-code").value;
-          //   const name = entry.querySelector(".language-name").value;
-          //   if (code && name) {
-          //     languages[code] = name;
-          //   }
-          // });
-
           const data = {
             name: {
               official: document.getElementById("officialName").value,

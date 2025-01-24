@@ -7,20 +7,12 @@
 <body >
   <h1 style="text-align: center;">Editar País</h1>
   <form id="editCountryForm" >
-    <!-- <label for="commonName">Nombre Común:</label>
-    <input type="text" id="commonName" value="<%= country.name.common %>" required><br> -->
 
     <label for="officialName">Nombre Oficial:</label>
     <input type="text" id="officialName" value="<%= country.name.official %>" required><br>
 
     <label for="capital">Capital:</label>
     <input type="text" id="capital" value="<%= country.capital[0] %>" required><br>
-<!-- 
-    <label for="region">Región:</label>
-    <input type="text" id="region" value="<%= country.region %>" required><br>
-
-    <label for="subregion">Subregión:</label>
-    <input type="text" id="subregion" value="<%= country.subregion %>" required><br> -->
 
     <label for="population">Población:</label>
     <input type="number" id="population" value="<%= country.population %>" required><br>
@@ -28,42 +20,12 @@
     <label for="area">Área:</label>
     <input type="number" id="area" value="<%= country.area %>" required><br>
 
-    
     <label for="borders">borders:</label>
     <input type="text" id="borders" value="<%= country.borders %>" required><br>
 
     <label for="creator">Creador:</label>
     <input type="text" id="creator" value="<%= country.creator %>" required><br>
-<!-- 
-    <label for="startOfWeek">Inicio de la Semana:</label>
-    <input type="text" id="startOfWeek" value="<%= country.startOfWeek %>" required><br>
 
-    <label for="flagSvg">Bandera (SVG):</label>
-    <input type="text" id="flagSvg" value="<%= country.flags.svg %>" required><br>
-
-    <label for="flagPng">Bandera (PNG):</label>
-    <input type="text" id="flagPng" value="<%= country.flags.png %>" required><br>
-
-    <label for="openStreetMaps">OpenStreetMaps:</label>
-    <input type="text" id="openStreetMaps" value="<%= country.maps.openStreetMaps %>" required><br>
-
-    <label for="googleMaps">Google Maps:</label>
-    <input type="text" id="googleMaps" value="<%= country.maps.googleMaps %>" required><br>
-
-    <label for="flag">Bandera:</label>
-    <input type="text" id="flag" value="<%= country.flag %>" required><br>
-
-    <label for="landlocked">Sin Litoral:</label>
-    <input type="checkbox" id="landlocked" <%= country.landlocked ? 'checked' : '' %>><br>
-
-    <label for="unMember">Miembro de la ONU:</label>
-    <input type="checkbox" id="unMember" <%= country.unMember ? 'checked' : '' %>><br>
-
-    <label for="status">Estado:</label>
-    <input type="text" id="status" value="<%= country.status %>" required><br>
-
-    <label for="independent">Independiente:</label>
-    <input type="checkbox" id="independent" <%= country.independent ? 'checked' : '' %>><br> -->
 
     <button type="button" id="submitButton">Guardar Cambios</button>
   </form>
@@ -80,8 +42,6 @@
           official: document.getElementById('officialName').value
         },
         capital: [document.getElementById('capital').value],
-        // region: document.getElementById('region').value,
-        // subregion: document.getElementById('subregion').value,
         population: parseInt(document.getElementById('population').value, 10),
         area: parseInt(document.getElementById('area').value, 10),
         creator: document.getElementById('creator').value,
@@ -89,20 +49,6 @@
               .getElementById("borders")
               .value.split(",")
               .map((border) => border.trim()),
-        // startOfWeek: document.getElementById('startOfWeek').value,
-        // flags: {
-        //   svg: document.getElementById('flagSvg').value,
-        //   png: document.getElementById('flagPng').value
-        // },
-        // maps: {
-        //   openStreetMaps: document.getElementById('openStreetMaps').value,
-        //   googleMaps: document.getElementById('googleMaps').value
-        // },
-        // flag: document.getElementById('flag').value,
-        // landlocked: document.getElementById('landlocked').checked,
-        // unMember: document.getElementById('unMember').checked,
-        // status: document.getElementById('status').value,
-        // independent: document.getElementById('independent').checked
       };
 
       try {
