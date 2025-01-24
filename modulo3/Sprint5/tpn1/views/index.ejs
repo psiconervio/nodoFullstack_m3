@@ -17,7 +17,7 @@
         <th>Poblacion</th>
         <th>Capital</th>
         <th>Área</th>
-        <th>Gini</th>
+        <!-- <th>Gini</th> -->
         <th>Borders</th>
         <th>ID</th>
         <th>Acciones</th>
@@ -30,7 +30,11 @@
           <td><%= country.population %></td>
           <td><%= country.capital %></td>
           <td><%= country.area %></td>
-          <td><%= country.gini %></td>
+          <!-- <td> -->
+            <!-- <% for (const key in country.gini) { %>
+              <p><strong><%= key %>:</strong> <%= country.gini[key] %></p>
+            <% } %>
+          </td> -->
           <td><%= country.borders %></td>
           <!-- <td>
             <% for (let lang in country.languages) { %>

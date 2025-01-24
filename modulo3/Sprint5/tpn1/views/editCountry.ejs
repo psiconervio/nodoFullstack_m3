@@ -85,7 +85,10 @@
         population: parseInt(document.getElementById('population').value, 10),
         area: parseInt(document.getElementById('area').value, 10),
         creator: document.getElementById('creator').value,
-        borders: document.getElementById('borders').value,
+        borders: document
+              .getElementById("borders")
+              .value.split(",")
+              .map((border) => border.trim()),
         // startOfWeek: document.getElementById('startOfWeek').value,
         // flags: {
         //   svg: document.getElementById('flagSvg').value,

@@ -18,15 +18,8 @@
         required
       /><br />
 
-
       <label for="capital">Capital:</label>
       <input type="text" id="capital" name="capital" required /><br />
-
-      <!-- <label for="region">Región:</label>
-      <input type="text" id="region" name="region" required /><br /> -->
-<!-- 
-      <label for="subregion">Subregión:</label>
-      <input type="text" id="subregion" name="subregion" required /><br /> -->
 
       <label for="population">Población:</label>
       <input type="number" id="population" name="population" required /><br />
@@ -37,46 +30,6 @@
       <label for="creator">Creador:</label>
       <input type="text" id="creator" name="creator" required /><br />
 
-      <!-- <label for="startOfWeek">Inicio de la Semana:</label>
-      <input type="text" id="startOfWeek" name="startOfWeek" required /><br />
-
-      <label for="flagSvg">Bandera (SVG):</label>
-      <input type="text" id="flagSvg" name="flags.svg" required /><br />
-
-      <label for="flagPng">Bandera (PNG):</label>
-      <input type="text" id="flagPng" name="flags.png" required /><br /> -->
-
-      <!-- <label for="openStreetMaps">OpenStreetMaps:</label>
-      <input
-        type="text"
-        id="openStreetMaps"
-        name="maps.openStreetMaps"
-        required
-      /><br /> -->
-<!-- 
-      <label for="googleMaps">Google Maps:</label>
-      <input
-        type="text"
-        id="googleMaps"
-        name="maps.googleMaps"
-        required
-      /><br /> -->
-<!-- 
-      <label for="flag">Bandera:</label>
-      <input type="text" id="flag" name="flag" required /><br />
-
-      <label for="landlocked">Sin Litoral:</label>
-      <input type="checkbox" id="landlocked" name="landlocked" /><br />
-
-      <label for="unMember">Miembro de la ONU:</label>
-      <input type="checkbox" id="unMember" name="unMember" /><br />
-
-      <label for="status">Estado:</label>
-      <input type="text" id="status" name="status" required /><br />
-
-      <label for="independent">Independiente:</label>
-      <input type="checkbox" id="independent" name="independent" /><br /> -->
-
       <label for="borders">Países Fronterizos:</label>
       <input
         type="text"
@@ -84,8 +37,8 @@
         name="borders"
         placeholder="Ej: BOL, BRA, CHL, COL, ECU"
       /><br />
-      <label for="gini">Índice de Gini (1999):</label>
-<input type="number" step="0.1" id="gini" name="gini[1999]" placeholder="Ej: 53.3" required /><br />
+      <!-- <label for="gini">Índice de Gini (1999):</label>
+<input type="number" step="0.1" id="gini" name="gini[1999]" placeholder="Ej: 53.3" required /><br /> -->
 
       <!-- <label for="languages">Lenguajes:</label>
       <div id="languagesContainer">
@@ -110,19 +63,6 @@
 
     <script>
       document
-      //   .getElementById("addLanguageButton")
-      //   .addEventListener("click", () => {
-      //     const container = document.getElementById("languagesContainer");
-      //     const entry = document.createElement("div");
-      //     entry.className = "language-entry";
-      //     entry.innerHTML = `
-      //   <input type="text" placeholder="Código del idioma" class="language-code">
-      //   <input type="text" placeholder="Nombre del idioma" class="language-name">
-      // `;
-      //     container.appendChild(entry);
-      //   });
-
-      document
         .getElementById("submitButton")
         .addEventListener("click", async () => {
           // Recopilar datos del formulario
@@ -134,39 +74,24 @@
           //     languages[code] = name;
           //   }
           // });
-          
 
           const data = {
             name: {
-              // common: document.getElementById("commonName").value,
               official: document.getElementById("officialName").value,
             },
             capital: [document.getElementById("capital").value],
-            // region: document.getElementById("region").value,
-            // subregion: document.getElementById("subregion").value,
+
             population: parseInt(
               document.getElementById("population").value,
               10
             ),
             area: parseInt(document.getElementById("area").value, 10),
             creator: document.getElementById("creator").value,
-            // startOfWeek: document.getElementById("startOfWeek").value,
-            // flags: {
-              // svg: document.getElementById("flagSvg").value,
-              // png: document.getElementById("flagPng").value,
-            // },
-            // maps: {
-              // openStreetMaps: document.getElementById("openStreetMaps").value,
-              // googleMaps: document.getElementById("googleMaps").value,
-            // },
-            // flag: document.getElementById("flag").value,
-            // landlocked: document.getElementById("landlocked").checked,
-            // unMember: document.getElementById("unMember").checked,
-            // status: document.getElementById("status").value,
-            // independent: document.getElementById("independent").checked,
-            // languages: languages,
-            borders: document.getElementById("borders").value.split(',').map(border => border.trim()),
 
+            borders: document
+              .getElementById("borders")
+              .value.split(",")
+              .map((border) => border.trim()),
           };
 
           try {
