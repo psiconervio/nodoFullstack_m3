@@ -1,3 +1,4 @@
+import cors from "cors";
 import express from "express";
 import bodyParser from "body-parser";
 import { AbortController } from "node-abort-controller";
@@ -30,6 +31,8 @@ app.set("views", path.resolve("./views"));
 // Configurar express-ejs-layouts
 app.use(expressLayouts);
 app.set("layout", "layout");
+// Middleware para habilitar CORS
+app.use(cors());
 
 // Middleware para procesar datos del formulario
 app.use(bodyParser.urlencoded({ extended: true })); // Formularios
