@@ -26,7 +26,10 @@ router.get('/heroes/mayores-30', obtenerSuperheroesMayoresDe30Controller);
 router.get('/heroes/buscar/mayores', obtenerSuperheroesMayoresDe30NativoController);
 //rutas NUEVAS ruta post con middleware
 // router.post('/heroes',validarCamposSuperHeroe, crearHeroeController );
-router.post('/heroes',validarHeroeEvalidator, crearHeroeController);
+router.post('/heroes',
+  // validarHeroeEvalidator,
+   crearHeroeController);
+
 // router.post('/heroes', crearHeroeController );
 // ejercicio 3
 router.put('/heroes/nombre/:nombreSuperHeroe',validarHeroeEvalidator, actualizarHeroePorNombre);
