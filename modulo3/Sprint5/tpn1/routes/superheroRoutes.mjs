@@ -36,7 +36,7 @@ router.put('/heroes/nombre/:nombreSuperHeroe',validarHeroeEvalidator, actualizar
 // ejercicio 4
 router.delete('/heroes/id/:id', borrarHeroePorId);
 //PETICION HTTP DE DELETE A GET PARA PODER ELMINAR 
-router.get('/heroes/id/:id', borrarHeroePorId);
+router.put('/heroes/id/:id', borrarHeroePorId);
 //Actualizar por id
 // router.post('/heroes/idput/:id', actualizarHeroePorId);
 router.put('/heroes/idput/:id',validarHeroeEvalidator, actualizarHeroePorId);
