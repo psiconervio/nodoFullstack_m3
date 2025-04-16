@@ -93,28 +93,45 @@ import { ObjectId } from 'mongodb'; // Si usas el cliente de MongoDB
 // }
 
 
+// export async function obtenerSuperheroePorIdController(req, res, next) {
+//   const { id } = req.params;
+
+//   try {
+//     console.log(`Obteniendo superhéroe con ID: ${id}`); // Log adicional
+
+//     // Convertir el ID a ObjectId
+//     if (!ObjectId.isValid(id)) {
+//       return res.status(400).send({ mensaje: 'ID inválido' });
+//     }
+
+//     const superheroe = await obtenerSuperheroePorId(new ObjectId(id)); // Pasa el ObjectId a tu función
+
+//     if (superheroe) {
+//       req.superheroe = superheroe; // Adjunta el superhéroe a `req`
+//       next(); // Pasa al siguiente middleware
+//     } else {
+//       res.status(404).send({ mensaje: 'Superhéroe no encontrado' });
+//     }
+//   } catch (error) {
+//     console.error('Error en obtenerSuperheroePorIdController:', error.message); // Log adicional de errores
+//     res.status(500).send({ mensaje: 'Error al obtener superhéroe' });
+//   }
+// }
 export async function obtenerSuperheroePorIdController(req, res, next) {
   const { id } = req.params;
-
   try {
-    console.log(`Obteniendo superhéroe con ID: ${id}`); // Log adicional
-
-    // Convertir el ID a ObjectId
-    if (!ObjectId.isValid(id)) {
-      return res.status(400).send({ mensaje: 'ID inválido' });
-    }
-
-    const superheroe = await obtenerSuperheroePorId(new ObjectId(id)); // Pasa el ObjectId a tu función
+    console.log(`Obteniendo superhéroe con ID: ${id}`);
+    const superheroe = await obtenerSuperheroePorId(id);
 
     if (superheroe) {
-      req.superheroe = superheroe; // Adjunta el superhéroe a `req`
-      next(); // Pasa al siguiente middleware
+      // Envía la respuesta directamente
+      return res.status(200).json( superheroe );
     } else {
-      res.status(404).send({ mensaje: 'Superhéroe no encontrado' });
+      return res.status(404).json({ mensaje: 'Superhéroe no encontrado' });
     }
   } catch (error) {
-    console.error('Error en obtenerSuperheroePorIdController:', error.message); // Log adicional de errores
-    res.status(500).send({ mensaje: 'Error al obtener superhéroe' });
+    console.error('Error en obtenerSuperheroePorIdController:', error.message);
+    return res.status(500).json({ mensaje: 'Error al obtener superhéroe' });
   }
 }
 // export async function obtenerSuperheroePorIdController(req, res, next) {
