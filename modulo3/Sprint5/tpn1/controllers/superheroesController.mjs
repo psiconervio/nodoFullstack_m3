@@ -3,7 +3,6 @@ import { obtenerSuperheroePorId, obtenerTodosLosSuperheroes, buscarSuperheroesPo
 obtenerSuperheroesMayoresDe30,obtenerSuperheroesMayoresDe30Nativo,createSuperHeroService,borrarHeroePorIdService } from '../services/superheroesService.mjs';
 import { renderizarSuperheroe, renderizarListaSuperheroes } from '../views/responseView.mjs';
 
-import { ObjectId } from 'mongodb'; // Si usas el cliente de MongoDB
 // O, si estás usando Mongoose, no necesitas importar esto; puedes usar `mongoose.Types.ObjectId`.
 
 // export const actualizarHeroePorId = async (req, res) => {
