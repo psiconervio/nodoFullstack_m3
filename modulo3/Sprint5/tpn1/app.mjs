@@ -95,7 +95,7 @@ app.get(
 
 
 // Rutas para la API
-app.use("/api", superHeroRoutes);
+app.use('/api', superHeroRoutes);
 app.use('/apipais', countryRoutes);
 
 // Manejo de errores para rutas no encontradas
