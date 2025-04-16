@@ -19,7 +19,7 @@ import {
 const router = express.Router();
 //configuracion de subrutas pasandole controladores que ejecutan funciones envian y reciben datos
 router.get('/heroes', obtenerTodosLosSuperheroesController);
-router.get('/heroes/:id', obtenerSuperheroePorIdController);
+router.get('/heroes/id/:id', obtenerSuperheroePorIdController);
 router.get('/heroes/buscar/:atributo/:valor', buscarSuperheroesPorAtributoController);
 router.get('/heroes/mayores-30', obtenerSuperheroesMayoresDe30Controller);
 // ruta para el nuevo endpoint
