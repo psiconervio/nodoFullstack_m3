@@ -1,7 +1,8 @@
 import {
   superHeroRepository,
-  buscarPorNombre,
+  
 } from "../repositories/SuperHeroRepository.mjs";
+import buscarPorNombre from "../repositories/SuperHeroRepository.mjs";
 import {
   obtenerSuperheroePorId,
   obtenerTodosLosSuperheroes,
@@ -10,6 +11,7 @@ import {
   obtenerSuperheroesMayoresDe30Nativo,
   createSuperHeroService,
   borrarHeroePorIdService,
+  buscarPorNombre
 } from "../services/superheroesService.mjs";
 import {
   renderizarSuperheroe,
