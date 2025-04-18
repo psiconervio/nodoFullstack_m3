@@ -1,0 +1,51 @@
+version: "3.8"
+
+services:
+  mongodb:
+    image: mongo:latest
+    container_name: mongodb
+    restart: always
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: admin
+      MONGO_INITDB_ROOT_PASSWORD: adminpass
+      MONGO_INITDB_DATABASE: mydb
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo-data:/data/db
+    networks:
+      - project-network
+
+  backend:
+    build:
+      context: ./backend
+      # Asegúrate de tener un Dockerfile en ./backend
+    container_name: backend-api
+    restart: always
+    environment:
+      # Conecta al servicio 'mongodb' usando su nombre de contenedor como host
+      MONGO_URI: mongodb://admin:adminpass@mongodb:27017/mydb?authSource=admin
+    ports:
+      - "3000:3000"
+    depends_on:
+      - mongodb
+    networks:
+      - project-network
+
+  # frontend:
+  #   build:
+  #     context: ./frontend
+  #     # Asegúrate de tener un Dockerfile en ./frontend (por ejemplo, para tu proyecto React Vite)
+  #   container_name: react-vite
+  #   restart: always
+  #   ports:
+  #     - "5173:5173"
+  #   networks:
+  #     - project-network
+
+networks:
+  project-network:
+    driver: bridge
+
+volumes:
+  mongo-data:

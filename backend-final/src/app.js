@@ -2,6 +2,7 @@ const express = require("express");
 const cors = require("cors");
 const connectDB = require("./config/database");
 const routes = require("./routes");
+// const initializeRolesAndPermissions = require("./scripts/createRolesAndPermissions")
 
 require("dotenv").config();
 
@@ -33,6 +34,12 @@ app.use("/api", routes);
 app.get("/health", (req, res) => {
   res.status(200).json({ status: "OK", timestamp: new Date() });
 });
+
+// app.get("/migracion", (req, res) => {
+//   // Aquí puedes agregar la lógica de migración que necesites
+//   initializeRolesAndPermissions()
+//   res.status(200).json({ status: "OK", timestamp: new Date() });
+// });
 
 //Endpoint de prueba
 app.get("/", (req, res) => {

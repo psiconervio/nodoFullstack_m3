@@ -1,0 +1,2 @@
+// comando para ejecutar doccker
+// docker run --name my-mongo-db -p 27017:27017 -v C:\data\mongo:/data/db -d mongo
