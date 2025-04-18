@@ -2,7 +2,7 @@ import express from "express";
 import cors from "cors";
 import dotenv from "dotenv";
 import connectDB from "./config/database.mjs";
-import routes from "./routes.mjs";
+import routes from "./routes/index.mjs";
 // import initializeRolesAndPermissions from "./scripts/createRolesAndPermissions.mjs";
 
 // Configurar variables de entorno
