@@ -48,7 +48,7 @@ const initialRoles = [
   },
 ];
 
-async function initializeRolesAndPermissions() {
+export default async function initializeRolesAndPermissions() {
   try {
     await connectDB();
     console.log("Conectado a MongoDB");
@@ -84,7 +84,7 @@ async function initializeRolesAndPermissions() {
   }
 }
 
-initializeRolesAndPermissions();
+ initializeRolesAndPermissions();
 // const mongoose = require("mongoose");
 // const Permission = require("../models/Permission");
 // const Role = require("../models/Role");

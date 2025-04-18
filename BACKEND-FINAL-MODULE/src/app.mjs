@@ -15,6 +15,7 @@ import "./models/User.mjs";
 
 const app = express();
 
+// initializeRolesAndPermissions(); // Inicializar roles y permisos al iniciar la aplicación
 // Configuración de CORS más segura y específica
 const corsOptions = {
   origin: process.env.ALLOWED_ORIGINS?.split(",") || "*",
@@ -40,6 +41,7 @@ app.get("/health", (req, res) => {
 app.get("/", (req, res) => {
   res.json({ message: "API funcionando" });
 });
+
 
 // Iniciar conexión a MongoDB
 connectDB();

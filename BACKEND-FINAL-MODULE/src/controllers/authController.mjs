@@ -14,6 +14,7 @@ export const login = async (req, res) => {
     try {
         const { email, password } = req.body;
         const result = await authService.login(email, password);
+        console.log("logueado");
         res.json(result);
     } catch (error) {
         console.log('Error en login:', error);
