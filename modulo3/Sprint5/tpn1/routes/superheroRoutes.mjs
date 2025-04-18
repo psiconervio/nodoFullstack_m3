@@ -13,7 +13,8 @@ import {
   actualizarHeroePorNombre,
   borrarHeroePorId,
   borrarHeroePorNombre,
-  actualizarHeroePorId
+  actualizarHeroePorId,
+  obtenerSuperNombre
 } from '../controllers/superheroesController.mjs';
 
 const router = express.Router();
@@ -22,6 +23,7 @@ router.get('/heroes', obtenerTodosLosSuperheroesController);
 router.get('/heroes/id/:id', obtenerSuperheroePorIdController);
 router.get('/heroes/buscar/:atributo/:valor', buscarSuperheroesPorAtributoController);
 router.get('/heroes/mayores-30', obtenerSuperheroesMayoresDe30Controller);
+router.get('/heroes/nombre/:nombre',obtenerSuperNombre)
 // ruta para el nuevo endpoint
 router.get('/heroes/buscar/mayores', obtenerSuperheroesMayoresDe30NativoController);
 //rutas NUEVAS ruta post con middleware
