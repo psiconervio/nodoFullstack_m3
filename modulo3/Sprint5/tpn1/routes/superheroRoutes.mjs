@@ -24,7 +24,7 @@ router.get('/heroes/id/:id', obtenerSuperheroePorIdController);
 router.get('/heroes/buscar/:atributo/:valor', buscarSuperheroesPorAtributoController);
 router.get('/heroes/mayores-30', obtenerSuperheroesMayoresDe30Controller);
 // BUSCAR POR NOMBRE
-router.get('/heroes/nombre/:nombre',obtenerSuperNombre)
+router.get('/heroes/nombre/:nombreSuperHeroe',obtenerSuperNombre)
 // ruta para el nuevo endpoint
 router.get('/heroes/buscar/mayores', obtenerSuperheroesMayoresDe30NativoController);
 //rutas NUEVAS ruta post con middleware
