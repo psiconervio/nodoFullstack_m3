@@ -33,4 +33,7 @@ export const actualizarPorIdService = async (superHeroData) => {
 export const borrarHeroePorIdService = async (id) => {
   return await superHeroRepository.eliminarPorId(id);
 };
+export const buscarPorNombre = async (nombre) =>{
+  return await superHeroRepository.buscarPorNombre(nombre)
+}
 //paises
