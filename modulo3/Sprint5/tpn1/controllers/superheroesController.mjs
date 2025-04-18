@@ -1,6 +1,5 @@
 import {
   superHeroRepository,
-  
 } from "../repositories/SuperHeroRepository.mjs";
 import buscarPorNombre from "../repositories/SuperHeroRepository.mjs";
 import {
@@ -11,7 +10,7 @@ import {
   obtenerSuperheroesMayoresDe30Nativo,
   createSuperHeroService,
   borrarHeroePorIdService,
-  buscarPorNombre
+  buscarPorNombreheroe
 } from "../services/superheroesService.mjs";
 import {
   renderizarSuperheroe,
@@ -217,7 +216,7 @@ export const obtenerSuperNombre = async (req, res) => {
   try {
     const { nombreSuperHeroe } = req.params;
 
-    const response = await superHeroRepository.buscarPorNombre(
+    const response = await superHeroRepository.buscarPorNombreheroe(
       nombreSuperHeroe
     );
 
