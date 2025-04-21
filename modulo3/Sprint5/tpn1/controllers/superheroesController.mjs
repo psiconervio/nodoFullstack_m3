@@ -321,8 +321,8 @@ export const actualizarHeroePorId = async (req, res) => {
     // renderiza el heroe actualizado
     const response = renderizarSuperheroe(updatedSuperHero);
     // devuelve el heroe actualizado
-    // res.status(200).json(response);
-    res.redirect("/");
+    res.status(200).json(response);
+    // res.redirect("/");
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
